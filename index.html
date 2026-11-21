@@ -4463,7 +4463,7 @@ const STRUMENTI = {};
     const v = document.getElementById(vid), q = s => v.querySelector(s), qq = s => v.querySelectorAll(s), tela = q(".tela");
     const o = crea({ v, q, qq, tela });
     o.v = v;
-    o.apri = () => { o.moduli(); requestAnimationFrame(() => { tela.style.height = ""; tela.style.justifyContent = ""; o.disegna(); }); };
+    o.apri = () => { o.moduli(); o.disegna(); requestAnimationFrame(() => o.disegna()); setTimeout(() => o.disegna(), 300); };
     const ridisegna = o.disegna;
     o.disegna = () => { if (v.hidden) return; tela.style.height = ""; tela.style.justifyContent = ""; ridisegna(); };
     q(".st-comandi").addEventListener("click", ev => {
