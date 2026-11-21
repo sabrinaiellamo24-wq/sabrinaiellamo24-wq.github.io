@@ -563,6 +563,55 @@ body[data-tema="pino"] {
 body[data-tema="pino"] header { border-bottom: 3px dashed var(--blu); }
 body[data-tema="pino"] .pr-griglia span { border-radius: 50% / 40%; }
 
+/* ---------------- PDF delle attività come scheda A4 ordinata (2026-11-21) ----------------
+   Fogli A4 da 794 × 1123 px (96 px per pollice), costruiti fuori dallo schermo e poi fotografati ad alta risoluzione.
+   Le misure qui sono fisse: la scheda viene uguale da computer, LIM, iPad e telefono. */
+.pdf-doc { position: fixed; left: -20000px; top: 0; z-index: -1; font-size: 14px; line-height: 1.4; color: var(--inchiostro); font-family: var(--font-testo); }
+.pdf-pag { width: 794px; height: 1123px; box-sizing: border-box; padding: 42px 46px 0; background: #fff; display: flex; flex-direction: column; margin-bottom: 20px; }
+.pdf-corpo { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 14px; }
+.pdf-piede { flex: 0 0 38px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--filo); font-size: 10px; color: var(--tenue); }
+.pdf-testata { border-bottom: 2.5px solid var(--blu); padding-bottom: 8px; }
+.pdf-testata h1 { margin: 0 0 6px; font: 700 21px/1.2 var(--font-titoli); color: var(--blu); }
+.pdf-testata .pdf-chi { display: flex; justify-content: space-between; gap: 20px; font-size: 13px; }
+.pdf-testata .pdf-riga { display: inline-block; min-width: 260px; border-bottom: 1px solid var(--inchiostro); }
+.pdf-doc .scheda { max-width: none; margin: 0; }
+.pdf-doc .scheda h2 { font: 700 16px/1.25 var(--font-titoli); margin: 0 0 4px; padding: 0; border: 0; }
+.pdf-doc .testa { margin-bottom: 4px; }
+.pdf-doc .consegna { margin: 0 0 6px; max-width: none; }
+.pdf-doc .parti, .pdf-doc .nota, .pdf-doc .esito[aria-hidden="true"] { display: none !important; }
+.pdf-doc .due { display: block; }
+.pdf-doc .scheda.fig .due { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 14px; align-items: start; }
+.pdf-doc .figura { width: 250px !important; max-width: 250px; margin: 0; }
+.pdf-doc .soluzione .figura { width: 200px !important; }
+.pdf-doc .voci { gap: 6px; }
+.pdf-doc .voci.colonne { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.pdf-doc .voce { padding: 6px 9px; gap: 4px 8px; border-radius: 0.55em; }
+.pdf-doc .esito { min-width: 0; text-align: right; font-size: 13px; }
+.pdf-doc .casella { font-size: 14px; height: 24px; min-width: 56px; cursor: auto; box-shadow: none; }
+.pdf-doc .casella.corto { min-width: 36px; }
+.pdf-doc .casella::after { display: none !important; }
+.pdf-doc .scelte button, .pdf-doc .chips button { font-size: 13px; padding: 2px 10px; min-height: 0; }
+.pdf-doc .piano { display: flex; flex-direction: row-reverse; gap: 8px; align-items: flex-start; max-width: none; flex: 0 1 auto; }
+.pdf-doc .piano .chips { flex-direction: column; margin: 0; gap: 4px; }
+.pdf-doc .piano .pc { width: 300px !important; }
+.pdf-doc .voce.con-piano .soluzione { flex: 1 1 100%; border-top: 1px dashed var(--filo); padding-top: 4px; }
+.pdf-doc .fattura-box { overflow: visible; }
+.pdf-doc .voci.colonne .voce.con-tabella { grid-column: 1 / -1; }
+.pdf-doc .voci.colonne { align-items: start; }
+.pdf-doc table.fattura { max-width: none; }
+.pdf-doc .fattura th { font-size: 11px; }
+.pdf-doc table.fattura { font-size: 12.5px; }
+.pdf-doc .fattura th, .pdf-doc .fattura td { padding: 3px 4px; }
+.pdf-doc .fattura .casella { min-width: 50px; }
+.pdf-doc .fattura .casella.corto { min-width: 32px; }
+.pdf-doc .soluzione { font-size: 13px; }
+.pdf-segni { margin: -4px 0 0; }
+.pdf-segni p { margin: 0 0 4px; font-size: 11.5px; color: var(--tenue); font-style: italic; }
+.pdf-segni img { display: block; width: 470px; height: auto; border: 1px solid var(--filo); border-radius: 6px; }
+.pdf-doc .fine-elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); font-size: 13px; gap: 5px; margin-top: 4px; }
+.pdf-doc .fine-elenco div { padding: 5px 9px; flex-direction: column; gap: 0; justify-content: flex-start; }
+.pdf-doc .fine-elenco div span:last-child { font-size: 11.5px; }
+
 /* ================= stili diversi per ogni materiale (2026-11-20) =================
    Ogni attività, mazzo di slide o strumento ha il suo stile, scelto in TEMI (nello script).
    Cambiano colore principale, sfondo, carattere dei titoli, testata e forma dei riquadri.
@@ -3011,7 +3060,7 @@ const lavagna = (() => {
     const v = document.querySelector(".vista:not([hidden])"); if (!v) return;
     v.appendChild(dlg);
     $d("#lv-pdf-cosa").textContent =
-      v.id === "vista-sim" ? "Dentro ci sono tutte le schermate dell'attività, con le risposte e quello che è stato scritto, più il foglio dei calcoli." :
+      v.id === "vista-sim" ? "Dentro c'è la scheda dell'attività su fogli A4: tutti gli esercizi con le risposte, il giusto e lo sbagliato dove si è controllato, le soluzioni aperte e quello che è stato scritto a mano; in fondo il foglio dei calcoli, se è stato usato." :
       v.id === "vista-slide" ? "Dentro ci sono tutte le slide, con quello che è stato scritto sopra, più il foglio dei calcoli." :
       v.id === "vista-foglio" ? "Dentro c'è il foglio, con tutto quello che è stato scritto." :
       v.id === "vista-primi" ? "Dentro c'è la tabella com'è adesso, con quello che è stato scritto, più il foglio dei calcoli." :
@@ -3121,6 +3170,165 @@ const lavagna = (() => {
     }
     return foto;
   }
+
+  /* ---- PDF delle attività: una scheda A4 ordinata, con testo vero ----
+     Gli esercizi uno sotto l'altro, con le risposte date, il giusto e lo sbagliato (solo dove si è controllato)
+     e le soluzioni che sono state aperte. Sotto ogni esercizio su cui si è scritto a mano c'è la sua schermata
+     con i segni, più piccola. In fondo il riepilogo; dopo, se è stato usato, il foglio dei calcoli.
+     Ogni foglio è una foto ad alta risoluzione con sopra il testo invisibile, così nel PDF si può cercare e copiare. */
+  const segnati = k => { const t = tavole[k]; return !!(t && (t.tratti.length || t.testi.length)); };
+  async function segniAttivita(v) {
+    const h = location.hash, tot = ESERCIZI.length, out = {};
+    const chiavi = Object.keys(tavole).filter(k => k.startsWith("p|" + h + "|") && segnati(k));
+    if (!chiavi.length) return out;
+    const prima = { attuale: stato.attuale, primaVoce, attivaK };
+    try {
+      for (let e = 0; e < tot; e++) {
+        if (!chiavi.some(k => k.startsWith("p|" + h + "|" + e + "."))) continue;
+        stato.attuale = e; primaVoce = 0; attivaK = null; disegna();
+        for (let pi = 0; pi < pagine.length; pi++) {
+          const k = "p|" + h + "|" + e + "." + pi;
+          if (!segnati(k)) continue;
+          if (pi > 0) { primaVoce = pagine[pi][0]; disegna(); }
+          stato_(`Preparo i segni dell'esercizio ${e + 1}…`);
+          main.querySelectorAll(".casella.attiva").forEach(x => x.classList.remove("attiva"));
+          (out[e] = out[e] || []).push({ parte: pi, parti: pagine.length, c: await fotoVista(v, k) });
+        }
+      }
+    } finally {
+      stato.attuale = prima.attuale; primaVoce = prima.primaVoce; attivaK = prima.attivaK; disegna();
+    }
+    return out;
+  }
+  function bloccoEsercizio(e, s, n, cont) {
+    const d = document.createElement("div");
+    d.innerHTML = htmlScheda(e, s, n, null, 0);
+    const sc = d.firstElementChild;
+    sc.querySelectorAll(".casella").forEach(b => { b.classList.remove("attiva"); b.removeAttribute("id"); });
+    sc.querySelectorAll("[id]").forEach(x => x.removeAttribute("id"));
+    if (cont) { const h2 = sc.querySelector("h2"); if (h2) h2.insertAdjacentHTML("beforeend", ` <span style="font-weight:400;color:var(--tenue);font-size:0.8em">(continua)</span>`); sc.querySelectorAll(".consegna, .figura:not(.soluzione .figura)").forEach(x => x.remove()); sc.classList.remove("fig"); }
+    return sc;
+  }
+  function bloccoSegni(e, s) {
+    const d = document.createElement("div"); d.className = "pdf-segni";
+    const W = 470, H = Math.round(s.c.height * W / s.c.width);
+    d.innerHTML = `<p>Scritto a mano sull'esercizio ${ESERCIZI[e].n}${s.parti > 1 ? ` (parte ${s.parte + 1})` : ""}</p><img alt="" width="${W}" height="${H}" src="${s.c.toDataURL("image/jpeg", 0.85)}">`;
+    return d;
+  }
+  function bloccoRiepilogo() {
+    const testi = { ok: "tutto giusto", ko: "da rivedere", parz: "controllato in parte", "": "non ancora controllato" };
+    const d = document.createElement("section"); d.className = "scheda";
+    d.innerHTML = `<div class="testa"><h2>Com'è andata</h2></div><div class="fine-elenco">` + ESERCIZI.map((es, i) => {
+      const st = statoEs(i);
+      return `<div class="${st === "parz" ? "" : st}"><span>${es.n}. ${es.titolo}</span><span>${testi[st]}</span></div>`;
+    }).join("") + `</div>`;
+    return d;
+  }
+  async function pagineScheda(titolo, nome, segni) {
+    const oggi = new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" });
+    const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    const doc = document.createElement("div"); doc.className = "pdf-doc"; document.body.appendChild(doc);
+    const pagine_ = [];
+    let corpo = null;
+    const nuovaPagina = () => {
+      const pg = document.createElement("div"); pg.className = "pdf-pag";
+      pg.innerHTML = `<div class="pdf-corpo"></div><div class="pdf-piede"><span>${esc(titolo)}</span><span class="pdf-num"></span></div>`;
+      doc.appendChild(pg); pagine_.push(pg); corpo = pg.firstElementChild;
+    };
+    const entra = () => corpo.scrollHeight <= corpo.clientHeight + 1;
+    const vuoto = () => !corpo.children.length;
+    const metti = el => {           /* nel foglio corrente se c'è posto, altrimenti in uno nuovo */
+      corpo.appendChild(el); if (entra()) return true;
+      if (corpo.children.length === 1) return false;
+      el.remove(); nuovaPagina(); corpo.appendChild(el); if (entra()) return true;
+      return false;
+    };
+    nuovaPagina();
+    const testa = document.createElement("div"); testa.className = "pdf-testata";
+    testa.innerHTML = `<h1>${esc(titolo)}</h1><div class="pdf-chi"><span>Nome e cognome: ${nome ? `<b>${esc(nome)}</b>` : `<span class="pdf-riga">&nbsp;</span>`}</span><span>${oggi}</span></div>`;
+    corpo.appendChild(testa);
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    for (let e = 0; e < ESERCIZI.length; e++) {
+      stato_(`Impagino l'esercizio ${e + 1} di ${ESERCIZI.length}…`);
+      const tot = ESERCIZI[e].voci.length;
+      let s = 0, cont = false;
+      while (s < tot) {
+        /* prima si prova tutto l'esercizio; se non entra nemmeno in un foglio nuovo, si divide tra le voci */
+        let el = bloccoEsercizio(e, s, tot - s, cont);
+        if (metti(el)) break;
+        el.remove();
+        if (!vuoto()) {
+          const prova = bloccoEsercizio(e, s, 1, cont); corpo.appendChild(prova);
+          const ok = entra(); prova.remove();
+          if (!ok) nuovaPagina();
+        }
+        let n = 1;
+        for (let m = 1; m < tot - s; m++) {
+          const p = bloccoEsercizio(e, s, m, cont); corpo.appendChild(p);
+          const ok = entra(); p.remove();
+          if (ok) n = m; else break;
+        }
+        corpo.appendChild(bloccoEsercizio(e, s, n, cont));
+        s += n; cont = true;
+        if (s < tot) nuovaPagina();
+      }
+      for (const sg of segni[e] || []) {
+        const b = bloccoSegni(e, sg);
+        await new Promise(r => { const im = b.querySelector("img"); if (im.complete) r(); else { im.onload = r; im.onerror = r; } });
+        if (!metti(b)) { /* più alto di un foglio: si rimpicciolisce */ const im = b.querySelector("img"); im.style.width = "330px"; }
+      }
+    }
+    metti(bloccoRiepilogo());
+    pagine_.forEach((pg, i) => { pg.querySelector(".pdf-num").textContent = `pagina ${i + 1} di ${pagine_.length}`; });
+    return { doc, pagine: pagine_ };
+  }
+  /* testo invisibile sopra la foto del foglio: parola per parola, nella stessa posizione */
+  const perPdf = t => t.replace(/[−–]/g, "-").replace(/[✓]/g, "v").replace(/[✗]/g, "x").replace(/≈/g, "~").replace(/[→⟶]/g, "->").replace(/□/g, " ").replace(/[^\x20-\xff€]/g, "");
+  function testoInvisibile(pdf, pg, mm) {
+    const base = pg.getBoundingClientRect();
+    const w = document.createTreeWalker(pg, NodeFilter.SHOW_TEXT, { acceptNode: n => n.nodeValue.trim() && n.parentElement.closest(".pdf-pag") && getComputedStyle(n.parentElement).visibility !== "hidden" ? 1 : 2 });
+    const r = document.createRange();
+    pdf.setFont("helvetica", "normal");
+    for (let n = w.nextNode(); n; n = w.nextNode()) {
+      const t = n.nodeValue, re = /\S+/g; let m;
+      while ((m = re.exec(t))) {
+        r.setStart(n, m.index); r.setEnd(n, m.index + m[0].length);
+        const q = r.getBoundingClientRect(); if (!q.width || !q.height) continue;
+        const parola = perPdf(m[0]); if (!parola) continue;
+        const fpx = q.height / 1.2;
+        pdf.setFontSize(Math.max(2, fpx * mm / 0.3528));
+        pdf.text(parola, (q.left - base.left) * mm, (q.bottom - base.top - q.height * 0.22) * mm, { renderingMode: "invisible" });
+      }
+    }
+  }
+  async function schedaPdf(titolo, nome, segni, foglio) {
+    const { jsPDF } = window.jspdf;
+    const { doc, pagine: pgs } = await pagineScheda(titolo, nome, segni);
+    const foto = [];
+    try {
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
+      const mm = 210 / 794;
+      for (let i = 0; i < pgs.length; i++) {
+        stato_(`Preparo il foglio ${i + 1} di ${pgs.length}…`);
+        const c = await html2canvas(pgs[i], { scale: 2.5, backgroundColor: "#ffffff", logging: false, useCORS: true,
+          onclone: d => { const x = d.querySelector(".pdf-doc"); if (x) x.style.left = "0px"; return (d.fonts && d.fonts.ready) || null; } });
+        foto.push(c);
+        if (i) pdf.addPage("a4", "portrait");
+        pdf.addImage(c.toDataURL("image/jpeg", 0.9), "JPEG", 0, 0, 210, 297);
+        testoInvisibile(pdf, pgs[i], mm);
+      }
+      if (foglio) {
+        const land = foglio.width > foglio.height, PW = land ? 297 : 210, PH = land ? 210 : 297, M = 12;
+        pdf.addPage("a4", land ? "landscape" : "portrait");
+        pdf.setFont("helvetica", "bold"); pdf.setFontSize(12); pdf.setTextColor(29, 39, 51);
+        pdf.text("Foglio dei calcoli", M, M + 4);
+        const k = Math.min((PW - 2 * M) / foglio.width, (PH - 2 * M - 8) / foglio.height);
+        pdf.addImage(foglio.toDataURL("image/jpeg", 0.88), "JPEG", (PW - foglio.width * k) / 2, M + 8, foglio.width * k, foglio.height * k);
+        foto.push(foglio);
+      }
+      return { blob: pdf.output("blob"), foto };
+    } finally { doc.remove(); }
+  }
   function nomeFile(titolo, nome) {
     const pulito = s => s.replace(/·/g, "-").replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim();
     const oggi = new Date(), d = `${oggi.getFullYear()}-${String(oggi.getMonth() + 1).padStart(2, "0")}-${String(oggi.getDate()).padStart(2, "0")}`;
@@ -3217,8 +3425,14 @@ const lavagna = (() => {
       stato_("Preparo il PDF…");
       if (aperta && v.id !== "vista-foglio") chiudi();   /* il foglio affiancato stringe la pagina: si fotografa la pagina com'era quando ci si è scritto */
       await Promise.all(LIBRERIE.map(caricaLib));
-      let foto = [], titolo = document.title;
-      if (v.id === "vista-sim") { titolo = document.getElementById("sim-titolo").textContent; foto = await fotoAttivita(v); }
+      let foto = [], titolo = document.title, blob = null;
+      if (v.id === "vista-sim") {
+        titolo = document.getElementById("sim-titolo").textContent;
+        const segni = await segniAttivita(v);
+        const tipoF = ultimoSfondo[h] === "bianco" || GRIGLIE[ultimoSfondo[h]] ? ultimoSfondo[h] : "quadretti";
+        const r = await schedaPdf(titolo, nome, segni, fotoFoglio(tavole["f|" + h], tipoF));
+        blob = r.blob; foto = r.foto;
+      }
       else if (v.id === "vista-slide") {
         titolo = mazzo.titolo;
         const rett = imgSlide.getBoundingClientRect();
@@ -3227,12 +3441,14 @@ const lavagna = (() => {
       else if (v.id === "vista-piano") { titolo = "Piano cartesiano"; stato_("Preparo il piano…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
       else if (v.id === "vista-retta" || v.id === "vista-tabella" || v.id === "vista-primi") { titolo = v.querySelector("h1").textContent; stato_("Preparo la pagina…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
       const tipo = ultimoSfondo[h] === "bianco" || GRIGLIE[ultimoSfondo[h]] ? ultimoSfondo[h] : "quadretti";
-      const fg = fotoFoglio(tavole["f|" + h], tipo);
-      if (fg) foto.push(fg);
-      if (!foto.length) { stato_("Il foglio è ancora vuoto: non c'è niente da mettere nel PDF."); return; }
-      stato_("Compongo il PDF…");
-      await pausa();
-      const blob = componiPdf(foto, titolo, nome);
+      if (!blob) {
+        const fg = fotoFoglio(tavole["f|" + h], tipo);
+        if (fg) foto.push(fg);
+        if (!foto.length) { stato_("Il foglio è ancora vuoto: non c'è niente da mettere nel PDF."); return; }
+        stato_("Compongo il PDF…");
+        await pausa();
+        blob = componiPdf(foto, titolo, nome);
+      }
       if (!api) { mostraFile(blob, nomeFile(titolo, nome), foto); return; }
       stato_("Ecco il PDF: conferma il salvataggio.");
       try {
