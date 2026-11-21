@@ -563,6 +563,91 @@ body[data-tema="pino"] {
 body[data-tema="pino"] header { border-bottom: 3px dashed var(--blu); }
 body[data-tema="pino"] .pr-griglia span { border-radius: 50% / 40%; }
 
+/* ---------------- strumenti trasversali (2026-11-21): MCD e m.c.m., frazioni, 100 quadretti, binario ---------------- */
+.vista-strumento .lavoro { flex: 1; min-height: 0; display: flex; }
+.vista-strumento .tela { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; overflow: hidden; }
+.vista-strumento.senza-comandi .pannello { display: none; }
+.vista-strumento .tela > svg { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-select: none; }
+.st-caselle { display: flex; gap: 0.4em; flex-wrap: wrap; margin-bottom: 0.5em; }
+.st-cas { font: 700 1.15em var(--font-testo); min-width: 3.6em; height: 1.9em; padding: 0 0.4em; border: 2px solid #8a9bad; border-radius: 0.45em; background: #fff; color: var(--inchiostro); cursor: pointer; touch-action: manipulation; }
+.st-cas.attiva { border-color: var(--blu); background: var(--casella-attiva, #f2f8fd); box-shadow: 0 0 0 0.18em var(--blu-chiaro); }
+.st-cas.ko { border-color: var(--sbagliato); color: var(--sbagliato); }
+.st-tast { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3em; max-width: 12em; }
+.st-tast button { font: 700 1.15em var(--font-titoli); height: 2em; border-radius: 0.4em; border: 2px solid var(--filo); background: #fff; color: var(--inchiostro); cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.st-tast button.serv { color: var(--blu); }
+.st-tast button:active { background: var(--blu-chiaro); border-color: var(--blu); }
+.cq-conta b, .bi-conta b, .vista-strumento .fr-d { display: inline-block; min-width: 2.2em; text-align: center; font-size: 1.2em; }
+.vista-strumento .pl-tipo .pl-bt { font-size: 0.75em; }
+/* MCD e m.c.m. */
+.md-tutto { display: inline-flex; flex-direction: column; align-items: center; gap: 0.7em; font-family: var(--font-testo); color: var(--inchiostro); }
+.md-colonne { display: grid; grid-auto-flow: column; grid-template-rows: auto auto; column-gap: 2.2em; row-gap: 0.35em; justify-content: center; justify-items: center; align-items: start; }
+.md-tab { border-collapse: collapse; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.md-tab td { padding: 0.05em 0.45em; text-align: right; }
+.md-tab td + td { border-left: 2.5px solid var(--inchiostro); text-align: left; color: var(--blu); }
+.md-tab tr:first-child td:first-child { font-size: 1.15em; }
+.md-pot { font-weight: 700; white-space: nowrap; }
+.md-pot .com { color: var(--blu); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.md-ris { display: flex; flex-direction: column; align-items: center; gap: 0.25em; }
+.md-ris p { margin: 0; white-space: nowrap; }
+.md-ris .forte { font-weight: 700; }
+.md-ris .come { font-size: 0.66em; color: var(--tenue); }
+.md-nascosto { visibility: hidden; }
+.md-avviso { color: var(--tenue); font-size: 0.75em; }
+/* frazioni, griglia, binario: disegni in SVG */
+.fr-parte { fill: #fff; stroke: var(--inchiostro); stroke-width: 2; cursor: pointer; }
+.fr-parte.on { fill: var(--blu); fill-opacity: 0.78; }
+.fr-num { font: 700 46px var(--font-testo); fill: var(--inchiostro); }
+.fr-segno { font: 700 52px var(--font-testo); fill: var(--blu); }
+.cq-q { fill: #fff; stroke: #9aa8b6; stroke-width: 1; cursor: pointer; }
+.cq-q.c1 { fill: var(--blu); }
+.cq-q.c2 { fill: #e0a100; }
+.cq-bordo { fill: none; stroke: var(--inchiostro); stroke-width: 2.5; pointer-events: none; }
+.cq-dieci { stroke: var(--inchiostro); stroke-width: 1.6; pointer-events: none; }
+.cq-t { font: 28px var(--font-testo); fill: var(--inchiostro); }
+.cq-t.forte { font-weight: 700; font-size: 34px; }
+.cq-t.tenue { fill: var(--tenue); font-size: 24px; }
+.bi-bit { cursor: pointer; }
+.bi-bit rect { fill: #fff; stroke: var(--inchiostro); stroke-width: 2.5; }
+.bi-bit.on rect { fill: var(--blu); stroke: var(--blu); }
+.bi-bit text { font: 700 54px var(--font-testo); fill: var(--inchiostro); pointer-events: none; }
+.bi-bit.on text { fill: #fff; }
+.bi-peso { font: 700 26px var(--font-testo); fill: var(--blu); }
+.bi-pot { font: 20px var(--font-testo); fill: var(--tenue); }
+.bi-riga { font: 700 34px var(--font-testo); fill: var(--inchiostro); }
+.bi-riga.tenue { font-weight: 400; fill: var(--tenue); font-size: 28px; }
+@media (max-width: 760px), (orientation: portrait) {
+  .vista-strumento .lavoro { flex-direction: column; overflow-y: auto; }
+  .vista-strumento .tela { flex: 0 0 auto; height: min(110vw, 58vh); }
+}
+body[data-tema="ocra"] {
+  --blu: #7d6000; --blu-chiaro: #f5ecc9; --casella-attiva: #fbf7e6;
+  --carta: #f8f5ea; --foglio: #fffefa; --filo: #e3dbbd; --font-titoli: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: linear-gradient(#ebe4c9 1px, transparent 1px); --motivo-size: 100% 26px;
+}
+body[data-tema="ocra"] header { border-bottom: 4px solid var(--blu); }
+body[data-tema="rubino"] {
+  --blu: #a0234f; --blu-chiaro: #f8e1e9; --casella-attiva: #fdf2f6;
+  --carta: #fcf3f6; --foglio: #fffdfe; --filo: #efd3dd; --font-titoli: "Fredoka", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: radial-gradient(#f0d4de 1.4px, transparent 1.9px); --motivo-size: 24px 24px;
+}
+body[data-tema="rubino"] header { background: var(--blu-chiaro); border-top: 6px solid var(--blu); border-bottom: 1px solid var(--filo); }
+body[data-tema="cobalto"] {
+  --blu: #1f4fbf; --blu-chiaro: #e1e9fb; --casella-attiva: #f2f6fe;
+  --carta: #f1f5fd; --foglio: #ffffff; --filo: #cfdaf2; --font-titoli: "Outfit", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: linear-gradient(#dfe6f7 1px, transparent 1px), linear-gradient(90deg, #dfe6f7 1px, transparent 1px); --motivo-size: 18px 18px;
+}
+body[data-tema="cobalto"] header { background: var(--blu); border-bottom: 0; }
+body[data-tema="cobalto"] header h1 { color: #fff; }
+body[data-tema="cobalto"] header .torna { border-color: #fff; }
+body[data-tema="cobalto"] header :focus-visible { outline-color: #fff; }
+body[data-tema="grafite"] {
+  --blu: #2f3640; --blu-chiaro: #e3e6ea; --casella-attiva: #f3f4f6;
+  --carta: #f2f3f5; --foglio: #ffffff; --filo: #d4d8de; --font-titoli: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: repeating-linear-gradient(90deg, #e2e5e9 0 1px, transparent 1px 22px); --motivo-size: auto;
+}
+body[data-tema="grafite"] header { border-bottom: 3px solid var(--blu); box-shadow: 0 3px 0 #9aa3ad; }
+body[data-tema="grafite"] header h1 { font-family: "Space Grotesk", monospace; letter-spacing: 0.02em; }
+
 /* ---------------- PDF delle attività come scheda A4 ordinata (2026-11-21) ----------------
    Fogli A4 da 794 × 1123 px (96 px per pollice), costruiti fuori dallo schermo e poi fotografati ad alta risoluzione.
    Le misure qui sono fisse: la scheda viene uguale da computer, LIM, iPad e telefono. */
@@ -617,7 +702,7 @@ body[data-tema="pino"] .pr-griglia span { border-radius: 50% / 40%; }
    Cambiano colore principale, sfondo, carattere dei titoli, testata e forma dei riquadri.
    Restano uguali per tutti: il testo degli esercizi (Atkinson Hyperlegible, il più leggibile),
    il verde del giusto e il rosso dello sbagliato, la disposizione di pulsanti e tastierino. */
-#vista-sim main, #vista-slide .visore, #vista-piano .tela, #vista-retta .tela, #vista-tabella .tela, #vista-primi .tela {
+#vista-sim main, #vista-slide .visore, #vista-piano .tela, #vista-retta .tela, #vista-tabella .tela, #vista-primi .tela, .vista-strumento .tela {
   background-color: var(--carta);
   background-image: var(--motivo-img, none);
   background-size: var(--motivo-size, auto);
@@ -785,6 +870,22 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
         </a>
         <a class="materiale" href="#numeri-primi">
           <span><span class="tit">Tabella dei numeri primi</span><br><span class="desc">Scegli quanti numeri primi vedere, da 1 a 500: la tabella si allarga o si stringe per stare tutta nello schermo</span></span>
+          <span class="vai">Apri →</span>
+        </a>
+        <a class="materiale" href="#mcd-mcm">
+          <span><span class="tit">Scomposizione, M.C.D. e m.c.m.</span><br><span class="desc">Scrivi due o tre numeri: compaiono la scomposizione in colonna, le potenze, il M.C.D. e il m.c.m., un passo alla volta quando lo decidi tu</span></span>
+          <span class="vai">Apri →</span>
+        </a>
+        <a class="materiale" href="#frazioni-visive">
+          <span><span class="tit">Frazioni da vedere</span><br><span class="desc">Una o due barre o torte divise in parti: tocca le parti per colorarle e confronta le frazioni</span></span>
+          <span class="vai">Apri →</span>
+        </a>
+        <a class="materiale" href="#cento-quadretti">
+          <span><span class="tit">Griglia dei 100 quadretti</span><br><span class="desc">Colora i quadretti con uno o due colori: la pagina scrive frazione, numero decimale e percentuale, anche per sconti e IVA</span></span>
+          <span class="vai">Apri →</span>
+        </a>
+        <a class="materiale" href="#binario">
+          <span><span class="tit">Binario a interruttori</span><br><span class="desc">Accendi e spegni i bit da 4, 8 o 16 e guarda il numero decimale, oppure parti dal decimale e trova i bit</span></span>
           <span class="vai">Apri →</span>
         </a>
       </div>
@@ -1188,6 +1289,202 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
       <section class="pl-gruppo">
         <button type="button" class="pl-bt rosso" id="pr-reset">↺ Ricomincia da zero</button>
         <p class="pl-nota">La scelta resta salvata su questo dispositivo. «Ricomincia da zero» torna a 25 numeri e cancella quello che è stato scritto sopra.</p>
+      </section>
+    </aside>
+  </div>
+</div>
+<div class="vista vista-strumento" id="vista-mcd" hidden>
+  <header>
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1>Scomposizione, M.C.D. e m.c.m.</h1>
+    <div class="comandi-alto">
+      <button type="button" class="schermo lv-apri">✎ Scrivi</button>
+      <button type="button" class="schermo lv-pdf" title="Scarica la pagina in PDF, con quello che è stato scritto">⤓ PDF</button>
+      <button type="button" class="schermo st-comandi">Nascondi i comandi</button>
+      <button type="button" class="schermo st-schermo">⛶ Schermo intero</button>
+    </div>
+  </header>
+  <div class="lavoro">
+    <div class="tela"></div>
+    <aside class="pannello" aria-label="Impostazioni">
+      <section class="pl-gruppo">
+        <h2>I numeri</h2>
+        <div class="st-caselle">
+          <button type="button" class="st-cas" data-i="0" aria-label="primo numero"></button>
+          <button type="button" class="st-cas" data-i="1" aria-label="secondo numero"></button>
+          <button type="button" class="st-cas" data-i="2" aria-label="terzo numero, se vuoi"></button>
+        </div>
+        <div class="st-tast" role="group" aria-label="Tastierino">
+          <button type="button" data-t="7">7</button><button type="button" data-t="8">8</button><button type="button" data-t="9">9</button>
+          <button type="button" data-t="4">4</button><button type="button" data-t="5">5</button><button type="button" data-t="6">6</button>
+          <button type="button" data-t="1">1</button><button type="button" data-t="2">2</button><button type="button" data-t="3">3</button>
+          <button type="button" data-t="canc" class="serv" aria-label="cancella">⌫</button><button type="button" data-t="0">0</button><button type="button" data-t="prox" class="serv" aria-label="prossima casella">→</button>
+        </div>
+        <p class="pl-nota">Numeri da 2 a 9999. Il terzo si può lasciare vuoto. Tocca una casella per cambiarla.</p>
+      </section>
+      <section class="pl-gruppo">
+        <h2>Cosa mostrare</h2>
+        <div class="pl-tipo">
+          <button type="button" class="pl-bt" data-mostra="sc">1. Scomposizione</button>
+          <button type="button" class="pl-bt" data-mostra="pot">2. Potenze</button>
+          <button type="button" class="pl-bt" data-mostra="mcd">3. M.C.D.</button>
+          <button type="button" class="pl-bt" data-mostra="mcm">4. m.c.m.</button>
+        </div>
+        <div class="pl-riga"><button type="button" class="pl-bt" id="md-tutto">Mostra tutto</button><button type="button" class="pl-bt" id="md-niente">Nascondi tutto</button></div>
+        <p class="pl-nota">Quello che è nascosto lascia il suo spazio vuoto: ci si può scrivere sopra con ✎ Scrivi.</p>
+      </section>
+      <section class="pl-gruppo">
+        <button type="button" class="pl-bt rosso st-reset">↺ Ricomincia da zero</button>
+        <p class="pl-nota">«Ricomincia da zero» rimette i numeri di partenza e cancella quello che è stato scritto sopra.</p>
+      </section>
+    </aside>
+  </div>
+</div>
+<div class="vista vista-strumento" id="vista-frazioni" hidden>
+  <header>
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1>Frazioni da vedere</h1>
+    <div class="comandi-alto">
+      <button type="button" class="schermo lv-apri">✎ Scrivi</button>
+      <button type="button" class="schermo lv-pdf" title="Scarica la pagina in PDF, con quello che è stato scritto">⤓ PDF</button>
+      <button type="button" class="schermo st-comandi">Nascondi i comandi</button>
+      <button type="button" class="schermo st-schermo">⛶ Schermo intero</button>
+    </div>
+  </header>
+  <div class="lavoro">
+    <div class="tela"></div>
+    <aside class="pannello" aria-label="Impostazioni">
+      <section class="pl-gruppo">
+        <h2>Le frazioni</h2>
+        <div class="pl-tipo" role="group" aria-label="Quante frazioni">
+          <button type="button" class="pl-bt" data-quante="1">Una frazione</button>
+          <button type="button" class="pl-bt" data-quante="2">Due frazioni</button>
+        </div>
+        <div class="pl-tipo" role="group" aria-label="Forma">
+          <button type="button" class="pl-bt" data-forma="barra">Barra</button>
+          <button type="button" class="pl-bt" data-forma="torta">Torta</button>
+        </div>
+      </section>
+      <section class="pl-gruppo">
+        <h2>Prima frazione</h2>
+        <div class="pl-riga">In quante parti:
+          <button type="button" class="pl-bt" data-parti="0" data-d="-1" aria-label="Una parte in meno">−</button>
+          <b class="fr-d" data-f="0"></b>
+          <button type="button" class="pl-bt" data-parti="0" data-d="1" aria-label="Una parte in più">+</button>
+        </div>
+        <div class="pl-riga"><button type="button" class="pl-bt" data-tutte="0">Colora tutto</button><button type="button" class="pl-bt" data-nessuna="0">Svuota</button></div>
+      </section>
+      <section class="pl-gruppo fr-seconda">
+        <h2>Seconda frazione</h2>
+        <div class="pl-riga">In quante parti:
+          <button type="button" class="pl-bt" data-parti="1" data-d="-1" aria-label="Una parte in meno">−</button>
+          <b class="fr-d" data-f="1"></b>
+          <button type="button" class="pl-bt" data-parti="1" data-d="1" aria-label="Una parte in più">+</button>
+        </div>
+        <div class="pl-riga"><button type="button" class="pl-bt" data-tutte="1">Colora tutto</button><button type="button" class="pl-bt" data-nessuna="1">Svuota</button></div>
+      </section>
+      <section class="pl-gruppo">
+        <div class="pl-tipo"><button type="button" class="pl-bt" id="fr-numeri">Mostra le frazioni</button></div>
+        <p class="pl-nota">Tocca le parti per colorarle o per toglierle il colore. Da 1 a 24 parti.</p>
+      </section>
+      <section class="pl-gruppo">
+        <button type="button" class="pl-bt rosso st-reset">↺ Ricomincia da zero</button>
+        <p class="pl-nota">«Ricomincia da zero» torna a una barra in 4 parti e cancella quello che è stato scritto sopra.</p>
+      </section>
+    </aside>
+  </div>
+</div>
+<div class="vista vista-strumento" id="vista-cento" hidden>
+  <header>
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1>Griglia dei 100 quadretti</h1>
+    <div class="comandi-alto">
+      <button type="button" class="schermo lv-apri">✎ Scrivi</button>
+      <button type="button" class="schermo lv-pdf" title="Scarica la griglia in PDF, con quello che è stato scritto">⤓ PDF</button>
+      <button type="button" class="schermo st-comandi">Nascondi i comandi</button>
+      <button type="button" class="schermo st-schermo">⛶ Schermo intero</button>
+    </div>
+  </header>
+  <div class="lavoro">
+    <div class="tela"></div>
+    <aside class="pannello" aria-label="Impostazioni">
+      <section class="pl-gruppo">
+        <h2>Toccando si colora con</h2>
+        <div class="pl-tipo" role="group" aria-label="Colore">
+          <button type="button" class="pl-bt" data-col="1">Colore 1</button>
+          <button type="button" class="pl-bt" data-col="2">Colore 2</button>
+          <button type="button" class="pl-bt" data-col="0">Gomma</button>
+        </div>
+        <p class="pl-nota">Si può anche trascinare il dito o la penna sui quadretti.</p>
+      </section>
+      <section class="pl-gruppo">
+        <h2>Oppure scegli quanti</h2>
+        <div class="pl-riga cq-conta">Colore 1:
+          <button type="button" class="pl-bt" data-c="1" data-p="-10">−10</button><button type="button" class="pl-bt" data-c="1" data-p="-1">−</button>
+          <b class="cq-n" data-c="1"></b>
+          <button type="button" class="pl-bt" data-c="1" data-p="1">+</button><button type="button" class="pl-bt" data-c="1" data-p="10">+10</button>
+        </div>
+        <div class="pl-riga cq-conta">Colore 2:
+          <button type="button" class="pl-bt" data-c="2" data-p="-10">−10</button><button type="button" class="pl-bt" data-c="2" data-p="-1">−</button>
+          <b class="cq-n" data-c="2"></b>
+          <button type="button" class="pl-bt" data-c="2" data-p="1">+</button><button type="button" class="pl-bt" data-c="2" data-p="10">+10</button>
+        </div>
+        <p class="pl-nota">Con questi tasti i quadretti si colorano in ordine, riga per riga: prima il colore 1, poi il colore 2.</p>
+      </section>
+      <section class="pl-gruppo">
+        <div class="pl-tipo"><button type="button" class="pl-bt" id="cq-numeri">Mostra i numeri</button></div>
+        <div class="pl-riga"><button type="button" class="pl-bt" id="cq-svuota">Svuota la griglia</button></div>
+      </section>
+      <section class="pl-gruppo">
+        <button type="button" class="pl-bt rosso st-reset">↺ Ricomincia da zero</button>
+        <p class="pl-nota">«Ricomincia da zero» svuota la griglia e cancella quello che è stato scritto sopra.</p>
+      </section>
+    </aside>
+  </div>
+</div>
+<div class="vista vista-strumento" id="vista-binario" hidden>
+  <header>
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1>Binario a interruttori</h1>
+    <div class="comandi-alto">
+      <button type="button" class="schermo lv-apri">✎ Scrivi</button>
+      <button type="button" class="schermo lv-pdf" title="Scarica la pagina in PDF, con quello che è stato scritto">⤓ PDF</button>
+      <button type="button" class="schermo st-comandi">Nascondi i comandi</button>
+      <button type="button" class="schermo st-schermo">⛶ Schermo intero</button>
+    </div>
+  </header>
+  <div class="lavoro">
+    <div class="tela"></div>
+    <aside class="pannello" aria-label="Impostazioni">
+      <section class="pl-gruppo">
+        <h2>Quanti bit</h2>
+        <div class="pl-tipo" role="group" aria-label="Quanti bit">
+          <button type="button" class="pl-bt" data-bit="4">4 bit</button>
+          <button type="button" class="pl-bt" data-bit="8">8 bit</button>
+          <button type="button" class="pl-bt" data-bit="16">16 bit</button>
+        </div>
+        <p class="pl-nota">Tocca un bit per passare da 0 a 1 e da 1 a 0.</p>
+      </section>
+      <section class="pl-gruppo">
+        <h2>Parti dal decimale</h2>
+        <div class="pl-riga bi-conta">
+          <button type="button" class="pl-bt" data-p="-10">−10</button><button type="button" class="pl-bt" data-p="-1">−</button>
+          <b id="bi-n"></b>
+          <button type="button" class="pl-bt" data-p="1">+</button><button type="button" class="pl-bt" data-p="10">+10</button>
+        </div>
+        <div class="pl-riga"><button type="button" class="pl-bt" id="bi-zero">Tutti a 0</button><button type="button" class="pl-bt" id="bi-uno">Tutti a 1</button></div>
+      </section>
+      <section class="pl-gruppo">
+        <h2>Cosa mostrare</h2>
+        <div class="pl-tipo">
+          <button type="button" class="pl-bt" id="bi-pot">Potenze di 2</button>
+          <button type="button" class="pl-bt" id="bi-somma">La somma</button>
+          <button type="button" class="pl-bt" id="bi-dec">Il decimale</button>
+        </div>
+      </section>
+      <section class="pl-gruppo">
+        <button type="button" class="pl-bt rosso st-reset">↺ Ricomincia da zero</button>
+        <p class="pl-nota">«Ricomincia da zero» torna a 8 bit tutti a 0 e cancella quello che è stato scritto sopra.</p>
       </section>
     </aside>
   </div>
@@ -3064,7 +3361,8 @@ const lavagna = (() => {
       v.id === "vista-slide" ? "Dentro ci sono tutte le slide, con quello che è stato scritto sopra, più il foglio dei calcoli." :
       v.id === "vista-foglio" ? "Dentro c'è il foglio, con tutto quello che è stato scritto." :
       v.id === "vista-primi" ? "Dentro c'è la tabella com'è adesso, con quello che è stato scritto, più il foglio dei calcoli." :
-      "Dentro c'è il piano com'è adesso, con quello che è stato scritto, più il foglio dei calcoli.";
+      v.id === "vista-piano" ? "Dentro c'è il piano com'è adesso, con quello che è stato scritto, più il foglio dei calcoli." :
+      "Dentro c'è la pagina com'è adesso, con quello che è stato scritto, più il foglio dei calcoli.";
     $d("#lv-pdf-stato").textContent = ""; pulisciFile();
     $d("#lv-pdf-si").disabled = false; $d("#lv-pdf-no").disabled = false;
     dlg.classList.add("aperto");
@@ -3439,7 +3737,7 @@ const lavagna = (() => {
         for (let k = 1; k <= mazzo.n; k++) { stato_(`Preparo la slide ${k} di ${mazzo.n}…`); foto.push(await fotoSlide(k, rett)); }
       }
       else if (v.id === "vista-piano") { titolo = "Piano cartesiano"; stato_("Preparo il piano…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
-      else if (v.id === "vista-retta" || v.id === "vista-tabella" || v.id === "vista-primi") { titolo = v.querySelector("h1").textContent; stato_("Preparo la pagina…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
+      else if (v.id === "vista-retta" || v.id === "vista-tabella" || v.id === "vista-primi" || v.classList.contains("vista-strumento")) { titolo = v.querySelector("h1").textContent; stato_("Preparo la pagina…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
       const tipo = ultimoSfondo[h] === "bianco" || GRIGLIE[ultimoSfondo[h]] ? ultimoSfondo[h] : "quadretti";
       if (!blob) {
         const fg = fotoFoglio(tavole["f|" + h], tipo);
@@ -4118,6 +4416,389 @@ const apriPrimi = (() => {
   return () => { moduli(); requestAnimationFrame(disegna); };
 })();
 
+/* ---- strumenti trasversali (2026-11-21): MCD e m.c.m., frazioni da vedere, 100 quadretti, binario ----
+   Ogni strumento ha una tela che si adatta allo spazio (su LIM e computer non si scorre mai),
+   un pannello di comandi, ✎ Scrivi, ⤓ PDF e «Ricomincia da zero» (che cancella anche i segni a mano).
+   Niente caselle che aprono la tastiera del dispositivo: si usano tasti, tastierino e tocchi. */
+const STRUMENTI = {};
+(() => {
+  const salvaJ = (k, o) => { try { localStorage.setItem(k, JSON.stringify(o)); } catch (e) {} };
+  const caricaJ = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
+  const stretto = () => matchMedia("(max-width: 760px), (orientation: portrait)").matches;
+  const copia = o => JSON.parse(JSON.stringify(o));
+  const dec = v => String(Math.round(v * 1e6) / 1e6).replace(".", ",");
+  const mcdN = (a, b) => { while (b) [a, b] = [b, a % b]; return a; };
+  function conferma(b, testo, poi) {
+    if (!b.dataset.attesa) {
+      b.dataset.prima = b.textContent; b.dataset.attesa = "1"; b.textContent = testo;
+      b._t = setTimeout(() => { delete b.dataset.attesa; b.textContent = b.dataset.prima; }, 4000);
+      return;
+    }
+    clearTimeout(b._t); delete b.dataset.attesa; b.textContent = b.dataset.prima; poi();
+  }
+  function spazio(tela) {
+    const cs = getComputedStyle(tela);
+    return { W: tela.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+             H: tela.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
+  }
+  /* il contenuto HTML si ingrandisce o rimpicciolisce finché sta tutto nella tela */
+  function adatta(tela, el, max) {
+    const { W, H } = spazio(tela);
+    let lo = 8, hi = max;
+    for (let i = 0; i < 10; i++) {
+      const m = (lo + hi) / 2; el.style.fontSize = m + "px";
+      const r = el.getBoundingClientRect();
+      if (Math.max(el.scrollWidth, r.width) <= W && Math.max(el.scrollHeight, r.height) <= H) lo = m; else hi = m;
+    }
+    let f = lo;
+    if (f < 16 && stretto()) { f = 16; tela.style.height = "auto"; tela.style.justifyContent = "flex-start"; }
+    el.style.fontSize = f + "px";
+  }
+  function svg(tela, w, h, corpo) {
+    tela.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">${corpo}</svg>`;
+    return tela.firstElementChild;
+  }
+  const premuto = (els, f) => els.forEach(b => b.setAttribute("aria-pressed", String(!!f(b))));
+  function registra(vid, crea) {
+    const v = document.getElementById(vid), q = s => v.querySelector(s), qq = s => v.querySelectorAll(s), tela = q(".tela");
+    const o = crea({ v, q, qq, tela });
+    o.v = v;
+    o.apri = () => { o.moduli(); requestAnimationFrame(() => { tela.style.height = ""; tela.style.justifyContent = ""; o.disegna(); }); };
+    const ridisegna = o.disegna;
+    o.disegna = () => { if (v.hidden) return; tela.style.height = ""; tela.style.justifyContent = ""; ridisegna(); };
+    q(".st-comandi").addEventListener("click", ev => {
+      const via = v.classList.toggle("senza-comandi");
+      ev.currentTarget.textContent = via ? "Mostra i comandi" : "Nascondi i comandi"; o.disegna();
+    });
+    q(".st-schermo").addEventListener("click", async () => {
+      try { if (document.fullscreenElement) await document.exitFullscreen(); else await v.requestFullscreen(); } catch (e) {}
+    });
+    const r = q(".st-reset");
+    r.addEventListener("click", () => conferma(r, "Confermi? Tocca di nuovo per ricominciare", () => { o.azzera(); o.moduli(); o.disegna(); lavagna.azzera(location.hash); }));
+    STRUMENTI[vid] = o;
+  }
+  let attesa = null;
+  const tutti = () => { clearTimeout(attesa); attesa = setTimeout(() => { for (const k in STRUMENTI) STRUMENTI[k].disegna(); }, 80); };
+  window.addEventListener("resize", tutti);
+  document.addEventListener("fullscreenchange", tutti);
+
+  /* ================= Scomposizione, M.C.D. e m.c.m. ================= */
+  registra("vista-mcd", ({ v, q, qq, tela }) => {
+    const CH = "mcd-mcm-v1";
+    const BASE = { numeri: ["84", "120", ""], mostra: { sc: false, pot: false, mcd: false, mcm: false } };
+    const norma = x => {
+      const b = copia(BASE);
+      if (x && Array.isArray(x.numeri)) b.numeri = [0, 1, 2].map(i => String(x.numeri[i] || "").replace(/\D/g, "").slice(0, 4));
+      if (x && x.mostra) for (const k in b.mostra) b.mostra[k] = !!x.mostra[k];
+      return b;
+    };
+    let st = norma(caricaJ(CH)), att = 0;
+    const salva = () => salvaJ(CH, st);
+    const valido = t => t !== "" && +t >= 2 && +t <= 9999;
+    function righe(n) { const r = []; let p = 2; while (n > 1) { while (n % p) p++; r.push([n, p]); n /= p; } r.push([1, null]); return r; }
+    function esponenti(n) { const e = {}; righe(n).forEach(([, p]) => { if (p) e[p] = (e[p] || 0) + 1; }); return e; }
+    const sup = e => e > 1 ? `<sup>${e}</sup>` : "";
+    const potenze = (e, comuni) => Object.keys(e).map(Number).sort((a, b) => a - b)
+      .map(p => `<span${comuni && comuni.has(p) ? ` class="com"` : ""}>${p}${sup(e[p])}</span>`).join(" · ");
+    function disegna() {
+      const nn = st.numeri.filter(valido).map(Number);
+      if (!nn.length) { tela.innerHTML = `<p class="md-avviso">Scrivi almeno un numero da 2 a 9999.</p>`; return; }
+      const E = nn.map(esponenti), M = st.mostra, due = nn.length >= 2;
+      const comuniP = new Set(Object.keys(E[0]).map(Number).filter(p => E.every(e => e[p])));
+      let h = `<div class="md-tutto"><div class="md-colonne">`;
+      nn.forEach((n, k) => {
+        const r = righe(n);
+        h += `<table class="md-tab">` + r.map((x, i) => {
+          const vis = i === 0 || M.sc;
+          return `<tr${vis ? "" : ` class="md-nascosto"`}><td>${x[0]}</td><td>${x[1] ? (M.sc ? x[1] : `<span class="md-nascosto">${x[1]}</span>`) : "&nbsp;"}</td></tr>`;
+        }).join("") + `</table>`;
+        h += `<div class="md-pot${M.pot ? "" : " md-nascosto"}">${n} = ${potenze(E[k], due && M.mcd ? comuniP : null)}</div>`;
+      });
+      h += `</div>`;
+      if (due) {
+        const tuttiP = [...new Set(E.flatMap(e => Object.keys(e).map(Number)))].sort((a, b) => a - b);
+        const eMcd = {}, eMcm = {};
+        tuttiP.forEach(p => { if (comuniP.has(p)) eMcd[p] = Math.min(...E.map(e => e[p])); eMcm[p] = Math.max(...E.map(e => e[p] || 0)); });
+        const val = e => Object.keys(e).reduce((t, p) => t * Math.pow(+p, e[p]), 1);
+        const elenco = nn.join("; ");
+        const vMcd = val(eMcd), vMcm = val(eMcm);
+        h += `<div class="md-ris">`;
+        h += `<p class="forte${M.mcd ? "" : " md-nascosto"}">M.C.D.(${elenco}) = ${vMcd === 1 ? "1" : `${potenze(eMcd)} = ${vMcd}`}</p>`;
+        h += `<p class="come${M.mcd ? "" : " md-nascosto"}">${vMcd === 1 ? "Non ci sono fattori comuni: i numeri sono primi tra loro." : "Fattori comuni, presi una volta sola, con l'esponente più piccolo."}</p>`;
+        h += `<p class="forte${M.mcm ? "" : " md-nascosto"}">m.c.m.(${elenco}) = ${potenze(eMcm)} = ${vMcm}</p>`;
+        h += `<p class="come${M.mcm ? "" : " md-nascosto"}">Fattori comuni e non comuni, presi una volta sola, con l'esponente più grande.</p>`;
+        h += `</div>`;
+      } else if (M.mcd || M.mcm) h += `<p class="md-avviso">Per M.C.D. e m.c.m. servono almeno due numeri.</p>`;
+      tela.innerHTML = h + `</div>`;
+      adatta(tela, tela.firstElementChild, 60);
+    }
+    function moduli() {
+      qq(".st-cas").forEach(b => {
+        const i = +b.dataset.i, t = st.numeri[i];
+        b.textContent = t; b.classList.toggle("attiva", i === att); b.classList.toggle("ko", t !== "" && !valido(t));
+      });
+      premuto(qq("[data-mostra]"), b => st.mostra[b.dataset.mostra]);
+    }
+    const cambia = () => { salva(); moduli(); disegna(); };
+    function tasto(t) {
+      const s = st.numeri[att];
+      if (/^\d$/.test(t)) { if (s.length >= 4 || (s === "" && t === "0")) return; st.numeri[att] = s + t; }
+      else if (t === "canc") st.numeri[att] = s.slice(0, -1);
+      else if (t === "prox") att = (att + 1) % 3;
+      else if (t === "prec") att = (att + 2) % 3;
+      cambia();
+    }
+    qq(".st-cas").forEach(b => b.addEventListener("click", () => { att = +b.dataset.i; moduli(); }));
+    qq(".st-tast button").forEach(b => b.addEventListener("click", () => tasto(b.dataset.t)));
+    qq("[data-mostra]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.mostra; st.mostra[k] = !st.mostra[k]; cambia(); }));
+    q("#md-tutto").addEventListener("click", () => { for (const k in st.mostra) st.mostra[k] = true; cambia(); });
+    q("#md-niente").addEventListener("click", () => { for (const k in st.mostra) st.mostra[k] = false; cambia(); });
+    document.addEventListener("keydown", ev => {
+      if (v.hidden || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+      if (ev.target.closest && ev.target.closest("input, textarea, select, [contenteditable], .lv, .lv-dlg")) return;
+      if (/^\d$/.test(ev.key)) tasto(ev.key);
+      else if (ev.key === "Backspace") { ev.preventDefault(); tasto("canc"); }
+      else if (ev.key === "Tab" && ev.target.closest && (ev.target === document.body || ev.target.closest("#vista-mcd .st-caselle, #vista-mcd .st-tast"))) { ev.preventDefault(); tasto(ev.shiftKey ? "prec" : "prox"); }
+    });
+    return { disegna, moduli, azzera: () => { st = norma(null); att = 0; salva(); } };
+  });
+
+  /* ================= Frazioni da vedere ================= */
+  registra("vista-frazioni", ({ v, q, qq, tela }) => {
+    const CH = "frazioni-visive-v1";
+    const BASE = { quante: 1, forma: "barra", numeri: true, f: [{ d: 4, on: [] }, { d: 8, on: [] }] };
+    const norma = x => {
+      const b = copia(BASE);
+      if (x) {
+        if (x.quante === 2) b.quante = 2;
+        if (x.forma === "torta") b.forma = "torta";
+        if (x.numeri === false) b.numeri = false;
+        if (Array.isArray(x.f)) [0, 1].forEach(i => { const f = x.f[i]; if (f && f.d >= 1 && f.d <= 24) { b.f[i].d = Math.round(f.d); b.f[i].on = (Array.isArray(f.on) ? f.on : []).slice(0, b.f[i].d).map(Boolean); } });
+      }
+      b.f.forEach(f => { while (f.on.length < f.d) f.on.push(false); });
+      return b;
+    };
+    let st = norma(caricaJ(CH));
+    const salva = () => salvaJ(CH, st);
+    const nOn = f => f.on.filter(Boolean).length;
+    function frazione(x, y, n, d, s) {
+      const w = Math.max(String(n).length, String(d).length) * s * 0.62 + s * 0.35;
+      return `<text class="fr-num" x="${x}" y="${y - s * 0.2}" text-anchor="middle" style="font-size:${s}px">${n}</text>` +
+        `<line x1="${x - w / 2}" y1="${y}" x2="${x + w / 2}" y2="${y}" stroke="var(--inchiostro)" stroke-width="${s * 0.07}"/>` +
+        `<text class="fr-num" x="${x}" y="${y + s * 0.85}" text-anchor="middle" style="font-size:${s}px">${d}</text>`;
+    }
+    function barra(i, x, y, w, h) {
+      const f = st.f[i], pw = w / f.d;
+      return f.on.map((on, j) => `<rect class="fr-parte${on ? " on" : ""}" data-f="${i}" data-j="${j}" x="${x + j * pw}" y="${y}" width="${pw}" height="${h}"/>`).join("");
+    }
+    function torta(i, cx, cy, r) {
+      const f = st.f[i];
+      if (f.d === 1) return `<circle class="fr-parte${f.on[0] ? " on" : ""}" data-f="${i}" data-j="0" cx="${cx}" cy="${cy}" r="${r}"/>`;
+      return f.on.map((on, j) => {
+        const a0 = -Math.PI / 2 + j * 2 * Math.PI / f.d, a1 = a0 + 2 * Math.PI / f.d;
+        const p = (a) => `${(cx + r * Math.cos(a)).toFixed(2)} ${(cy + r * Math.sin(a)).toFixed(2)}`;
+        return `<path class="fr-parte${on ? " on" : ""}" data-f="${i}" data-j="${j}" d="M ${cx} ${cy} L ${p(a0)} A ${r} ${r} 0 0 1 ${p(a1)} Z"/>`;
+      }).join("");
+    }
+    function confronto() {
+      const [a, b] = st.f, x = nOn(a) * b.d, y = nOn(b) * a.d;
+      return x === y ? "=" : x < y ? "<" : ">";
+    }
+    function disegna() {
+      const N = st.numeri, S = 64;
+      let w, h, c = "";
+      if (st.forma === "barra" && st.quante === 1) {
+        w = 1000; h = 320; c = barra(0, 30, 90, 740, 150);
+        if (N) c += frazione(890, 165, nOn(st.f[0]), st.f[0].d, S);
+      } else if (st.forma === "barra") {
+        w = 1000; h = 600; c = barra(0, 30, 40, 740, 150) + barra(1, 30, 240, 740, 150);
+        if (N) {
+          c += frazione(890, 115, nOn(st.f[0]), st.f[0].d, S) + frazione(890, 315, nOn(st.f[1]), st.f[1].d, S);
+          c += frazione(420, 500, nOn(st.f[0]), st.f[0].d, 52) + `<text class="fr-segno" x="500" y="518" text-anchor="middle">${confronto()}</text>` + frazione(580, 500, nOn(st.f[1]), st.f[1].d, 52);
+        }
+      } else if (st.quante === 1) {
+        w = 760; h = 480; c = torta(0, 240, 240, 210);
+        if (N) c += frazione(600, 240, nOn(st.f[0]), st.f[0].d, S);
+      } else {
+        w = 1000; h = 640; c = torta(0, 250, 235, 210) + torta(1, 750, 235, 210);
+        if (N) c += frazione(250, 540, nOn(st.f[0]), st.f[0].d, S) + `<text class="fr-segno" x="500" y="562" text-anchor="middle">${confronto()}</text>` + frazione(750, 540, nOn(st.f[1]), st.f[1].d, S);
+      }
+      svg(tela, w, h, c);
+    }
+    function moduli() {
+      premuto(qq("[data-quante]"), b => +b.dataset.quante === st.quante);
+      premuto(qq("[data-forma]"), b => b.dataset.forma === st.forma);
+      q(".fr-seconda").hidden = st.quante === 1;
+      qq(".fr-d").forEach(b => { b.textContent = st.f[+b.dataset.f].d; });
+      qq("[data-parti]").forEach(b => { const d = st.f[+b.dataset.parti].d + +b.dataset.d; b.disabled = d < 1 || d > 24; });
+      premuto([q("#fr-numeri")], () => st.numeri);
+    }
+    const cambia = () => { salva(); moduli(); disegna(); };
+    tela.addEventListener("click", ev => {
+      const p = ev.target.closest && ev.target.closest(".fr-parte"); if (!p) return;
+      const f = st.f[+p.dataset.f], j = +p.dataset.j; f.on[j] = !f.on[j]; cambia();
+    });
+    qq("[data-quante]").forEach(b => b.addEventListener("click", () => { st.quante = +b.dataset.quante; cambia(); }));
+    qq("[data-forma]").forEach(b => b.addEventListener("click", () => { st.forma = b.dataset.forma; cambia(); }));
+    qq("[data-parti]").forEach(b => b.addEventListener("click", () => {
+      const f = st.f[+b.dataset.parti], d = Math.max(1, Math.min(24, f.d + +b.dataset.d));
+      f.d = d; f.on = f.on.slice(0, d); while (f.on.length < d) f.on.push(false); cambia();
+    }));
+    qq("[data-tutte]").forEach(b => b.addEventListener("click", () => { const f = st.f[+b.dataset.tutte]; f.on = f.on.map(() => true); cambia(); }));
+    qq("[data-nessuna]").forEach(b => b.addEventListener("click", () => { const f = st.f[+b.dataset.nessuna]; f.on = f.on.map(() => false); cambia(); }));
+    q("#fr-numeri").addEventListener("click", () => { st.numeri = !st.numeri; cambia(); });
+    return { disegna, moduli, azzera: () => { st = norma(null); salva(); } };
+  });
+
+  /* ================= Griglia dei 100 quadretti ================= */
+  registra("vista-cento", ({ v, q, qq, tela }) => {
+    const CH = "cento-quadretti-v1";
+    const BASE = { celle: "0".repeat(100), col: 1, numeri: true };
+    const norma = x => {
+      const b = copia(BASE);
+      if (x) {
+        if (typeof x.celle === "string" && /^[012]{100}$/.test(x.celle)) b.celle = x.celle;
+        if ([0, 1, 2].includes(x.col)) b.col = x.col;
+        if (x.numeri === false) b.numeri = false;
+      }
+      return b;
+    };
+    let st = norma(caricaJ(CH));
+    const salva = () => salvaJ(CH, st);
+    const conta = c => [...st.celle].filter(x => x === String(c)).length;
+    function lettura(n) {
+      const g = mcdN(n, 100), sempl = g > 1 && n ? ` = ${n / g}/${100 / g}` : "";
+      return `${n}/100${sempl} = ${dec(n / 100)} = ${n}%`;
+    }
+    function disegna() {
+      const { W, H } = spazio(tela), largo = W / Math.max(1, H) > 1.25, L = 50;
+      const gx = 30, gy = 30;
+      let c = "";
+      for (let i = 0; i < 100; i++) {
+        const r = Math.floor(i / 10), k = i % 10, x = st.celle[i];
+        c += `<rect class="cq-q${x === "1" ? " c1" : x === "2" ? " c2" : ""}" data-i="${i}" x="${gx + k * L}" y="${gy + r * L}" width="${L}" height="${L}"/>`;
+      }
+      c += `<line class="cq-dieci" x1="${gx + 5 * L}" y1="${gy}" x2="${gx + 5 * L}" y2="${gy + 10 * L}"/><line class="cq-dieci" x1="${gx}" y1="${gy + 5 * L}" x2="${gx + 10 * L}" y2="${gy + 5 * L}"/>`;
+      c += `<rect class="cq-bordo" x="${gx}" y="${gy}" width="${10 * L}" height="${10 * L}"/>`;
+      let tx = largo ? 590 : 30, ty = largo ? 70 : 600, w = largo ? 1060 : 560, h = largo ? 560 : 900;
+      if (st.numeri) {
+        const n1 = conta(1), n2 = conta(2), riga = (t, cls) => { const r = `<text class="cq-t ${cls || ""}" x="${tx}" y="${ty}">${t}</text>`; ty += cls === "forte" ? 44 : 46; return r; };
+        const blocco = (n, col, nome) => {
+          let r = `<rect x="${tx}" y="${ty - 28}" width="32" height="32" rx="4" class="cq-q ${col}" style="cursor:default"/>`;
+          const tx0 = tx; tx += 46; r += riga(`${nome}: ${n} su 100`, "forte"); tx = tx0;
+          r += riga(lettura(n)); ty += 18; return r;
+        };
+        c += blocco(n1, "c1", "Colore 1");
+        if (n2) c += blocco(n2, "c2", "Colore 2");
+        if (n2) { c += riga(`Colorati in tutto: ${n1 + n2} su 100 = ${n1 + n2}%`); ty += 6; }
+        c += riga(`Senza colore: ${100 - n1 - n2} su 100 = ${100 - n1 - n2}%`, "tenue");
+      }
+      const s = svg(tela, w, h, c);
+      s.style.touchAction = "none";
+    }
+    function moduli() {
+      premuto(qq("[data-col]"), b => +b.dataset.col === st.col);
+      qq(".cq-n").forEach(b => { b.textContent = conta(+b.dataset.c); });
+      premuto([q("#cq-numeri")], () => st.numeri);
+    }
+    const cambia = () => { salva(); moduli(); disegna(); };
+    let pittura = null;
+    const metti = (el, val) => {
+      if (!el || !el.dataset || el.dataset.i === undefined) return;
+      const i = +el.dataset.i; if (st.celle[i] === val) return;
+      st.celle = st.celle.slice(0, i) + val + st.celle.slice(i + 1);
+      el.classList.toggle("c1", val === "1"); el.classList.toggle("c2", val === "2");
+    };
+    tela.addEventListener("pointerdown", ev => {
+      const el = ev.target.closest && ev.target.closest(".cq-q[data-i]"); if (!el) return;
+      ev.preventDefault();
+      const cur = st.celle[+el.dataset.i], col = String(st.col);
+      pittura = col !== "0" && cur === col ? "0" : col;
+      metti(el, pittura);
+    });
+    tela.addEventListener("pointermove", ev => {
+      if (pittura === null) return;
+      const el = document.elementFromPoint(ev.clientX, ev.clientY);
+      if (el && el.matches && el.matches(".cq-q[data-i]")) metti(el, pittura);
+    });
+    const fine = () => { if (pittura === null) return; pittura = null; cambia(); };
+    window.addEventListener("pointerup", fine); window.addEventListener("pointercancel", fine);
+    qq("[data-col]").forEach(b => b.addEventListener("click", () => { st.col = +b.dataset.col; cambia(); }));
+    qq(".cq-conta [data-c]").forEach(b => b.addEventListener("click", () => {
+      let n1 = conta(1), n2 = conta(2);
+      if (b.dataset.c === "1") n1 = Math.max(0, Math.min(100 - n2, n1 + +b.dataset.p));
+      else n2 = Math.max(0, Math.min(100 - n1, n2 + +b.dataset.p));
+      st.celle = "1".repeat(n1) + "2".repeat(n2) + "0".repeat(100 - n1 - n2); cambia();
+    }));
+    q("#cq-numeri").addEventListener("click", () => { st.numeri = !st.numeri; cambia(); });
+    const sv = q("#cq-svuota");
+    sv.addEventListener("click", () => conferma(sv, "Confermi? Tocca di nuovo per svuotare", () => { st.celle = "0".repeat(100); cambia(); }));
+    return { disegna, moduli, azzera: () => { st = norma(null); salva(); } };
+  });
+
+  /* ================= Binario a interruttori ================= */
+  registra("vista-binario", ({ v, q, qq, tela }) => {
+    const CH = "binario-v1";
+    const BASE = { bit: 8, n: 0, pot: true, somma: true, dec: true };
+    const norma = x => {
+      const b = copia(BASE);
+      if (x) {
+        if ([4, 8, 16].includes(x.bit)) b.bit = x.bit;
+        if (Number.isInteger(x.n) && x.n >= 0) b.n = x.n % Math.pow(2, b.bit);
+        ["pot", "somma", "dec"].forEach(k => { if (x[k] === false) b[k] = false; });
+      }
+      return b;
+    };
+    let st = norma(caricaJ(CH));
+    const salva = () => salvaJ(CH, st);
+    const max = () => Math.pow(2, st.bit) - 1;
+    const SUP = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+    const alla = e => "2" + String(e).split("").map(c => SUP[+c]).join("");
+    function disegna() {
+      const n = st.bit, Bw = n === 16 ? 100 : 120, gap = 22, gruppi = n / 4 - 1;
+      const w = 40 + n * Bw + gruppi * gap, h = 500;
+      let c = "";
+      for (let i = 0; i < n; i++) {
+        const e = n - 1 - i, peso = Math.pow(2, e), on = (st.n >> e) & 1;
+        const x = 20 + i * Bw + Math.floor(i / 4) * gap, cx = x + Bw / 2;
+        c += `<text class="bi-peso" x="${cx}" y="58" text-anchor="middle"${n === 16 ? ` style="font-size:22px"` : ""}>${peso}</text>`;
+        if (st.pot) c += `<text class="bi-pot" x="${cx}" y="92" text-anchor="middle">${alla(e)}</text>`;
+        c += `<g class="bi-bit${on ? " on" : ""}" data-e="${e}"><rect x="${x + 8}" y="112" width="${Bw - 16}" height="150" rx="16"/><text x="${cx}" y="207" text-anchor="middle">${on}</text></g>`;
+      }
+      const termini = [];
+      for (let e = n - 1; e >= 0; e--) if ((st.n >> e) & 1) termini.push(Math.pow(2, e));
+      const testo = termini.length ? termini.join(" + ") : "0";
+      if (st.somma) {
+        const fs = Math.min(40, (w - 40) / Math.max(1, (testo.length + 6) * 0.56));
+        c += `<text class="bi-riga" x="${w / 2}" y="350" text-anchor="middle" style="font-size:${fs}px">${testo}${st.dec ? ` = ${st.n}` : ""}</text>`;
+      } else if (st.dec) c += `<text class="bi-riga" x="${w / 2}" y="350" text-anchor="middle" style="font-size:44px">= ${st.n}</text>`;
+      if (st.dec) {
+        let b = st.n.toString(2).padStart(n, "0").replace(/(.{4})(?=.)/g, "$1 ");
+        c += `<text class="bi-riga tenue" x="${w / 2}" y="430" text-anchor="middle">in binario ${b} · in decimale ${st.n}</text>`;
+      }
+      svg(tela, w, h, c);
+    }
+    function moduli() {
+      premuto(qq("[data-bit]"), b => +b.dataset.bit === st.bit);
+      q("#bi-n").textContent = st.n;
+      premuto([q("#bi-pot")], () => st.pot); premuto([q("#bi-somma")], () => st.somma); premuto([q("#bi-dec")], () => st.dec);
+    }
+    const cambia = () => { salva(); moduli(); disegna(); };
+    tela.addEventListener("click", ev => {
+      const g = ev.target.closest && ev.target.closest(".bi-bit"); if (!g) return;
+      st.n ^= 1 << +g.dataset.e; cambia();
+    });
+    qq("[data-bit]").forEach(b => b.addEventListener("click", () => { st.bit = +b.dataset.bit; st.n = st.n & max(); cambia(); }));
+    qq(".bi-conta [data-p]").forEach(b => b.addEventListener("click", () => { st.n = Math.max(0, Math.min(max(), st.n + +b.dataset.p)); cambia(); }));
+    q("#bi-zero").addEventListener("click", () => { st.n = 0; cambia(); });
+    q("#bi-uno").addEventListener("click", () => { st.n = max(); cambia(); });
+    q("#bi-pot").addEventListener("click", () => { st.pot = !st.pot; cambia(); });
+    q("#bi-somma").addEventListener("click", () => { st.somma = !st.somma; cambia(); });
+    q("#bi-dec").addEventListener("click", () => { st.dec = !st.dec; cambia(); });
+    return { disegna, moduli, azzera: () => { st = norma(null); salva(); } };
+  });
+})();
+
 const VISTE = {
   "": ["vista-home", "Materiali interattivi - Sabrina Iellamo"],
   "#1info": ["vista-1info", "Matematica per informatici - 1INFO"],
@@ -4140,7 +4821,11 @@ const VISTE = {
   "#foglio": ["vista-foglio", "Foglio per i calcoli"],
   "#retta-numeri": ["vista-retta", "Retta dei numeri"],
   "#tabella-proporzioni": ["vista-tabella", "Tabella di proporzionalità"],
-  "#numeri-primi": ["vista-primi", "Tabella dei numeri primi"]
+  "#numeri-primi": ["vista-primi", "Tabella dei numeri primi"],
+  "#mcd-mcm": ["vista-mcd", "Scomposizione, M.C.D. e m.c.m."],
+  "#frazioni-visive": ["vista-frazioni", "Frazioni da vedere"],
+  "#cento-quadretti": ["vista-cento", "Griglia dei 100 quadretti"],
+  "#binario": ["vista-binario", "Binario a interruttori"]
 };
 /* lo stile grafico di ogni materiale: nella stessa classe due materiali non hanno mai lo stesso.
    Un materiale nuovo riceve uno stile diverso da quelli della sua classe. */
@@ -4156,7 +4841,11 @@ const TEMI = {
   "#piano-cartesiano": "petrolio",
   "#retta-numeri": "terracotta",
   "#tabella-proporzioni": "oliva",
-  "#numeri-primi": "pino"
+  "#numeri-primi": "pino",
+  "#mcd-mcm": "ocra",
+  "#frazioni-visive": "rubino",
+  "#cento-quadretti": "cobalto",
+  "#binario": "grafite"
 };
 function percorso() {
   const v = VISTE[location.hash] || VISTE[""];
@@ -4171,6 +4860,7 @@ function percorso() {
   if (v[0] === "vista-retta") apriRetta();
   if (v[0] === "vista-tabella") apriTabella();
   if (v[0] === "vista-primi") apriPrimi();
+  if (STRUMENTI[v[0]]) STRUMENTI[v[0]].apri();
   if (v[0] === "vista-foglio") lavagna.apri();
   else lavagna.riposa();
   const att = document.getElementById(v[0]); if (att) att.scrollTop = 0;
