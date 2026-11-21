@@ -541,12 +541,34 @@ select.pl-in { width: auto; text-align: left; }
   #vista-tabella .tela { flex: 0 0 auto; height: min(120vw, 62vh); }
 }
 
+/* ---------------- tabella dei numeri primi (2026-11-21) ---------------- */
+#vista-primi .lavoro { flex: 1; min-height: 0; display: flex; }
+#vista-primi .tela { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; overflow: hidden; }
+#vista-primi.senza-comandi .pannello { display: none; }
+.pr-titolo { margin: 0 0 0.4em; font-family: var(--font-titoli); font-weight: 700; color: var(--blu); text-align: center; line-height: 1.2; }
+.pr-griglia { display: grid; justify-content: center; align-content: center; }
+.pr-griglia span { display: flex; align-items: center; justify-content: center; background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.35em; font-family: var(--font-testo); font-weight: 700; color: var(--inchiostro); font-variant-numeric: tabular-nums; }
+#vista-primi .pl-pre .pl-bt[aria-pressed=true] { background: var(--blu); color: #fff; }
+.pr-conta b { display: inline-block; min-width: 2.6em; text-align: center; font-size: 1.3em; }
+@media (max-width: 760px), (orientation: portrait) {
+  #vista-primi .lavoro { flex-direction: column; overflow-y: auto; }
+  #vista-primi .tela { flex: 0 0 auto; height: min(120vw, 62vh); }
+}
+body[data-tema="pino"] {
+  --blu: #1f5c4a; --blu-chiaro: #dcece6; --casella-attiva: #f0f7f4;
+  --carta: #eff5f2; --foglio: #fffffd; --filo: #cbded6; --font-titoli: "Bitter", Georgia, serif;
+  --motivo-img: repeating-linear-gradient(-45deg, #dceae4 0 1px, transparent 1px 14px);
+  --motivo-size: auto;
+}
+body[data-tema="pino"] header { border-bottom: 3px dashed var(--blu); }
+body[data-tema="pino"] .pr-griglia span { border-radius: 50% / 40%; }
+
 /* ================= stili diversi per ogni materiale (2026-11-20) =================
    Ogni attività, mazzo di slide o strumento ha il suo stile, scelto in TEMI (nello script).
    Cambiano colore principale, sfondo, carattere dei titoli, testata e forma dei riquadri.
    Restano uguali per tutti: il testo degli esercizi (Atkinson Hyperlegible, il più leggibile),
    il verde del giusto e il rosso dello sbagliato, la disposizione di pulsanti e tastierino. */
-#vista-sim main, #vista-slide .visore, #vista-piano .tela, #vista-retta .tela, #vista-tabella .tela {
+#vista-sim main, #vista-slide .visore, #vista-piano .tela, #vista-retta .tela, #vista-tabella .tela, #vista-primi .tela {
   background-color: var(--carta);
   background-image: var(--motivo-img, none);
   background-size: var(--motivo-size, auto);
@@ -710,6 +732,10 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
         </a>
         <a class="materiale" href="#tabella-proporzioni">
           <span><span class="tit">Tabella di proporzionalità</span><br><span class="desc">Due o tre colonne vuote da riempire a mano o con la tastiera, con le frecce del «× 2» tra le righe e tra le colonne: per dosi, sconti, paghe e conversioni</span></span>
+          <span class="vai">Apri →</span>
+        </a>
+        <a class="materiale" href="#numeri-primi">
+          <span><span class="tit">Tabella dei numeri primi</span><br><span class="desc">Scegli quanti numeri primi vedere, da 1 a 500: la tabella si allarga o si stringe per stare tutta nello schermo</span></span>
           <span class="vai">Apri →</span>
         </a>
       </div>
@@ -1073,6 +1099,46 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
           <button type="button" class="pl-bt rosso" id="tb-reset">↺ Ricomincia da zero</button>
         </div>
         <p class="pl-nota">Quello che scrivi con la tastiera resta salvato su questo dispositivo finché non lo cancelli.</p>
+      </section>
+    </aside>
+  </div>
+</div>
+<div class="vista" id="vista-primi" hidden>
+  <header>
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1>Tabella dei numeri primi</h1>
+    <div class="comandi-alto">
+      <button type="button" class="schermo lv-apri">✎ Scrivi</button>
+      <button type="button" class="schermo lv-pdf" title="Scarica la tabella in PDF, con quello che è stato scritto">⤓ PDF</button>
+      <button type="button" class="schermo" id="pr-comandi">Nascondi i comandi</button>
+      <button type="button" class="schermo" id="pr-schermo">⛶ Schermo intero</button>
+    </div>
+  </header>
+  <div class="lavoro">
+    <div class="tela" id="pr-tela"></div>
+    <aside class="pannello" aria-label="Impostazioni della tabella dei numeri primi">
+      <section class="pl-gruppo">
+        <h2>Quanti numeri primi</h2>
+        <div class="pl-riga pr-conta">
+          <button type="button" class="pl-bt" data-passo="-10" aria-label="Dieci in meno">−10</button>
+          <button type="button" class="pl-bt" data-passo="-1" aria-label="Uno in meno">−</button>
+          <b id="pr-n"></b>
+          <button type="button" class="pl-bt" data-passo="1" aria-label="Uno in più">+</button>
+          <button type="button" class="pl-bt" data-passo="10" aria-label="Dieci in più">+10</button>
+        </div>
+        <div class="pl-pre">
+          <button type="button" class="pl-bt" data-quanti="10">10</button>
+          <button type="button" class="pl-bt" data-quanti="25">25</button>
+          <button type="button" class="pl-bt" data-quanti="50">50</button>
+          <button type="button" class="pl-bt" data-quanti="100">100</button>
+          <button type="button" class="pl-bt" data-quanti="200">200</button>
+          <button type="button" class="pl-bt" data-quanti="500">500</button>
+        </div>
+        <p class="pl-nota">Si possono vedere da 1 a 500 numeri primi.</p>
+      </section>
+      <section class="pl-gruppo">
+        <button type="button" class="pl-bt rosso" id="pr-reset">↺ Ricomincia da zero</button>
+        <p class="pl-nota">La scelta resta salvata su questo dispositivo. «Ricomincia da zero» torna a 25 numeri e cancella quello che è stato scritto sopra.</p>
       </section>
     </aside>
   </div>
@@ -2948,6 +3014,7 @@ const lavagna = (() => {
       v.id === "vista-sim" ? "Dentro ci sono tutte le schermate dell'attività, con le risposte e quello che è stato scritto, più il foglio dei calcoli." :
       v.id === "vista-slide" ? "Dentro ci sono tutte le slide, con quello che è stato scritto sopra, più il foglio dei calcoli." :
       v.id === "vista-foglio" ? "Dentro c'è il foglio, con tutto quello che è stato scritto." :
+      v.id === "vista-primi" ? "Dentro c'è la tabella com'è adesso, con quello che è stato scritto, più il foglio dei calcoli." :
       "Dentro c'è il piano com'è adesso, con quello che è stato scritto, più il foglio dei calcoli.";
     $d("#lv-pdf-stato").textContent = ""; pulisciFile();
     $d("#lv-pdf-si").disabled = false; $d("#lv-pdf-no").disabled = false;
@@ -3158,7 +3225,7 @@ const lavagna = (() => {
         for (let k = 1; k <= mazzo.n; k++) { stato_(`Preparo la slide ${k} di ${mazzo.n}…`); foto.push(await fotoSlide(k, rett)); }
       }
       else if (v.id === "vista-piano") { titolo = "Piano cartesiano"; stato_("Preparo il piano…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
-      else if (v.id === "vista-retta" || v.id === "vista-tabella") { titolo = v.querySelector("h1").textContent; stato_("Preparo la pagina…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
+      else if (v.id === "vista-retta" || v.id === "vista-tabella" || v.id === "vista-primi") { titolo = v.querySelector("h1").textContent; stato_("Preparo la pagina…"); foto.push(await fotoVista(v, "p|" + h + "|")); }
       const tipo = ultimoSfondo[h] === "bianco" || GRIGLIE[ultimoSfondo[h]] ? ultimoSfondo[h] : "quadretti";
       const fg = fotoFoglio(tavole["f|" + h], tipo);
       if (fg) foto.push(fg);
@@ -3752,6 +3819,89 @@ const apriTabella = (() => {
   return () => { moduli(); esito(""); requestAnimationFrame(() => { ultimaL = $("tb-tela").clientWidth; disegna(); }); };
 })();
 
+/* ---- tabella dei numeri primi: si sceglie quanti vederne (1-500); la griglia si adatta allo spazio ---- */
+const apriPrimi = (() => {
+  const CHIAVE = "numeri-primi-v1", BASE = 25, MAX = 500;
+  const $ = id => document.getElementById(id);
+  const PRIMI = (() => {
+    const lim = 4000, no = new Uint8Array(lim + 1), out = [];
+    for (let i = 2; i <= lim && out.length < MAX; i++) {
+      if (no[i]) continue;
+      out.push(i);
+      for (let j = i * i; j <= lim; j += i) no[j] = 1;
+    }
+    return out;
+  })();
+  let n = carica();
+  function carica() {
+    try { const v = +JSON.parse(localStorage.getItem(CHIAVE)).n; if (v >= 1 && v <= MAX) return Math.round(v); } catch (e) {}
+    return BASE;
+  }
+  function salva() { try { localStorage.setItem(CHIAVE, JSON.stringify({ n })); } catch (e) {} }
+  function disegna() {
+    const tela = $("pr-tela");
+    if (!tela || $("vista-primi").hidden) return;
+    tela.style.height = ""; tela.style.justifyContent = "";
+    const cs = getComputedStyle(tela);
+    const W = tela.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const Htot = tela.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const fT = Math.max(14, Math.min(30, Htot * 0.05, W * 0.04));
+    const H = Htot - fT * 1.6;
+    const cifre = String(PRIMI[n - 1]).length, gap = Math.max(3, Math.min(8, Math.round(Math.min(W, H) / 120)));
+    let best = { f: 0, c: 1 };
+    for (let c = 1; c <= n; c++) {
+      const r = Math.ceil(n / c);
+      const cw = (W - (c - 1) * gap) / c, ch = (H - (r - 1) * gap) / r;
+      const f = Math.min(cw / (0.62 * cifre + 0.9), ch / 1.5, 72);
+      if (f > best.f) best = { f, c, cw, ch };
+    }
+    let f = best.f, cw = Math.min(best.cw, f * (0.62 * cifre + 1.4)), ch = Math.min(best.ch, f * 1.75);
+    /* telefono e schermo in verticale: sotto i 16 px non si legge, allora la tabella si allunga e si scorre col dito */
+    if (best.f < 16 && matchMedia("(max-width: 760px), (orientation: portrait)").matches) {
+      f = 16; cw = f * (0.62 * cifre + 1.4); ch = f * 1.75;
+      best.c = Math.max(1, Math.floor((W + gap) / (cw + gap)));
+      tela.style.height = "auto"; tela.style.justifyContent = "flex-start";
+    }
+    const titolo = n === 1 ? "Il primo numero primo" : `I primi ${n} numeri primi`;
+    tela.innerHTML = `<p class="pr-titolo" style="font-size:${fT}px">${titolo}</p>` +
+      `<div class="pr-griglia" style="grid-template-columns:repeat(${best.c}, ${cw}px);grid-auto-rows:${ch}px;gap:${gap}px">` +
+      PRIMI.slice(0, n).map(p => `<span style="font-size:${f}px">${p}</span>`).join("") + `</div>`;
+  }
+  function moduli() {
+    $("pr-n").textContent = n;
+    document.querySelectorAll("#vista-primi [data-passo]").forEach(b => {
+      const v = n + +b.dataset.passo; b.disabled = v < 1 && n === 1 || v > MAX && n === MAX;
+    });
+    document.querySelectorAll("#vista-primi [data-quanti]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.quanti === n));
+  }
+  function imposta(v) { n = Math.max(1, Math.min(MAX, Math.round(v))); salva(); moduli(); disegna(); }
+  document.querySelectorAll("#vista-primi [data-passo]").forEach(b => b.addEventListener("click", () => imposta(n + +b.dataset.passo)));
+  document.querySelectorAll("#vista-primi [data-quanti]").forEach(b => b.addEventListener("click", () => imposta(+b.dataset.quanti)));
+  $("pr-reset").addEventListener("click", () => {
+    const b = $("pr-reset");
+    if (!b.dataset.attesa) {
+      b.dataset.prima = b.textContent; b.dataset.attesa = "1"; b.textContent = "Confermi? Tocca di nuovo per ricominciare";
+      b._t = setTimeout(() => { delete b.dataset.attesa; b.textContent = b.dataset.prima; }, 4000);
+      return;
+    }
+    clearTimeout(b._t); delete b.dataset.attesa; b.textContent = b.dataset.prima;
+    imposta(BASE);
+    lavagna.azzera(location.hash);
+  });
+  $("pr-comandi").addEventListener("click", () => {
+    const via = $("vista-primi").classList.toggle("senza-comandi");
+    $("pr-comandi").textContent = via ? "Mostra i comandi" : "Nascondi i comandi";
+    disegna();
+  });
+  $("pr-schermo").addEventListener("click", async () => {
+    try { if (document.fullscreenElement) await document.exitFullscreen(); else await $("vista-primi").requestFullscreen(); } catch (e) {}
+  });
+  let attesa = null;
+  window.addEventListener("resize", () => { clearTimeout(attesa); attesa = setTimeout(disegna, 80); });
+  document.addEventListener("fullscreenchange", () => setTimeout(disegna, 60));
+  return () => { moduli(); requestAnimationFrame(disegna); };
+})();
+
 const VISTE = {
   "": ["vista-home", "Materiali interattivi - Sabrina Iellamo"],
   "#1info": ["vista-1info", "Matematica per informatici - 1INFO"],
@@ -3773,7 +3923,8 @@ const VISTE = {
   "#piano-cartesiano": ["vista-piano", "Piano cartesiano personalizzabile"],
   "#foglio": ["vista-foglio", "Foglio per i calcoli"],
   "#retta-numeri": ["vista-retta", "Retta dei numeri"],
-  "#tabella-proporzioni": ["vista-tabella", "Tabella di proporzionalità"]
+  "#tabella-proporzioni": ["vista-tabella", "Tabella di proporzionalità"],
+  "#numeri-primi": ["vista-primi", "Tabella dei numeri primi"]
 };
 /* lo stile grafico di ogni materiale: nella stessa classe due materiali non hanno mai lo stesso.
    Un materiale nuovo riceve uno stile diverso da quelli della sua classe. */
@@ -3788,7 +3939,8 @@ const TEMI = {
   "#esercitazione-fatture": "cioccolato",
   "#piano-cartesiano": "petrolio",
   "#retta-numeri": "terracotta",
-  "#tabella-proporzioni": "oliva"
+  "#tabella-proporzioni": "oliva",
+  "#numeri-primi": "pino"
 };
 function percorso() {
   const v = VISTE[location.hash] || VISTE[""];
@@ -3802,6 +3954,7 @@ function percorso() {
   if (v[0] === "vista-piano") apriPL();
   if (v[0] === "vista-retta") apriRetta();
   if (v[0] === "vista-tabella") apriTabella();
+  if (v[0] === "vista-primi") apriPrimi();
   if (v[0] === "vista-foglio") lavagna.apri();
   else lavagna.riposa();
   const att = document.getElementById(v[0]); if (att) att.scrollTop = 0;
