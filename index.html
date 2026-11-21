@@ -57,7 +57,7 @@ body {
 }
 .vista { height: 100%; display: flex; flex-direction: column; }
 .vista[hidden] { display: none; }
-#vista-home, #vista-1info, #vista-1acc, #vista-2acc, #vista-2est { overflow-y: auto; }
+#vista-home, #vista-strumenti, #vista-1info, #vista-1acc, #vista-2acc, #vista-2est { overflow-y: auto; }
 #vista-home .home { max-width: 60em; padding-top: 1.3em; }
 .settore { background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.9em; padding: 0.8em clamp(14px, 2vw, 24px) 1em; margin-top: 1em; }
 .settore h2 { font-family: var(--font-titoli); font-size: 1.15em; font-weight: 700; color: var(--inchiostro); margin: 0 0 0.7em; padding-bottom: 0.25em; border-bottom: 2px solid var(--blu); }
@@ -850,49 +850,75 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
       </div>
     </section>
     <section class="settore">
-      <h2>Strumenti per tutte le classi</h2>
-      <div class="schede">
-        <a class="materiale" href="#piano-cartesiano">
-          <span><span class="tit">Piano cartesiano personalizzabile</span><br><span class="desc">Scegli gli assi e la quadrettatura, metti punti, figure e rette: da usare alla LIM, da stampare o da scaricare come immagine</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#foglio">
-          <span><span class="tit">Foglio per i calcoli</span><br><span class="desc">Un foglio bianco, a quadretti piccoli, medi o grandi o di carta millimetrata, per scrivere a mano calcoli, formule e osservazioni con la penna della LIM o dell'iPad</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#retta-numeri">
-          <span><span class="tit">Retta dei numeri</span><br><span class="desc">Scegli da dove a dove va e come è divisa, metti i punti, mostra i salti e ingrandisci un tratto: per frazioni, decimali, arrotondamenti, numeri negativi e percentuali</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#tabella-proporzioni">
-          <span><span class="tit">Tabella di proporzionalità</span><br><span class="desc">Due o tre colonne vuote da riempire a mano o con la tastiera, con le frecce del «× 2» tra le righe e tra le colonne: per dosi, sconti, paghe e conversioni</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#numeri-primi">
-          <span><span class="tit">Tabella dei numeri primi</span><br><span class="desc">Scegli quanti numeri primi vedere, da 1 a 500: la tabella si allarga o si stringe per stare tutta nello schermo</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#mcd-mcm">
-          <span><span class="tit">Scomposizione, M.C.D. e m.c.m.</span><br><span class="desc">Scrivi due o tre numeri: compaiono la scomposizione in colonna, le potenze, il M.C.D. e il m.c.m., un passo alla volta quando lo decidi tu</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#frazioni-visive">
-          <span><span class="tit">Frazioni da vedere</span><br><span class="desc">Una o due barre o torte divise in parti: tocca le parti per colorarle e confronta le frazioni</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#cento-quadretti">
-          <span><span class="tit">Griglia dei 100 quadretti</span><br><span class="desc">Colora i quadretti con uno o due colori: la pagina scrive frazione, numero decimale e percentuale, anche per sconti e IVA</span></span>
-          <span class="vai">Apri →</span>
-        </a>
-        <a class="materiale" href="#binario">
-          <span><span class="tit">Binario a interruttori</span><br><span class="desc">Accendi e spegni i bit da 4, 8 o 16 e guarda il numero decimale, oppure parti dal decimale e trova i bit</span></span>
-          <span class="vai">Apri →</span>
+      <h2>Per tutte le classi</h2>
+      <div class="classi">
+        <a class="classe-box" href="#strumenti">
+          <span class="riga"><span class="nome">Strumenti</span><span class="vai">Entra →</span></span>
+          <span class="argomenti">Numeri · Frazioni, proporzioni e percentuali · Piano cartesiano · Informatica · Foglio per i calcoli</span>
         </a>
       </div>
     </section>
   </div>
 </div>
 <div class="vista" id="vista-foglio" hidden></div>
+<div class="vista" id="vista-strumenti" hidden>
+  <div class="home">
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1 style="margin-top:0.6em">Strumenti per tutte le classi</h1>
+    <p class="sotto">Gli strumenti da usare alla LIM, all'iPad o al computer, divisi per argomento.</p>
+    <h3>Numeri</h3>
+    <div class="schede">
+  <a class="materiale" href="#retta-numeri">
+            <span><span class="tit">Retta dei numeri</span><br><span class="desc">Scegli da dove a dove va e come è divisa, metti i punti, mostra i salti e ingrandisci un tratto: per frazioni, decimali, arrotondamenti, numeri negativi e percentuali</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+  <a class="materiale" href="#numeri-primi">
+            <span><span class="tit">Tabella dei numeri primi</span><br><span class="desc">Scegli quanti numeri primi vedere, da 1 a 500: la tabella si allarga o si stringe per stare tutta nello schermo</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+  <a class="materiale" href="#mcd-mcm">
+            <span><span class="tit">Scomposizione, M.C.D. e m.c.m.</span><br><span class="desc">Scrivi due o tre numeri: compaiono la scomposizione in colonna, le potenze, il M.C.D. e il m.c.m., un passo alla volta quando lo decidi tu</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+    </div>
+    <h3>Frazioni, proporzioni e percentuali</h3>
+    <div class="schede">
+  <a class="materiale" href="#frazioni-visive">
+            <span><span class="tit">Frazioni da vedere</span><br><span class="desc">Una o due barre o torte divise in parti: tocca le parti per colorarle e confronta le frazioni</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+  <a class="materiale" href="#tabella-proporzioni">
+            <span><span class="tit">Tabella di proporzionalità</span><br><span class="desc">Due o tre colonne vuote da riempire a mano o con la tastiera, con le frecce del «× 2» tra le righe e tra le colonne: per dosi, sconti, paghe e conversioni</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+  <a class="materiale" href="#cento-quadretti">
+            <span><span class="tit">Griglia dei 100 quadretti</span><br><span class="desc">Colora i quadretti con uno o due colori: la pagina scrive frazione, numero decimale e percentuale, anche per sconti e IVA</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+    </div>
+    <h3>Piano cartesiano</h3>
+    <div class="schede">
+  <a class="materiale" href="#piano-cartesiano">
+            <span><span class="tit">Piano cartesiano personalizzabile</span><br><span class="desc">Scegli gli assi e la quadrettatura, metti punti, figure e rette: da usare alla LIM, da stampare o da scaricare come immagine</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+    </div>
+    <h3>Informatica</h3>
+    <div class="schede">
+  <a class="materiale" href="#binario">
+            <span><span class="tit">Binario a interruttori</span><br><span class="desc">Accendi e spegni i bit da 4, 8 o 16 e guarda il numero decimale, oppure parti dal decimale e trova i bit</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+    </div>
+    <h3>Per scrivere a mano</h3>
+    <div class="schede">
+  <a class="materiale" href="#foglio">
+            <span><span class="tit">Foglio per i calcoli</span><br><span class="desc">Un foglio bianco, a quadretti piccoli, medi o grandi o di carta millimetrata, per scrivere a mano calcoli, formule e osservazioni con la penna della LIM o dell'iPad</span></span>
+            <span class="vai">Apri →</span>
+          </a>
+    </div>
+  </div>
+</div>
 <div class="vista" id="vista-1info" hidden>
   <div class="home">
     <a class="torna" href="#">← Tutte le classi</a>
@@ -1030,7 +1056,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista" id="vista-piano" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Piano cartesiano</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1117,7 +1143,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista" id="vista-retta" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Retta dei numeri</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1196,7 +1222,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista" id="vista-tabella" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Tabella di proporzionalità</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1255,7 +1281,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista" id="vista-primi" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Tabella dei numeri primi</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1295,7 +1321,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista vista-strumento" id="vista-mcd" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Scomposizione, M.C.D. e m.c.m.</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1342,7 +1368,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista vista-strumento" id="vista-frazioni" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Frazioni da vedere</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1396,7 +1422,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista vista-strumento" id="vista-cento" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Griglia dei 100 quadretti</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -1444,7 +1470,7 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
 </div>
 <div class="vista vista-strumento" id="vista-binario" hidden>
   <header>
-    <a class="torna" href="#">← Tutte le classi</a>
+    <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Binario a interruttori</h1>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
@@ -3287,7 +3313,7 @@ const lavagna = (() => {
     layout();
     if (!silenzioso && vista && vista.id !== "vista-foglio") return riposa();
     riposo = false; el.hidden = true; el.classList.remove("riposo");
-    if (!silenzioso && vista && vista.id === "vista-foglio") location.hash = "";
+    if (!silenzioso && vista && vista.id === "vista-foglio") location.hash = "#strumenti";
   }
   /* strumenti chiusi: restano visibili i segni scritti sopra la pagina, che si usa normalmente */
   function riposa() {
@@ -4801,6 +4827,7 @@ const STRUMENTI = {};
 
 const VISTE = {
   "": ["vista-home", "Materiali interattivi - Sabrina Iellamo"],
+  "#strumenti": ["vista-strumenti", "Strumenti per tutte le classi"],
   "#1info": ["vista-1info", "Matematica per informatici - 1INFO"],
   "#1acc": ["vista-1acc", "Matematica per acconciatori - 1ACC"],
   "#2acc": ["vista-2acc", "Matematica per acconciatori - 2ACC"],
