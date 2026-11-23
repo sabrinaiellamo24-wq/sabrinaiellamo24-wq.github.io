@@ -2412,8 +2412,8 @@ function campoHTML(e, v, c, campo) {
 }
 
 /* una schermata: le voci da s a s+n-1 dell'esercizio e */
-function htmlScheda(e, s, n, parti, p) {
-  const es = ESERCIZI[e], mostra = !!stato.soluzioni[e];
+function htmlScheda(e, s, n, parti, p, neutro) {
+  const es = ESERCIZI[e], mostra = !neutro && !!stato.soluzioni[e];
   let h = `<section class="scheda${es.figura ? " fig" : ""}"><div class="testa"><h2><span class="num">${es.n}.</span>${es.titolo}</h2>`;
   if (parti && parti.length > 1) h += `<span class="parti" role="group" aria-label="Parti dell'esercizio">` + parti.map((q, i) =>
     `<button type="button" data-parte="${q[0]}" class="${i === p ? "attivo" : ""}"${i === p ? ` aria-current="true"` : ""}${parti.length > 3 ? ` aria-label="Parte ${i + 1}"` : ""}>${parti.length > 3 ? i + 1 : "Parte " + (i + 1)}</button>`).join("") + `</span>`;
@@ -2445,10 +2445,12 @@ function htmlScheda(e, s, n, parti, p) {
   return h + `</div></div></div></section>`;
 }
 
-/* divide le voci in gruppi che stanno nello schermo senza scorrere */
+/* divide le voci in gruppi che stanno nello schermo senza scorrere.
+   I gruppi si misurano sempre a soluzioni chiuse e restano fissi finché non cambia lo schermo:
+   aprire la soluzione o controllare non cambia mai le parti dell'esercizio. */
 function calcolaPagine(e) {
   const tot = ESERCIZI[e].voci.length, finte = [[0, 1], [1, 1]];
-  const entra = (s, n) => { main.innerHTML = htmlScheda(e, s, n, finte, 0); return main.scrollHeight <= main.clientHeight + 2; };
+  const entra = (s, n) => { main.innerHTML = htmlScheda(e, s, n, finte, 0, true); return main.scrollHeight <= main.clientHeight + 2; };
   /* sul telefono almeno tre voci per parte: lì si può scorrere con il dito, e il tastierino non sposta la pagina */
   const minimo = window.matchMedia("(max-width: 760px), (orientation: portrait)").matches ? 3 : 1;
   const pg = []; let s = 0;
@@ -2489,17 +2491,33 @@ function disegna() {
   const e = stato.attuale, tot = ESERCIZI[e].voci.length;
   disegnaTastierino(ESERCIZI[e]);
   main.scrollTop = 0;
-  pagine = calcolaPagine(e);
+  main.style.fontSize = "";
+  const kp = CHIAVE + "|" + e + "|" + innerWidth + "x" + innerHeight;
+  pagine = PAGINE_FISSE[kp] || (PAGINE_FISSE[kp] = calcolaPagine(e));
   const pv = Math.min(primaVoce, tot - 1);
   pIdx = Math.max(0, pagine.findIndex(q => pv >= q[0] && pv < q[0] + q[1]));
   primaVoce = pv;
   main.innerHTML = htmlScheda(e, pagine[pIdx][0], pagine[pIdx][1], pagine, pIdx);
   adatta();
+  stringi();
   main.scrollTop = 0;
   segnaAttiva();
   aggiornaTasti();
 }
 /* se la schermata non entra per colpa di un disegno, il disegno si rimpicciolisce finché entra */
+const PAGINE_FISSE = {};
+/* se con la soluzione aperta la parte non sta più nello schermo, si rimpicciolisce il testo
+   (prima quello delle soluzioni, poi tutto), invece di dividere l'esercizio in altre parti.
+   Sul telefono e in verticale no: lì si scorre con il dito. */
+const scorribile = window.matchMedia("(max-width: 760px), (orientation: portrait)");
+function stringi() {
+  if (scorribile.matches) return;
+  const fuori = () => main.scrollHeight > main.clientHeight + 2;
+  if (!fuori()) return;
+  const sol = Array.from(main.querySelectorAll(".soluzione"));
+  for (let f = 0.84; f >= 0.7 && fuori(); f -= 0.07) sol.forEach(x => { x.style.fontSize = f.toFixed(2) + "em"; });
+  for (let f = 0.95; f >= 0.62 && fuori(); f -= 0.03) main.style.fontSize = f.toFixed(2) + "em";
+}
 function adatta() {
   const dis = Array.from(main.querySelectorAll(".pc, .figura"));
   if (!dis.length) return;
@@ -2649,7 +2667,7 @@ document.getElementById("ripresa-continua").addEventListener("click", () => docu
 document.getElementById("ripresa-nuovo").addEventListener("click", () => { document.getElementById("ripresa").classList.remove("aperto"); azzera(); });
 /* se cambia la misura dello schermo o arrivano i caratteri, i gruppi si ricalcolano */
 let attesa = null;
-const ricalcola = () => { clearTimeout(attesa); attesa = setTimeout(() => { if (!document.getElementById("vista-sim").hidden) disegna(); }, 120); };
+const ricalcola = () => { clearTimeout(attesa); attesa = setTimeout(() => { Object.keys(PAGINE_FISSE).forEach(k => delete PAGINE_FISSE[k]); if (!document.getElementById("vista-sim").hidden) disegna(); }, 120); };
 window.addEventListener("resize", ricalcola);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(ricalcola);
 if (document.fonts) document.fonts.addEventListener("loadingdone", ricalcola);  /* i caratteri dei titoli cambiano da un materiale all'altro */
