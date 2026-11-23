@@ -766,7 +766,7 @@ body[data-tema="oliva"] {
 body[data-tema="terracotta"] header { border-bottom: 5px double var(--blu); }
 body[data-tema="terracotta"] header h1 { text-transform: uppercase; letter-spacing: 0.06em; }
 body[data-tema="oliva"] header { background: var(--blu); border-bottom: 0; }
-body[data-tema="oliva"] header h1 { color: #fff; }
+body[data-tema="oliva"] header h1, body[data-tema="oliva"] header .contatore { color: #fff; }
 body[data-tema="oliva"] header .torna { border-color: #fff; }
 body[data-tema="oliva"] header :focus-visible { outline-color: #fff; }
 
@@ -928,6 +928,10 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
     <div class="schede">
       <a class="materiale" href="#slide-proporzioni">
         <span><span class="tit">Slide: rapporti e proporzioni</span><br><span class="desc">51 slide, da sfogliare con le frecce</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#slide-regole-proporzioni">
+        <span><span class="tit">Slide: tutte le regole delle proporzioni</span><br><span class="desc">Una slide che raccoglie proprietà, termine che manca, invertire, permutare, comporre e scomporre</span></span>
         <span class="vai">Apri →</span>
       </a>
       <a class="materiale" href="#esercitazione-rapporto">
@@ -2487,7 +2491,8 @@ if (document.fonts) document.fonts.addEventListener("loadingdone", ricalcola);  
 
 const MAZZI = {
   "#slide-proporzioni": { titolo: "Slide · Rapporti e proporzioni", cartella: "slide/proporzioni", n: 51 },
-  "#slide-percentuali": { titolo: "Slide · Le percentuali", cartella: "slide/percentuali", n: 18 }
+  "#slide-percentuali": { titolo: "Slide · Le percentuali", cartella: "slide/percentuali", n: 18 },
+  "#slide-regole-proporzioni": { titolo: "Slide · Tutte le regole delle proporzioni", cartella: "slide/regole-proporzioni", n: 1 }
 };
 let mazzo = null, pagina = 1;
 const imgSlide = document.getElementById("slide-img");
@@ -4844,6 +4849,7 @@ const VISTE = {
   "#esercitazione-parte-percentuale": ["vista-sim", "Esercitazione 2 - Trovare la parte e la percentuale"],
   "#slide-proporzioni": ["vista-slide", "Slide rapporti e proporzioni"],
   "#slide-percentuali": ["vista-slide", "Slide le percentuali"],
+  "#slide-regole-proporzioni": ["vista-slide", "Slide tutte le regole delle proporzioni"],
   "#piano-cartesiano": ["vista-piano", "Piano cartesiano personalizzabile"],
   "#foglio": ["vista-foglio", "Foglio per i calcoli"],
   "#retta-numeri": ["vista-retta", "Retta dei numeri"],
@@ -4861,6 +4867,7 @@ const TEMI = {
   "#esercitazione-rapporto": "ambra",
   "#simulazione-proporzioni": "viola",
   "#slide-percentuali": "petrolio",
+  "#slide-regole-proporzioni": "oliva",
   "#esercizi-piano-cartesiano": "prugna",
   "#esercitazione-per-cento": "ardesia",
   "#esercitazione-parte-percentuale": "viola",
