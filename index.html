@@ -24,7 +24,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&family=Space+Grotesk:wght@700&family=Bitter:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@700&family=Baloo+2:wght@700&family=Nunito:wght@700;800&family=Rubik:wght@600;700&family=Sora:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&family=Space+Grotesk:wght@700&family=Bitter:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@700&family=Baloo+2:wght@700&family=Nunito:wght@700;800&family=Rubik:wght@600;700&family=Sora:wght@700&family=Playfair+Display:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* pagina a una sola tema chiaro: si legge bene sulla LIM e su carta proiettata */
@@ -57,7 +57,7 @@ body {
 }
 .vista { height: 100%; display: flex; flex-direction: column; }
 .vista[hidden] { display: none; }
-#vista-home, #vista-strumenti, #vista-1info, #vista-1acc, #vista-2acc, #vista-1est, #vista-2est { overflow-y: auto; }
+#vista-home, #vista-strumenti, #vista-1info, #vista-1acc, #vista-2acc, #vista-3acc, #vista-1est, #vista-2est { overflow-y: auto; }
 #vista-home .home { max-width: 60em; padding-top: 1.3em; }
 .settore { background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.9em; padding: 0.8em clamp(14px, 2vw, 24px) 1em; margin-top: 1em; }
 .settore h2 { font-family: var(--font-titoli); font-size: 1.15em; font-weight: 700; color: var(--inchiostro); margin: 0 0 0.7em; padding-bottom: 0.25em; border-bottom: 2px solid var(--blu); }
@@ -817,6 +817,76 @@ body[data-tema="ardesia"] .voce { box-shadow: 3px 3px 0 var(--filo); border-radi
 body[data-tema="cioccolato"] .voce { border-radius: 0.4em; }
 body[data-tema="petrolio"] .scheda h2 { border-left: 6px solid var(--blu); padding-left: 0.45em; }
 body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.7em; height: 1.7em; padding: 0 0.35em; border-radius: 999px; background: var(--blu); color: #fff; font-size: 0.85em; vertical-align: 0.08em; }
+
+/* ====== simulazione problemi di scelta 3ACC (2026-11-23): tema «zaffiro», tabella con le scelte, pareggio, rette ====== */
+body[data-tema="zaffiro"] {
+  --blu: #1b5379; --blu-chiaro: #dfeaf3; --casella-attiva: #f1f6fa;
+  --carta: #f3f6f9; --foglio: #ffffff; --filo: #cdd9e3; --font-titoli: "Quicksand", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: linear-gradient(135deg, transparent 47%, #e2e9f0 47% 53%, transparent 53%); --motivo-size: 20px 20px;
+}
+body[data-tema="zaffiro"] header { border-bottom: 5px solid #c9a227; }
+body[data-tema="zaffiro"] .scheda h2 .num { color: #a8841a; }
+body[data-tema="zaffiro"] .voce { border-radius: 0.3em 0.9em 0.3em 0.9em; }
+body[data-tema="zaffiro"] nav .gruppo { color: #8a6d12; font-weight: 700; }
+.consegna .opz { display: block; padding-left: 1.05em; text-indent: -0.75em; }
+.consegna .opz::before { content: "•"; color: var(--blu); margin-right: 0.45em; }
+.consegna .cosa { display: block; margin-top: 0.35em; font-weight: 700; color: var(--blu); }
+.consegna .cosa i { font-weight: 400; color: var(--tenue); }
+.fattura .scelte.multi { gap: 0.25em; flex-wrap: nowrap; }
+#vista-sim .fattura .scelte.multi button { padding: 0.05em 0.6em; min-height: 1.55em; font-size: 0.95em; }
+.campo.spento .casella { opacity: 0.35; }
+.sol-tab { font-size: 0.85em; margin: 0.2em 0 0.4em; max-width: none; }
+.sol-tab td, .sol-tab th { white-space: nowrap; }
+.pr-gr { stroke: #b9c6d2; stroke-width: 1; }
+.pr-gr2 { stroke: #e1e7ed; stroke-width: 1; }
+.pr-n { font: 16px var(--font-testo); fill: #4f5d6b; }
+.pr-asse { font: italic 17px var(--font-testo); fill: #1d2733; }
+.pr-r { stroke-width: 3.2; fill: none; stroke-linecap: round; }
+.pr-r.pr-a { stroke: var(--blu); }
+.pr-r.pr-b { stroke: #1d2733; stroke-dasharray: 10 6; }
+.pr-r.pr-c { stroke: #7a6a1e; stroke-dasharray: 2 6; stroke-width: 3.8; }
+.pr-r.sel { stroke-width: 4.4; }
+.pr-p.pr-a, .pr-et.pr-a { fill: var(--blu); }
+.pr-p.pr-b, .pr-et.pr-b { fill: #1d2733; }
+.pr-p.pr-c, .pr-et.pr-c { fill: #7a6a1e; }
+.pr-et { font: 700 17px var(--font-testo); paint-order: stroke; stroke: #fff; stroke-width: 4px; }
+.pr-r.ok { stroke: var(--giusto); } .pr-r.ko { stroke: var(--sbagliato); }
+.pr-p.ok, .pr-et.ok { fill: var(--giusto); } .pr-p.ko, .pr-et.ko { fill: var(--sbagliato); }
+.pr-par { fill: none; stroke: #c9a227; stroke-width: 3; }
+.pr-pp { fill: #c9a227; }
+.pr-par.ok { stroke: var(--giusto); } .pr-pp.ok { fill: var(--giusto); }
+.pr-par.ko { stroke: var(--sbagliato); } .pr-pp.ko { fill: var(--sbagliato); }
+.pr-ep { font: 700 14px var(--font-testo); fill: #1d2733; paint-order: stroke; stroke: #fff; stroke-width: 4px; }
+.piano-rette .chips button { display: inline-flex; align-items: center; gap: 0.45em; }
+.piano-rette .chips .seg { display: inline-block; width: 1.4em; height: 0; border-top: 3px solid var(--blu); }
+.piano-rette .chips .chip-B .seg { border-top: 3px dashed #1d2733; }
+.piano-rette .chips .chip-C .seg { border-top: 4px dotted #7a6a1e; }
+.piano-rette .chips .cerchio { display: inline-block; width: 0.85em; height: 0.85em; border: 3px solid #c9a227; border-radius: 50%; }
+#vista-sim .soluzione .figura.figura-rette { width: min(22em, 44vh); }
+#vista-sim .sol-lato .figura.figura-rette { width: min(100%, 62vh); }
+.pdf-doc .piano-rette .pc { width: 330px !important; }
+.pdf-doc .soluzione .figura.figura-rette { width: 300px; }
+.pdf-doc .fattura .scelte.multi button { font-size: 12px; padding: 1px 7px; }
+.pdf-doc .consegna .opz { padding-left: 14px; }
+/* testo del problema a sinistra, esercizio a destra: sulla LIM e sul computer tutto entra senza scorrere */
+@media (min-width: 900px) and (orientation: landscape) {
+  #vista-sim .scheda.affianca { display: grid; grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr); column-gap: 1.1em; max-width: none; align-items: start; }
+  #vista-sim .scheda.affianca > .testa { grid-column: 1 / -1; }
+  #vista-sim .scheda.affianca > .consegna { grid-column: 1; margin: 0; background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.7em; padding: 0.55em 0.75em; font-size: 0.9em; line-height: 1.38; }
+  #vista-sim .scheda.affianca > .due { grid-column: 2; }
+}
+#vista-sim .piano-rette { flex-direction: column; align-items: flex-start; }
+#vista-sim .piano-rette .chips { flex-direction: row; flex-wrap: wrap; }
+#vista-sim .fattura .casella { height: 1.6em; }
+#vista-sim .fattura td { padding-top: 0.18em; padding-bottom: 0.18em; }
+#vista-sim .nota.aiuto { font-size: 0.78em; line-height: 1.35; }
+#vista-sim .sol-lato { color: var(--inchiostro); }
+#vista-sim .sol-lato .cosa { margin: 0 0 0.25em; }
+#vista-sim .sol-lato .sol-voce { font-size: 0.92em; padding: 0.3em 0; border-top: 1px dashed var(--filo); }
+#vista-sim .sol-lato .sol-voce:first-of-type { border-top: 0; padding-top: 0; }
+#vista-sim .sol-lato .figura { margin: 0.4em 0 0; max-width: 100%; width: 100%; }
+#vista-sim .sol-lato .sol-tab { font-size: 0.9em; width: auto; }
+#vista-sim .sol-lato .sol-tab td, #vista-sim .sol-lato .sol-tab th { padding: 0.12em 0.5em; text-align: center; }
 </style>
 </head>
 <body>
@@ -843,10 +913,10 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
           <span class="riga"><span class="nome">Seconda · 2ACC</span><span class="vai">Entra →</span></span>
           <span class="argomenti">Percentuali</span>
         </a>
-        <div class="classe-box vuota">
-          <span class="nome">Terza · 3ACC</span>
-          <span class="argomenti">Ancora nessun materiale</span>
-        </div>
+        <a class="classe-box" href="#3acc">
+          <span class="riga"><span class="nome">Terza · 3ACC</span><span class="vai">Entra →</span></span>
+          <span class="argomenti">Problemi di scelta</span>
+        </a>
       </div>
     </section>
     <section class="settore">
@@ -1010,6 +1080,20 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
     <div class="schede">
       <a class="materiale" href="#esercitazione-listino-ordine">
         <span><span class="tit">Esercitazione: il listino e l'ordine</span><br><span class="desc">15 problemi, con il controllo delle risposte e le soluzioni</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="vista" id="vista-3acc" hidden>
+  <div class="home">
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1 style="margin-top:0.6em">Matematica per acconciatori · Terza (3ACC)</h1>
+    <p class="sotto">I materiali della classe, divisi per argomento.</p>
+    <h3>Problemi di scelta</h3>
+    <div class="schede">
+      <a class="materiale" href="#simulazione-problemi-scelta">
+        <span><span class="tit">Simulazione di verifica: problemi di scelta</span><br><span class="desc">3 problemi (il gloss, le meches in due saloni, la barba) con tabella, funzioni, punto di pareggio, grafico e analisi, con il controllo delle risposte e le soluzioni</span></span>
         <span class="vai">Apri →</span>
       </a>
     </div>
@@ -2249,6 +2333,211 @@ const ESERCIZI_LISTINO_EST = [
     ] }
 ];
 
+
+/* ---------------- piano per i problemi di scelta ----------------
+   Assi con scale diverse (x di 1 in 1, y di 10, 20, 40… euro), frecce solo sul verso positivo.
+   Le rette si tracciano toccando due punti; i punti di pareggio si evidenziano con un cerchio. */
+const RG = { PW: 400, PH: 360, ML: 50, MT: 30, MR: 40, MB: 44 };
+const NOMI_R = { A: "pr-a", B: "pr-b", C: "pr-c" };
+function tagliaRetta(p, q, xmax, ymax) {
+  const dx = q[0] - p[0], dy = q[1] - p[1];
+  let t0 = -Infinity, t1 = Infinity;
+  const lati = [[-dx, p[0]], [dx, xmax - p[0]], [-dy, p[1]], [dy, ymax - p[1]]];
+  for (const [a, b] of lati) {
+    if (a === 0) { if (b < 0) return null; continue; }
+    const t = b / a;
+    if (a < 0) t0 = Math.max(t0, t); else t1 = Math.min(t1, t);
+  }
+  if (t0 > t1) return null;
+  return [[p[0] + t0 * dx, p[1] + t0 * dy], [p[0] + t1 * dx, p[1] + t1 * dy]];
+}
+function svgRette(c, st, k) {
+  const { PW, PH, ML, MT, MR, MB } = RG, UX = PW / c.xmax, UY = PH / c.ymax;
+  const X = x => +(ML + x * UX).toFixed(2), Y = y => +(MT + (c.ymax - y) * UY).toFixed(2);
+  const W = ML + PW + MR, H = MT + PH + MB;
+  let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"${k ? ` data-rette="${k}"` : ""} role="img" aria-label="Piano cartesiano: ${c.xnome} sull'asse x, euro sull'asse y">`;
+  for (let y = c.ystep; y <= c.ymax; y += c.ystep) s += `<line class="${y % c.ylab ? "pr-gr2" : "pr-gr"}" x1="${X(0)}" y1="${Y(y)}" x2="${X(c.xmax)}" y2="${Y(y)}"/>`;
+  for (let x = 1; x <= c.xmax; x++) s += `<line class="pr-gr" x1="${X(x)}" y1="${Y(0)}" x2="${X(x)}" y2="${Y(c.ymax)}"/>`;
+  const ax = X(c.xmax) + 22, ay = Y(c.ymax) - 20;
+  s += `<line class="pc-as" x1="${X(0)}" y1="${Y(0)}" x2="${ax}" y2="${Y(0)}"/><polygon class="pc-fr" points="${ax + 7},${Y(0)} ${ax - 2},${Y(0) - 5} ${ax - 2},${Y(0) + 5}"/>`;
+  s += `<line class="pc-as" x1="${X(0)}" y1="${Y(0)}" x2="${X(0)}" y2="${ay}"/><polygon class="pc-fr" points="${X(0)},${ay - 7} ${X(0) - 5},${ay + 2} ${X(0) + 5},${ay + 2}"/>`;
+  for (let x = 1; x <= c.xmax; x++) s += `<text class="pr-n" text-anchor="middle" x="${X(x)}" y="${Y(0) + 18}">${x}</text>`;
+  for (let y = c.ylab; y <= c.ymax; y += c.ylab) s += `<text class="pr-n" text-anchor="end" x="${X(0) - 7}" y="${Y(y) + 5}">${y}</text>`;
+  s += `<text class="pr-n" text-anchor="end" x="${X(0) - 6}" y="${Y(0) + 18}">0</text>`;
+  s += `<text class="pr-asse" text-anchor="end" x="${ax + 8}" y="${Y(0) + 38}">${c.xnome}</text><text class="pr-asse" text-anchor="start" x="${X(0) + 10}" y="${ay + 4}">euro</text>`;
+  const linee = st.linee || {};
+  Object.keys(c.rette).forEach(n => {
+    const p = linee[n] || [], cls = NOMI_R[n] + (st.cls && st.cls[n] ? " " + st.cls[n] : "") + (st.sel === n ? " sel" : "");
+    if (p.length === 2 && (p[0][0] !== p[1][0] || p[0][1] !== p[1][1])) {
+      const t = tagliaRetta(p[0], p[1], c.xmax, c.ymax);
+      if (t) {
+        s += `<line class="pr-r ${cls}" x1="${X(t[0][0])}" y1="${Y(t[0][1])}" x2="${X(t[1][0])}" y2="${Y(t[1][1])}"/>`;
+        const e = t[0][0] > t[1][0] || (t[0][0] === t[1][0] && t[0][1] > t[1][1]) ? t[0] : t[1];
+        const lx = Math.min(X(e[0]) + 8, ML + PW + MR - 14), ly = Math.max(Y(e[1]) + (e[0] >= c.xmax - 0.01 ? 5 : -6), 16);
+        s += `<text class="pr-et ${cls}" x="${lx}" y="${ly}">${n}</text>`;
+      }
+    }
+    if (!st.soloRette) p.forEach(q => { s += `<circle class="pr-p ${cls}" cx="${X(q[0])}" cy="${Y(q[1])}" r="5.5"/>`; });
+  });
+  (st.par || []).forEach(q => {
+    const cls = st.clsPar ? st.clsPar(q) : "";
+    s += `<circle class="pr-par ${cls}" cx="${X(q[0])}" cy="${Y(q[1])}" r="11"/><circle class="pr-pp ${cls}" cx="${X(q[0])}" cy="${Y(q[1])}" r="3.5"/>`;
+    if (st.etPar) s += `<text class="pr-ep" x="${X(q[0]) + 13}" y="${Y(q[1]) + 22}">(${q[0]}; ${q[1]})</text>`;
+  });
+  return s + `</svg>`;
+}
+/* la soluzione: le rette giuste e i pareggi */
+function solRette(c) {
+  const linee = {};
+  Object.keys(c.rette).forEach(n => { const [q, m] = c.rette[n]; linee[n] = [[0, q], [c.xmax, q + m * c.xmax]]; });
+  return `<div class="figura figura-rette">` + svgRette(c, { linee, par: c.par, soloRette: true, etPar: true }) + `</div>`;
+}
+const RETTI = {};
+const stessoInsieme = (a, b) => { const k = x => x.map(p => p[0] + ";" + p[1]).sort().join("|"); return k(a) === k(b); };
+function rettaGiusta(campo, p, n) {
+  if (!p || p.length !== 2 || (p[0][0] === p[1][0] && p[0][1] === p[1][1])) return false;
+  const [q, m] = campo.rette[n];
+  return p.every(pt => uguale(pt[1], q + m * pt[0]));
+}
+
+/* ---------------- 3ACC · simulazione della verifica sui problemi di scelta (stessi dati della 040) ---------------- */
+const MULTI = (opzioni, giuste) => ({ m: opzioni, g: giuste });          // cella della tabella: si toccano una o più opzioni
+const Z = (v, unita, prima) => ({ t: "num", v, unita, prima, zero: true }); // casella che, se resta vuota, vale 0
+const PAR = (x, y) => ({ t: "pareggio", x, y });                           // (x; y) oppure «non c'è» (x = null)
+const RETTE = cfg => Object.assign({ t: "rette" }, cfg);                  // rette da tracciare con due punti + pareggi
+const YX = (q, m) => [Z(q, "", "<i>y</i> ="), Z(m, "<i>x</i>", "+")];
+const solFun = (q, m) => m === 0 ? `<i>y</i> = <b>${q}</b>` : q === 0 ? `<i>y</i> = <b>${m}<i>x</i></b> (la parte fissa è 0)` : `<i>y</i> = <b>${q} + ${m}<i>x</i></b>`;
+const solTab = (testa, righe) => `<table class="fattura sol-tab"><thead><tr>${testa.map(t => `<th>${t}</th>`).join("")}</tr></thead><tbody>` +
+  righe.map(r => `<tr>${r.map(t => `<td>${t}</td>`).join("")}</tr>`).join("") + `</tbody></table>`;
+const ISTR_TAB = "I calcoli sul quaderno, i risultati qui. In «Quale conviene?» tocca l'opzione che costa meno; se le più economiche sono due, toccale tutte e due.";
+const COME_RETTE = "Tocca il nome di una retta, poi tocca sul piano due punti della retta: la retta si disegna da sola. Con «Pareggio» tocca un punto per evidenziarlo, toccalo di nuovo per toglierlo.";
+const opzioni = righe => righe.map(r => `<span class="opz">${r}</span>`).join("");
+const T_GLOSS = "Un salone fa il gloss, un trattamento che ravviva il colore dei capelli schiariti. Chi ha i capelli schiariti lo rifà circa una volta al mese. Per tutto l'anno ci sono due modi di pagare." +
+  opzioni(["<b>Opzione A</b>, con la tessera annuale: 80&nbsp;€ una volta sola, più 20&nbsp;€ per ogni gloss.", "<b>Opzione B</b>, senza tessera: 40&nbsp;€ per ogni gloss."]);
+const T_MECHES = "Nello stesso paese ci sono due saloni. Chi fa le meches le rifà ogni due mesi circa. Tutti e due i saloni propongono una tessera colore che vale un anno." +
+  opzioni(["<b>Salone A</b>: tessera da 80&nbsp;€, più 60&nbsp;€ per ogni servizio di meches.", "<b>Salone B</b>: tessera da 20&nbsp;€, più 60&nbsp;€ per ogni servizio di meches."]);
+const T_BARBA = "Un salone fa anche la barba. Chi tiene la barba curata la fa sistemare ogni due settimane. Per tutto l'anno ci sono tre modi di pagare." +
+  opzioni(["<b>Opzione A</b>, senza tessera: 15&nbsp;€ per ogni servizio barba.", "<b>Opzione B</b>, con la tessera base: 30&nbsp;€ una volta sola, più 10&nbsp;€ per ogni servizio barba.", "<b>Opzione C</b>, con la tessera completa: 80&nbsp;€ una volta sola, più 5&nbsp;€ per ogni servizio barba."]);
+const consegnaDi = (testo, cosa) => testo + `<span class="cosa">${cosa}</span>`;
+const AB = ["A", "B"], ABC = ["A", "B", "C"];
+const P_GLOSS = { xmax: 9, ymax: 360, ystep: 20, ylab: 40, xnome: "gloss", rette: { A: [80, 20], B: [0, 40] }, par: [[4, 160]] };
+const P_MECHES = { xmax: 6, ymax: 400, ystep: 20, ylab: 40, xnome: "servizi", rette: { A: [80, 60], B: [20, 60] }, par: [] };
+const P_BARBA = { xmax: 13, ymax: 200, ystep: 10, ylab: 20, xnome: "servizi", rette: { A: [0, 15], B: [30, 10], C: [80, 5] }, par: [[6, 90], [10, 130]] };
+const O_DUE = ["conviene A", "conviene B", "A e B costano uguale"];
+const O_TRE = ["conviene A", "conviene B", "conviene C", "A e B costano uguale", "B e C costano uguale", "A e C costano uguale"];
+const ESERCIZI_SCELTA_ACC = [
+  /* ---- Problema 1 · Il gloss ---- */
+  { n: 1, g: 0, interi: true, titolo: "Il gloss · la tabella", consegna: consegnaDi(T_GLOSS, "Completa la tabella."), aiuto: ISTR_TAB,
+    voci: [["", [TB(["n. gloss", "Opzione A (€)", "Opzione B (€)", "Quale conviene?"], [
+      ["0", V(80), V(0), MULTI(AB, [1])],
+      ["2", V(120), V(80), MULTI(AB, [1])],
+      ["3", V(140), V(120), MULTI(AB, [1])],
+      ["4", V(160), V(160), MULTI(AB, [0, 1])],
+      ["5", V(180), V(200), MULTI(AB, [0])],
+      ["8", V(240), V(320), MULTI(AB, [0])]])],
+      "Opzione A: 80 + 20 · numero di gloss. Opzione B: 40 · numero di gloss.<br>Per esempio con 3 gloss: A = 80 + 20 · 3 = 140, B = 40 · 3 = 120." +
+      solTab(["n. gloss", "A (€)", "B (€)", "conviene"], [
+        ["0", "<b>80</b>", "<b>0</b>", "<b>B</b>"],
+        ["2", "<b>120</b>", "<b>80</b>", "<b>B</b>"],
+        ["3", "<b>140</b>", "<b>120</b>", "<b>B</b>"],
+        ["4", "<b>160</b>", "<b>160</b>", "<b>A e B</b> (uguale)"],
+        ["5", "<b>180</b>", "<b>200</b>", "<b>A</b>"],
+        ["8", "<b>240</b>", "<b>320</b>", "<b>A</b>"]]), ""]] },
+  { n: 2, g: 0, interi: true, titolo: "Il gloss · le funzioni", consegna: consegnaDi(T_GLOSS, "Scrivi le funzioni del costo (<i>y</i>) delle due opzioni, con <i>x</i> = numero di gloss."),
+    voci: [
+      ["Opzione A", YX(80, 20), "80 € una volta sola, più 20 € per ogni gloss: " + solFun(80, 20), ""],
+      ["Opzione B", YX(0, 40), "Solo 40 € per ogni gloss: " + solFun(0, 40), ""]
+    ] },
+  { n: 3, g: 0, interi: true, titolo: "Il gloss · il punto di pareggio", consegna: consegnaDi(T_GLOSS, "Trova il punto di pareggio."),
+    voci: [["Punto di pareggio", [PAR(4, 160)],
+      "80 + 20<i>x</i> = 40<i>x</i> → 80 = 40<i>x</i> − 20<i>x</i> → 80 = 20<i>x</i> → <i>x</i> = 80 : 20 = 4<br>Controllo: 80 + 20 · 4 = 160 e 40 · 4 = 160.<br>Pareggio: <b>(4; 160)</b>, cioè con 4 gloss si spendono 160 € con tutte e due le opzioni.", ""]] },
+  { n: 4, g: 0, interi: true, titolo: "Il gloss · il grafico", consegna: consegnaDi(T_GLOSS, "Disegna nel piano cartesiano le rette delle due funzioni ed evidenzia il punto di pareggio."), aiuto: COME_RETTE,
+    voci: [["", [RETTE(P_GLOSS)], "Retta A: parte da (0; 80) e passa per esempio per (8; 240). Retta B: parte da (0; 0) e passa per esempio per (8; 320). Si incontrano nel pareggio <b>(4; 160)</b>." + "%PIANO%", ""]] },
+  { n: 5, g: 0, interi: true, titolo: "Il gloss · l'analisi", consegna: consegnaDi(T_GLOSS, "Scrivi l'analisi derivante dalla tabella: completa le frasi."),
+    voci: [
+      ["Con meno di 4 gloss:", [C(O_DUE, 1)], "Con meno di 4 gloss <b>conviene B</b>, senza tessera.", ""],
+      ["Con 4 gloss:", [C(O_DUE, 2)], "Con 4 gloss <b>A e B costano uguale</b>: 160 €.", ""],
+      ["Con più di 4 gloss:", [C(O_DUE, 0)], "Con più di 4 gloss <b>conviene A</b>, con la tessera.", ""]
+    ] },
+  /* ---- Problema 2 · Le meches in due saloni ---- */
+  { n: 1, g: 1, interi: true, titolo: "Le meches · la tabella", consegna: consegnaDi(T_MECHES, "Completa la tabella."), aiuto: ISTR_TAB,
+    voci: [["", [TB(["n. servizi", "Salone A (€)", "Salone B (€)", "Quale conviene?"], [
+      ["0", V(80), V(20), MULTI(AB, [1])],
+      ["1", V(140), V(80), MULTI(AB, [1])],
+      ["2", V(200), V(140), MULTI(AB, [1])],
+      ["3", V(260), V(200), MULTI(AB, [1])],
+      ["4", V(320), V(260), MULTI(AB, [1])],
+      ["5", V(380), V(320), MULTI(AB, [1])]])],
+      "Salone A: 80 + 60 · numero di servizi. Salone B: 20 + 60 · numero di servizi.<br>Per esempio con 3 servizi: A = 80 + 60 · 3 = 260, B = 20 + 60 · 3 = 200." +
+      solTab(["n. servizi", "A (€)", "B (€)", "conviene"], [
+        ["0", "<b>80</b>", "<b>20</b>", "<b>B</b>"],
+        ["1", "<b>140</b>", "<b>80</b>", "<b>B</b>"],
+        ["2", "<b>200</b>", "<b>140</b>", "<b>B</b>"],
+        ["3", "<b>260</b>", "<b>200</b>", "<b>B</b>"],
+        ["4", "<b>320</b>", "<b>260</b>", "<b>B</b>"],
+        ["5", "<b>380</b>", "<b>320</b>", "<b>B</b>"]]), ""]] },
+  { n: 2, g: 1, interi: true, titolo: "Le meches · le funzioni", consegna: consegnaDi(T_MECHES, "Scrivi le funzioni del costo (<i>y</i>) dei due saloni, con <i>x</i> = numero di servizi di meches."),
+    voci: [
+      ["Salone A", YX(80, 60), "Tessera da 80 €, più 60 € per ogni servizio: " + solFun(80, 60), ""],
+      ["Salone B", YX(20, 60), "Tessera da 20 €, più 60 € per ogni servizio: " + solFun(20, 60), ""]
+    ] },
+  { n: 3, g: 1, interi: true, titolo: "Le meches · il punto di pareggio", consegna: consegnaDi(T_MECHES, "Trova il punto di pareggio."),
+    voci: [["Punto di pareggio", [PAR(null)],
+      "80 + 60<i>x</i> = 20 + 60<i>x</i> → 60<i>x</i> − 60<i>x</i> = 20 − 80 → 0 = −60, che è falso: l'equazione è <b>impossibile</b>.<br>Le rette sono parallele e non si incontrano mai: <b>non c'è punto di pareggio</b>.", ""]] },
+  { n: 4, g: 1, interi: true, titolo: "Le meches · il grafico", consegna: consegnaDi(T_MECHES, "Disegna nel piano cartesiano le rette delle due funzioni ed evidenzia il punto di pareggio."), aiuto: COME_RETTE,
+    voci: [["", [RETTE(P_MECHES)], "Retta A: parte da (0; 80) e passa per esempio per (5; 380). Retta B: parte da (0; 20) e passa per esempio per (5; 320). Le rette sono <b>parallele</b>: non c'è un punto di pareggio da evidenziare." + "%PIANO%", ""]] },
+  { n: 5, g: 1, interi: true, titolo: "Le meches · l'analisi", consegna: consegnaDi(T_MECHES, "Scrivi l'analisi derivante dalla tabella: completa le frasi."),
+    voci: [
+      ["Con qualsiasi numero di servizi:", [C(["conviene il salone A", "conviene il salone B", "dipende dal numero di servizi"], 1)], "<b>Conviene sempre il salone B</b>.", ""],
+      ["Quanto si spende in meno con il salone che conviene?", [N(60, "€")], "Ogni volta <b>60 €</b> in meno: la tessera costa 80 − 20 = 60 € in meno e ogni servizio costa uguale.", ""]
+    ] },
+  /* ---- Problema 3 · La barba ---- */
+  { n: 1, g: 2, interi: true, titolo: "La barba · la tabella", consegna: consegnaDi(T_BARBA, "Completa la tabella."), aiuto: ISTR_TAB,
+    voci: [["", [TB(["n. servizi", "Opzione A (€)", "Opzione B (€)", "Opzione C (€)", "Quale conviene?"], [
+      ["0", V(0), V(30), V(80), MULTI(ABC, [0])],
+      ["4", V(60), V(70), V(100), MULTI(ABC, [0])],
+      ["6", V(90), V(90), V(110), MULTI(ABC, [0, 1])],
+      ["8", V(120), V(110), V(120), MULTI(ABC, [1])],
+      ["10", V(150), V(130), V(130), MULTI(ABC, [1, 2])],
+      ["12", V(180), V(150), V(140), MULTI(ABC, [2])]])],
+      "Opzione A: 15 · numero di servizi. Opzione B: 30 + 10 · numero di servizi. Opzione C: 80 + 5 · numero di servizi.<br>Per esempio con 4 servizi: A = 15 · 4 = 60, B = 30 + 10 · 4 = 70, C = 80 + 5 · 4 = 100." +
+      solTab(["n. servizi", "A (€)", "B (€)", "C (€)", "conviene"], [
+        ["0", "<b>0</b>", "<b>30</b>", "<b>80</b>", "<b>A</b>"],
+        ["4", "<b>60</b>", "<b>70</b>", "<b>100</b>", "<b>A</b>"],
+        ["6", "<b>90</b>", "<b>90</b>", "<b>110</b>", "<b>A e B</b>"],
+        ["8", "<b>120</b>", "<b>110</b>", "<b>120</b>", "<b>B</b>"],
+        ["10", "<b>150</b>", "<b>130</b>", "<b>130</b>", "<b>B e C</b>"],
+        ["12", "<b>180</b>", "<b>150</b>", "<b>140</b>", "<b>C</b>"]]) +
+      "Con 8 servizi A e C costano uguale (120 €), ma B costa meno (110 €): conviene solo B.", ""]] },
+  { n: 2, g: 2, interi: true, titolo: "La barba · le funzioni", consegna: consegnaDi(T_BARBA, "Scrivi le funzioni del costo (<i>y</i>) delle tre opzioni, con <i>x</i> = numero di servizi barba."),
+    voci: [
+      ["Opzione A", YX(0, 15), "Solo 15 € per ogni servizio: " + solFun(0, 15), ""],
+      ["Opzione B", YX(30, 10), "30 € una volta sola, più 10 € per ogni servizio: " + solFun(30, 10), ""],
+      ["Opzione C", YX(80, 5), "80 € una volta sola, più 5 € per ogni servizio: " + solFun(80, 5), ""]
+    ] },
+  { n: 3, g: 2, interi: true, titolo: "La barba · i punti di pareggio", consegna: consegnaDi(T_BARBA, "Trova il punto di pareggio fra A e B e il punto di pareggio fra B e C."),
+    voci: [
+      ["Pareggio fra A e B", [PAR(6, 90)], "15<i>x</i> = 30 + 10<i>x</i> → 15<i>x</i> − 10<i>x</i> = 30 → 5<i>x</i> = 30 → <i>x</i> = 30 : 5 = 6<br>Controllo: 15 · 6 = 90 e 30 + 10 · 6 = 90. Pareggio: <b>(6; 90)</b>", ""],
+      ["Pareggio fra B e C", [PAR(10, 130)], "30 + 10<i>x</i> = 80 + 5<i>x</i> → 10<i>x</i> − 5<i>x</i> = 80 − 30 → 5<i>x</i> = 50 → <i>x</i> = 50 : 5 = 10<br>Controllo: 30 + 10 · 10 = 130 e 80 + 5 · 10 = 130. Pareggio: <b>(10; 130)</b>", ""]
+    ] },
+  { n: 4, g: 2, interi: true, titolo: "La barba · il grafico", consegna: consegnaDi(T_BARBA, "Disegna nel piano cartesiano le rette delle tre funzioni ed evidenzia i due punti di pareggio."), aiuto: COME_RETTE,
+    voci: [["", [RETTE(P_BARBA)], "Retta A: parte da (0; 0) e passa per esempio per (12; 180). Retta B: parte da (0; 30) e passa per esempio per (12; 150). Retta C: parte da (0; 80) e passa per esempio per (12; 140). I due pareggi sono <b>(6; 90)</b> e <b>(10; 130)</b>." + "%PIANO%", ""]] },
+  { n: 5, g: 2, interi: true, titolo: "La barba · l'analisi", consegna: consegnaDi(T_BARBA, "Scrivi l'analisi derivante dalla tabella: completa le frasi."),
+    voci: [
+      ["Da 0 a 5 servizi:", [C(O_TRE, 0)], "Fino a 5 servizi <b>conviene A</b>.", ""],
+      ["Con 6 servizi:", [C(O_TRE, 3)], "Con 6 servizi <b>A e B costano uguale</b>: 90 €.", ""],
+      ["Da 7 a 9 servizi:", [C(O_TRE, 1)], "Da 7 a 9 servizi <b>conviene B</b>. Con 8 servizi A e C costano uguale (120 €), ma B costa meno (110 €): quel pareggio non serve per scegliere.", ""],
+      ["Con 10 servizi:", [C(O_TRE, 4)], "Con 10 servizi <b>B e C costano uguale</b>: 130 €.", ""],
+      ["Da 11 servizi in su:", [C(O_TRE, 2)], "Da 11 servizi in su <b>conviene C</b>.", ""]
+    ] }
+];
+/* la figura della soluzione dei grafici; il testo del problema sta sempre a sinistra */
+ESERCIZI_SCELTA_ACC.forEach(es => { es.affianca = true; es.breve = `<span class="cosa">` + es.consegna.split(`<span class="cosa">`)[1]; });
+ESERCIZI_SCELTA_ACC.forEach(es => es.voci.forEach(vo => {
+  const r = vo[1].find(c => c.t === "rette");
+  if (r) vo[2] = vo[2].replace("%PIANO%", solRette(r));
+}));
+
 /* ---------------- le attività con esercizi: una per indirizzo #nome ---------------- */
 const ATTIVITA = {
   "#simulazione-proporzioni": { titolo: "Simulazione di verifica · Rapporti e proporzioni", chiave: "sim-proporzioni-1info-v1", esercizi: ESERCIZI_SIM, gruppi: ["Esercizi", "Problemi"] },
@@ -2257,7 +2546,8 @@ const ATTIVITA = {
   "#esercitazione-fatture": { titolo: "Esercitazione · Le fatture da completare", chiave: "es-fatture-est-v1", esercizi: ESERCIZI_FATT, gruppi: ["Sconti", "Pagamenti"], torna: ["#2est", "2EST"] },
   "#esercitazione-per-cento": { titolo: "Esercitazione 1 · Che cosa vuol dire per cento", chiave: "es-per-cento-acc-v1", esercizi: ESERCIZI_PERC_ACC, gruppi: ["Problemi"], torna: ["#2acc", "2ACC"] },
   "#esercitazione-parte-percentuale": { titolo: "Esercitazione 2 · Trovare la parte e la percentuale", chiave: "es-parte-percentuale-acc-v1", esercizi: ESERCIZI_PARTE_ACC, gruppi: ["Al banco colori", "Alla cassa", "In ufficio"], torna: ["#2acc", "2ACC"] },
-  "#esercitazione-listino-ordine": { titolo: "Esercitazione · Il listino e l'ordine", chiave: "es-listino-ordine-est-v1", esercizi: ESERCIZI_LISTINO_EST, gruppi: ["Problemi"], torna: ["#1est", "1EST"] }
+  "#esercitazione-listino-ordine": { titolo: "Esercitazione · Il listino e l'ordine", chiave: "es-listino-ordine-est-v1", esercizi: ESERCIZI_LISTINO_EST, gruppi: ["Problemi"], torna: ["#1est", "1EST"] },
+  "#simulazione-problemi-scelta": { titolo: "Simulazione di verifica · Problemi di scelta", chiave: "sim-problemi-scelta-3acc-v1", esercizi: ESERCIZI_SCELTA_ACC, gruppi: ["Problema 1", "Problema 2", "Problema 3"], torna: ["#3acc", "3ACC"] }
 };
 const selPiano = {}, PIANI = {};
 const MEMORIA = {};
@@ -2297,7 +2587,7 @@ const fmt = v => String(Math.round(v * 1000) / 1000).replace(".", ",");
 
 function giusto(e, v, c, campo) {
   const r = stato.risposte;
-  if (campo.t === "num") { const x = leggi(r[id(e, v, c)]); return campo.tol ? Math.abs(x - campo.v) <= campo.tol : uguale(x, campo.v); }
+  if (campo.t === "num") { const g = r[id(e, v, c)], x = campo.zero && (g == null || String(g).trim() === "") ? 0 : leggi(g); return campo.tol ? Math.abs(x - campo.v) <= campo.tol : uguale(x, campo.v); }
   if (campo.t === "rapporto") return uguale(leggi(r[id(e, v, c, "a")]), campo.a) && uguale(leggi(r[id(e, v, c, "b")]), campo.b);
   if (campo.t === "scelta") return campo.libera ? r[id(e, v, c)] != null : r[id(e, v, c)] === campo.giusta;
   if (campo.t === "punto") return uguale(leggi(r[id(e, v, c, "x")]), campo.x) && uguale(leggi(r[id(e, v, c, "y")]), campo.y);
@@ -2308,7 +2598,21 @@ function giusto(e, v, c, campo) {
     return dati.map(chiave).sort().join("|") === campo.pts.map(chiave).sort().join("|");
   }
   if (campo.t === "tabella") {
-    return campo.righe.every((riga, i) => riga.every((cel, j) => typeof cel !== "object" || uguale(leggi(r[id(e, v, c, "r" + i + "c" + j)]), cel.v)));
+    return campo.righe.every((riga, i) => riga.every((cel, j) => {
+      if (typeof cel !== "object") return true;
+      const g = r[id(e, v, c, "r" + i + "c" + j)];
+      if (cel.m) return Array.isArray(g) && g.length === cel.g.length && cel.g.every(x => g.includes(x));
+      return uguale(leggi(g), cel.v);
+    }));
+  }
+  if (campo.t === "pareggio") {
+    const no = !!r[id(e, v, c, "no")];
+    if (campo.x == null) return no;
+    return !no && uguale(leggi(r[id(e, v, c, "x")]), campo.x) && uguale(leggi(r[id(e, v, c, "y")]), campo.y);
+  }
+  if (campo.t === "rette") {
+    const m = r[id(e, v, c)] || {}, L = m.linee || {};
+    return Object.keys(campo.rette).every(n => rettaGiusta(campo, L[n], n)) && stessoInsieme(m.par || [], campo.par);
   }
   if (campo.t === "piano") {
     const m = r[id(e, v, c)] || {};
@@ -2365,6 +2669,11 @@ function disegnaNav() {
 
 const vis = v => (v == null ? "" : String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace("-", "−"));
 const casella = (k, corto, nome) => `<button type="button" class="casella${corto ? " corto" : ""}" id="${k}" data-k="${k}" aria-label="${nome}">${vis(stato.risposte[k])}</button>`;
+const sceltaMulti = (k, cel, nome) => {
+  const g = Array.isArray(stato.risposte[k]) ? stato.risposte[k] : [];
+  return `<span class="scelte multi" role="group" aria-label="${nome}">` + cel.m.map((o, j) =>
+    `<button type="button" data-multi="${k}" data-j="${j}" class="${g.includes(j) ? "scelta" : ""}" aria-pressed="${g.includes(j)}">${o}</button>`).join("") + `</span>`;
+};
 const largo = (W, H, em, vh) => `width:min(${em}em, ${(W / H * vh).toFixed(1)}vh)`;
 
 function campoHTML(e, v, c, campo) {
@@ -2386,8 +2695,29 @@ function campoHTML(e, v, c, campo) {
   if (campo.t === "tabella") {
     return `<div class="fattura-box"><table class="fattura"><thead><tr>${campo.colonne.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>` +
       campo.righe.map((riga, i) => `<tr>${riga.map((cel, j) => `<td>${typeof cel === "object"
-        ? casella(id(e, v, c, "r" + i + "c" + j), !/importo|prezzo|costo/.test(campo.colonne[j]), `${campo.colonne[j]}, ${riga[0]}`)
+        ? cel.m ? sceltaMulti(id(e, v, c, "r" + i + "c" + j), cel, `${campo.colonne[j]}, ${riga[0]}`) : casella(id(e, v, c, "r" + i + "c" + j), !/importo|prezzo|costo/.test(campo.colonne[j]), `${campo.colonne[j]}, ${riga[0]}`)
         : cel}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+  }
+  if (campo.t === "pareggio") {
+    const kn = id(e, v, c, "no"), no = !!r[kn];
+    return `<span class="campo${no ? " spento" : ""}">${coppia(id(e, v, c, "x"), id(e, v, c, "y"), "punto di pareggio, ")}</span>` +
+      `<span class="scelte"><button type="button" data-nessuno="${kn}" class="${no ? "scelta" : ""}" aria-pressed="${no}">non c'è</button></span>`;
+  }
+  if (campo.t === "rette") {
+    const k = id(e, v, c), m = r[k] || {}, L = m.linee || {}, nomi = Object.keys(campo.rette), ctrl = ctrlV(e, v);
+    RETTI[k] = campo;
+    const fatte = n => (L[n] || []).length === 2;
+    if (!selPiano[k] || (selPiano[k] !== "P" && !(selPiano[k] in campo.rette))) selPiano[k] = nomi.find(n => !fatte(n)) || "P";
+    const sel = selPiano[k], cls = {};
+    if (ctrl) nomi.forEach(n => { cls[n] = rettaGiusta(campo, L[n], n) ? "ok" : "ko"; });
+    const tuttiPar = stessoInsieme(m.par || [], campo.par);
+    const dis = { linee: L, par: m.par || [], cls, sel: ctrl ? null : sel,
+      clsPar: ctrl ? q => (tuttiPar || campo.par.some(p => p[0] === q[0] && p[1] === q[1]) ? "ok" : "ko") : null };
+    const W = RG.ML + RG.PW + RG.MR, H = RG.MT + RG.PH + RG.MB;
+    return `<div class="piano piano-rette"><div class="chips" role="group" aria-label="Che cosa tracciare">` +
+      nomi.map(n => `<button type="button" data-chip="${k}" data-n="${n}" class="chip-${n}${n === sel ? " scelta" : ""}${fatte(n) ? " messo" : ""}" aria-pressed="${n === sel}"><span class="seg"></span>Retta ${n}</button>`).join("") +
+      `<button type="button" data-chip="${k}" data-n="P" class="chip-P${sel === "P" ? " scelta" : ""}" aria-pressed="${sel === "P"}"><span class="cerchio"></span>Pareggio</button>` +
+      `</div><div class="pc" style="${largo(W, H, 40, 74)}">${svgRette(campo, dis, k)}</div></div>`;
   }
   if (campo.t === "piano") {
     const k = id(e, v, c), messi = r[k] || {}, nomi = Object.keys(campo.punti), ctrl = ctrlV(e, v);
@@ -2412,14 +2742,20 @@ function campoHTML(e, v, c, campo) {
 }
 
 /* una schermata: le voci da s a s+n-1 dell'esercizio e */
+const AFFIANCA = window.matchMedia("(min-width: 900px) and (orientation: landscape)");
 function htmlScheda(e, s, n, parti, p, neutro) {
   const es = ESERCIZI[e], mostra = !neutro && !!stato.soluzioni[e];
-  let h = `<section class="scheda${es.figura ? " fig" : ""}"><div class="testa"><h2><span class="num">${es.n}.</span>${es.titolo}</h2>`;
+  let h = `<section class="scheda${es.figura ? " fig" : ""}${es.affianca ? " affianca" : ""}"><div class="testa"><h2><span class="num">${es.n}.</span>${es.titolo}</h2>`;
   if (parti && parti.length > 1) h += `<span class="parti" role="group" aria-label="Parti dell'esercizio">` + parti.map((q, i) =>
     `<button type="button" data-parte="${q[0]}" class="${i === p ? "attivo" : ""}"${i === p ? ` aria-current="true"` : ""}${parti.length > 3 ? ` aria-label="Parte ${i + 1}"` : ""}>${parti.length > 3 ? i + 1 : "Parte " + (i + 1)}</button>`).join("") + `</span>`;
   h += `</div>`;
   if (es.dati) h += `<div class="intro">`;
-  if (es.consegna) h += `<p class="consegna">${es.consegna}</p>`;
+  const solLato = mostra && es.affianca && parti && AFFIANCA.matches;
+  if (solLato) {
+    h += `<div class="consegna sol-lato"><span class="cosa">Soluzione</span>`;
+    for (let v = s; v < s + n; v++) { const vo = es.voci[v]; h += `<div class="sol-voce">${vo[0] ? `<b>${vo[0]}</b> ` : ""}${vo[2]}</div>`; }
+    h += `</div>`;
+  } else if (es.consegna) h += `<p class="consegna">${!parti && es.breve && es.n > 1 ? es.breve : es.consegna}</p>`;   /* nel PDF il testo del problema solo al primo punto */
   if (es.dati) h += `<div class="catalogo-box"><table class="fattura catalogo"><caption>Dal catalogo del fornitore</caption><thead><tr><th>prodotto</th><th>costo</th><th>vendita</th><th>confezione</th></tr></thead><tbody>` +
     es.dati.map(n => `<tr><td>${n}</td><td>${CATALOGO_EST[n][0]} €</td><td>${CATALOGO_EST[n][1]} €</td><td>${CATALOGO_EST[n][2]}</td></tr>`).join("") + `</tbody></table></div></div>`;
   h += `<div class="due">`;
@@ -2428,18 +2764,19 @@ function htmlScheda(e, s, n, parti, p, neutro) {
     h += `<div class="figura" style="${m ? largo(Number(m[1]), Number(m[2]), 21, 48) : ""}">${es.figura}</div>`;
   }
   h += `<div class="lato">`;
-  if (es.voci.some(vo => vo[1].some(c => c.t === "num" || c.t === "rapporto" || c.t === "tabella"))) h += `<p class="nota">Per i decimali usa la virgola.${es.frazioni ? " Le frazioni si scrivono con la barra, per esempio 5/8." : ""}</p>`;
+  if (!es.interi && es.voci.some(vo => vo[1].some(c => c.t === "num" || c.t === "rapporto" || c.t === "tabella"))) h += `<p class="nota">Per i decimali usa la virgola.${es.frazioni ? " Le frazioni si scrivono con la barra, per esempio 5/8." : ""}</p>`;
   if (es.negativi) h += `<p class="nota">I numeri negativi si scrivono con il meno davanti.</p>`;
+  if (es.aiuto) h += `<p class="nota aiuto">${es.aiuto}</p>`;
   h += `<div class="voci${es.colonne ? " colonne" : ""}">`;
   for (let v = s; v < s + n; v++) {
     const [testo, campi, sol, l] = es.voci[v];
     const controllato = ctrlV(e, v);
     const cls = controllato ? (voceGiusta(e, v) ? " ok" : " ko") : "";
     const lettera = l !== undefined ? (l ? `<span class="lettera">${l})</span>` : "") : (es.voci.length > 1 && !es.problema ? `<span class="lettera">${String.fromCharCode(97 + v)})</span>` : "");
-    h += `<div class="voce${cls}${campi.some(c => c.t === "piano") ? " con-piano" : ""}${campi.some(c => c.t === "tabella") ? " con-tabella" : ""}">` + (lettera || testo ? `<span class="testo">${lettera}${testo}</span>` : "");
+    h += `<div class="voce${cls}${campi.some(c => c.t === "piano" || c.t === "rette") ? " con-piano" : ""}${campi.some(c => c.t === "tabella") ? " con-tabella" : ""}">` + (lettera || testo ? `<span class="testo">${lettera}${testo}</span>` : "");
     h += campi.map((campo, c) => campoHTML(e, v, c, campo)).join("");
     h += controllato ? `<span class="esito">${voceGiusta(e, v) ? "✓ giusto" : "✗ da rivedere"}</span>` : `<span class="esito" style="visibility:hidden" aria-hidden="true">✗ da rivedere</span>`;
-    if (mostra) h += `<div class="soluzione">${sol}</div>`;
+    if (mostra && !solLato) h += `<div class="soluzione">${sol}</div>`;
     h += `</div>`;
   }
   return h + `</div></div></div></section>`;
@@ -2469,7 +2806,7 @@ function calcolaPagine(e) {
 }
 
 function disegnaTastierino(es) {
-  const serve = es && es.voci.some(vo => vo[1].some(c => c.t !== "scelta" && c.t !== "piano"));
+  const serve = es && es.voci.some(vo => vo[1].some(c => c.t !== "scelta" && c.t !== "piano" && c.t !== "rette"));
   tast.hidden = !serve;
   if (!serve) return;
   const t = (txt, d, cls, nome) => `<button type="button" data-t="${d}"${cls ? ` class="${cls}"` : ""}${nome ? ` aria-label="${nome}"` : ""}>${txt}</button>`;
@@ -2539,6 +2876,42 @@ main.addEventListener("click", ev => {
     const k = el.dataset.scelta;
     stato.risposte[k] = Number(el.dataset.j); scontrolla(...voceDi(k)); salva(); disegna(); return;
   }
+  if ((el = q("button[data-multi]"))) {
+    const k = el.dataset.multi, j = Number(el.dataset.j);
+    const g = Array.isArray(stato.risposte[k]) ? stato.risposte[k].slice() : [];
+    const i = g.indexOf(j); if (i >= 0) g.splice(i, 1); else { g.push(j); g.sort(); }
+    stato.risposte[k] = g; scontrolla(...voceDi(k)); salva(); disegna(); return;
+  }
+  if ((el = q("button[data-nessuno]"))) {
+    const k = el.dataset.nessuno, base = k.slice(0, -3);
+    if (stato.risposte[k]) delete stato.risposte[k];
+    else { stato.risposte[k] = true; delete stato.risposte[base + "-x"]; delete stato.risposte[base + "-y"]; }
+    scontrolla(...voceDi(k)); salva(); disegna(); return;
+  }
+  if ((el = q("svg[data-rette]"))) {
+    const k = el.dataset.rette, c = RETTI[k], r = el.getBoundingClientRect(), vb = el.viewBox.baseVal;
+    const sx = (ev.clientX - r.left) * vb.width / r.width, sy = (ev.clientY - r.top) * vb.height / r.height;
+    const fx = (sx - RG.ML) / (RG.PW / c.xmax), fy = (c.ymax - (sy - RG.MT) / (RG.PH / c.ymax)) / c.ystep;
+    const gx = Math.round(fx), gy = Math.round(fy) * c.ystep;
+    if (fx < -0.6 || fx > c.xmax + 0.6 || fy < -0.6 || fy > c.ymax / c.ystep + 0.6) return;
+    const pt = [Math.max(0, Math.min(c.xmax, gx)), Math.max(0, Math.min(c.ymax, gy))];
+    const m = JSON.parse(JSON.stringify(stato.risposte[k] || {})); m.linee = m.linee || {}; m.par = m.par || [];
+    const sel = selPiano[k], nomi = Object.keys(c.rette), uguali = (a, b) => a[0] === b[0] && a[1] === b[1];
+    if (sel === "P") {
+      const i = m.par.findIndex(p => uguali(p, pt));
+      if (i >= 0) m.par.splice(i, 1); else m.par.push(pt);
+    } else {
+      const L = m.linee[sel] || [];
+      if (L.length >= 2) m.linee[sel] = [pt];
+      else if (L.length === 1 && uguali(L[0], pt)) m.linee[sel] = [];
+      else m.linee[sel] = L.concat([pt]);
+      if (m.linee[sel].length === 2) {
+        const i = nomi.indexOf(sel), poi = nomi.slice(i + 1).concat(nomi.slice(0, i)).find(n => (m.linee[n] || []).length < 2);
+        if (poi) selPiano[k] = poi;
+      }
+    }
+    stato.risposte[k] = m; scontrolla(...voceDi(k)); salva(); disegna(); return;
+  }
   if ((el = q("svg[data-piano]"))) {
     const k = el.dataset.piano, c = PIANI[k], r = el.getBoundingClientRect(), vb = el.viewBox.baseVal;
     const sx = (ev.clientX - r.left) * vb.width / r.width, sy = (ev.clientY - r.top) * vb.height / r.height;
@@ -2569,9 +2942,11 @@ function scrivi(t) {
   else if (t === "−") val = /^[-−]/.test(val) ? val.slice(1) : "-" + val;
   else { if (val.length >= 9) return; val += t; }
   stato.risposte[attivaK] = val;
+  const nk = attivaK.replace(/-[xy]$/, "-no"), tolto = nk !== attivaK && !!stato.risposte[nk];
+  if (tolto) delete stato.risposte[nk];
   const era = scontrolla(...voceDi(attivaK));
   salva();
-  if (era) disegna(); else { el.innerHTML = vis(val); disegnaNav(); }
+  if (era || tolto) disegna(); else { el.innerHTML = vis(val); disegnaNav(); }
 }
 function prossima() {
   const tutte = Array.from(main.querySelectorAll(".casella")); if (!tutte.length) return;
@@ -5019,6 +5394,7 @@ const VISTE = {
   "#1info": ["vista-1info", "Matematica per informatici - 1INFO"],
   "#1acc": ["vista-1acc", "Matematica per acconciatori - 1ACC"],
   "#2acc": ["vista-2acc", "Matematica per acconciatori - 2ACC"],
+  "#3acc": ["vista-3acc", "Matematica per acconciatori - 3ACC"],
   "#1est": ["vista-1est", "Matematica per estetiste - 1EST"],
   "#2est": ["vista-2est", "Matematica per estetiste - 2EST"],
   /* vecchi indirizzi, se qualcuno li ha salvati */
@@ -5031,6 +5407,7 @@ const VISTE = {
   "#esercitazione-fatture": ["vista-sim", "Esercitazione - Le fatture da completare"],
   "#esercitazione-per-cento": ["vista-sim", "Esercitazione 1 - Che cosa vuol dire per cento"],
   "#esercitazione-parte-percentuale": ["vista-sim", "Esercitazione 2 - Trovare la parte e la percentuale"],
+  "#simulazione-problemi-scelta": ["vista-sim", "Simulazione di verifica - Problemi di scelta"],
   "#esercitazione-listino-ordine": ["vista-sim", "Esercitazione - Il listino e l'ordine"],
   "#slide-proporzioni": ["vista-slide", "Slide rapporti e proporzioni"],
   "#slide-percentuali": ["vista-slide", "Slide le percentuali"],
@@ -5057,6 +5434,7 @@ const TEMI = {
   "#esercitazione-per-cento": "ardesia",
   "#esercitazione-parte-percentuale": "viola",
   "#esercitazione-fatture": "cioccolato",
+  "#simulazione-problemi-scelta": "zaffiro",
   "#esercitazione-listino-ordine": "bordeaux",
   "#piano-cartesiano": "petrolio",
   "#retta-numeri": "terracotta",
