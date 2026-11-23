@@ -24,7 +24,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&family=Space+Grotesk:wght@700&family=Bitter:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@700&family=Baloo+2:wght@700&family=Nunito:wght@700;800&family=Rubik:wght@600;700&family=Sora:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&family=Space+Grotesk:wght@700&family=Bitter:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@700&family=Baloo+2:wght@700&family=Nunito:wght@700;800&family=Rubik:wght@600;700&family=Sora:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* pagina a una sola tema chiaro: si legge bene sulla LIM e su carta proiettata */
@@ -57,7 +57,7 @@ body {
 }
 .vista { height: 100%; display: flex; flex-direction: column; }
 .vista[hidden] { display: none; }
-#vista-home, #vista-strumenti, #vista-1info, #vista-1acc, #vista-2acc, #vista-2est { overflow-y: auto; }
+#vista-home, #vista-strumenti, #vista-1info, #vista-1acc, #vista-2acc, #vista-1est, #vista-2est { overflow-y: auto; }
 #vista-home .home { max-width: 60em; padding-top: 1.3em; }
 .settore { background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.9em; padding: 0.8em clamp(14px, 2vw, 24px) 1em; margin-top: 1em; }
 .settore h2 { font-family: var(--font-titoli); font-size: 1.15em; font-weight: 700; color: var(--inchiostro); margin: 0 0 0.7em; padding-bottom: 0.25em; border-bottom: 2px solid var(--blu); }
@@ -335,6 +335,13 @@ table.fattura { border-collapse: collapse; width: 100%; max-width: 40em; font-si
 .fattura th:first-child, .fattura td:first-child { text-align: left; white-space: normal; }
 .fattura .casella { font-size: 1em; min-width: 4.4em; height: 1.75em; }
 .fattura .casella.corto { min-width: 2.9em; }
+/* il catalogo del fornitore sotto la consegna (solo i prodotti che servono al problema) */
+.intro { display: flex; flex-wrap: wrap; align-items: flex-start; column-gap: 1.4em; }
+.intro .consegna { flex: 1 1 24em; }
+.catalogo-box { flex: 0 1 auto; margin: 0 0 0.5em; overflow-x: auto; }
+table.catalogo { width: auto; font-size: 0.82em; }
+table.catalogo caption { caption-side: top; text-align: left; font: 700 0.85em var(--font-titoli); color: var(--blu); padding-bottom: 0.15em; }
+table.catalogo td, table.catalogo th { padding: 0.04em 0.7em; line-height: 1.3; }
 #vista-sim .voci.colonne .voce.con-tabella { grid-column: 1 / -1; }
 @media (max-width: 560px) {
   #vista-sim .voce.con-tabella { padding-left: 0.45em; padding-right: 0.45em; }
@@ -689,6 +696,7 @@ body[data-tema="grafite"] header h1 { font-family: "Space Grotesk", monospace; l
 .pdf-doc .fattura th, .pdf-doc .fattura td { padding: 3px 4px; }
 .pdf-doc .fattura .casella { min-width: 50px; }
 .pdf-doc .fattura .casella.corto { min-width: 32px; }
+.pdf-doc table.catalogo { font-size: 11.5px; }
 .pdf-doc .soluzione { font-size: 13px; }
 .pdf-segni { margin: -4px 0 0; }
 .pdf-segni p { margin: 0 0 4px; font-size: 11.5px; color: var(--tenue); font-style: italic; }
@@ -751,6 +759,15 @@ body[data-tema="cioccolato"] {
   --motivo-img: linear-gradient(transparent 33px, #eadfd2 33px);
   --motivo-size: 100% 34px;
 }
+body[data-tema="bordeaux"] {
+  --blu: #7b2d3b; --blu-chiaro: #f3e3e5; --casella-attiva: #fbf3f4;
+  --carta: #f8f1f0; --foglio: #fffdfc; --filo: #e6d2d4; --inchiostro: #2b1a1d; --tenue: #6d5659;
+  --font-titoli: "Playfair Display", Georgia, serif;
+  --motivo-img: linear-gradient(45deg, #eedcde 25%, transparent 25%, transparent 75%, #eedcde 75%), linear-gradient(45deg, #eedcde 25%, transparent 25%, transparent 75%, #eedcde 75%);
+  --motivo-size: 16px 16px;
+}
+body[data-tema="bordeaux"] header { border-bottom: 3px double var(--blu); }
+body[data-tema="bordeaux"] .scheda h2 .num { font-style: italic; }
 body[data-tema="terracotta"] {
   --blu: #a3472a; --blu-chiaro: #f8e4db; --casella-attiva: #fdf4ef;
   --carta: #fbf4f0; --foglio: #fffdfb; --filo: #ecd6cb; --font-titoli: "Rubik", "Segoe UI", system-ui, sans-serif;
@@ -835,10 +852,10 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
     <section class="settore">
       <h2>Matematica per estetiste</h2>
       <div class="classi">
-        <div class="classe-box vuota">
-          <span class="nome">Prima · 1EST</span>
-          <span class="argomenti">Ancora nessun materiale</span>
-        </div>
+        <a class="classe-box" href="#1est">
+          <span class="riga"><span class="nome">Prima · 1EST</span><span class="vai">Entra →</span></span>
+          <span class="argomenti">Compravendita</span>
+        </a>
         <a class="classe-box" href="#2est">
           <span class="riga"><span class="nome">Seconda · 2EST</span><span class="vai">Entra →</span></span>
           <span class="argomenti">Percentuali e fatture</span>
@@ -979,6 +996,20 @@ body[data-tema="prugna"] .scheda h2 .num, body[data-tema="viola"] .scheda h2 .nu
       </a>
       <a class="materiale" href="#esercitazione-parte-percentuale">
         <span><span class="tit">Esercitazione 2: trovare la parte e la percentuale</span><br><span class="desc">6 problemi, con il controllo delle risposte e le soluzioni</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="vista" id="vista-1est" hidden>
+  <div class="home">
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1 style="margin-top:0.6em">Matematica per estetiste · Prima (1EST)</h1>
+    <p class="sotto">I materiali della classe, divisi per argomento.</p>
+    <h3>Compravendita</h3>
+    <div class="schede">
+      <a class="materiale" href="#esercitazione-listino-ordine">
+        <span><span class="tit">Esercitazione: il listino e l'ordine</span><br><span class="desc">15 problemi, con il controllo delle risposte e le soluzioni</span></span>
         <span class="vai">Apri →</span>
       </a>
     </div>
@@ -2088,6 +2119,136 @@ const ESERCIZI_PARTE_ACC = [
     ] }
 ];
 
+/* ---------------- compravendita estetica: il listino e l'ordine (stessi esercizi e numeri del PDF 030) ---------------- */
+const CATALOGO_EST = {
+  "crema viso": ["14,00", "32,00", "da 6"], "siero": ["18,00", "39,00", "da 6"], "contorno occhi": ["12,00", "27,00", "da 6"],
+  "latte detergente": ["5,40", "13,00", "da 6"], "tonico": ["4,80", "12,00", "da 6"], "olio corpo": ["8,50", "19,50", "da 6"],
+  "crema mani": ["3,00", "7,50", "da 12"], "balsamo labbra": ["2,00", "5,00", "da 24"], "smalto": ["3,60", "8,50", "a pezzo"],
+  "maschera in tessuto": ["1,40", "4,00", "da 25"]
+};
+const LIBERA = opzioni => ({ t: "scelta", opzioni, libera: true });   // scelta personale: va bene qualsiasi risposta
+const ISTR_LO = " <i>I calcoli sul quaderno, i risultati qui.</i>";
+const SPED = "Si ordinano solo confezioni intere. Spedizione 9,00 €, gratuita per ordini da 300,00 € in su.";
+const ESERCIZI_LISTINO_EST = [
+  { n: 1, g: 0, problema: true, titolo: "Una cliente alla cassa", consegna: "Una cliente compra un siero e 2 maschere in tessuto." + ISTR_LO, dati: ["siero", "maschera in tessuto"],
+    voci: [
+      ["Quanto paga in tutto la cliente?", [EUR(47)], "39,00 + 4,00 × 2 = <b>47,00 €</b>", "a"],
+      ["Quanto aveva speso il centro per comprare quei tre prodotti?", [EUR(20.8)], "18,00 + 1,40 × 2 = <b>20,80 €</b>", "b"],
+      ["Quanto resta al centro con questa vendita?", [EUR(26.2)], "47,00 − 20,80 = <b>26,20 €</b><br>Controllo: 21,00 + 2,60 × 2 = 26,20 €", "c"]
+    ] },
+  { n: 2, g: 0, problema: true, titolo: "Tre prodotti nuovi", consegna: "La rappresentante propone tre prodotti nuovi.<br>Fondotinta: costo 11,50 €, vendita 26,00 €.<br>Crema solare: vendita 22,00 €, restano al centro 12,20 € a pezzo.<br>Acqua micellare: costo 4,20 €, restano 6,30 € a pezzo." + ISTR_LO,
+    voci: [
+      ["Quanto resta al centro su un fondotinta?", [EUR(14.5)], "26,00 − 11,50 = <b>14,50 €</b>", "a"],
+      ["Quanto costa al centro una crema solare?", [EUR(9.8)], "22,00 − 12,20 = <b>9,80 €</b>", "b"],
+      ["A quanto si vende un'acqua micellare?", [EUR(10.5)], "4,20 + 6,30 = <b>10,50 €</b>", "c"],
+      ["Elena dice: «Prendiamo solo i prodotti che lasciano almeno 10,00 € a pezzo.» Quali prodotti prende?",
+       [C(["solo il fondotinta", "il fondotinta e la crema solare", "la crema solare e l'acqua micellare", "tutti e tre"], 1)],
+       "Prende <b>il fondotinta</b> (14,50 €) e <b>la crema solare</b> (12,20 €). Non l'acqua micellare: lascia solo 6,30 €.", "d"]
+    ] },
+  { n: 3, g: 0, problema: true, titolo: "Due clienti alla cassa", consegna: "Alla cassa ci sono due clienti.<br>La prima compra un siero. La seconda compra 3 tonici." + ISTR_LO, dati: ["siero", "tonico"],
+    voci: [
+      ["Quanto paga ciascuna cliente?", [N(39, "€", "prima:"), N(36, "€", "seconda:")], "Prima: <b>39,00 €</b>. Seconda: 12,00 × 3 = <b>36,00 €</b>", "a"],
+      ["Quanto resta al centro con ciascuna vendita?", [N(21, "€", "prima:"), N(21.6, "€", "seconda:")], "Prima: 39,00 − 18,00 = <b>21,00 €</b>. Seconda: 12,00 − 4,80 = 7,20 €; 7,20 × 3 = <b>21,60 €</b>", "b"],
+      ["La cliente che paga di più è anche quella che fa guadagnare di più il centro? Spiega il perché sul quaderno.", [SINO(1)],
+       "<b>No.</b> Paga di più la prima (3,00 € in più), ma il centro guadagna di più con la seconda (0,60 € in più). Conta la differenza fra vendita e costo, non solo il prezzo.", "c"]
+    ] },
+  { n: 4, g: 0, problema: true, titolo: "Il quaderno dei conti di Sara", consegna: "Sara, una collega di Giulia, scrive sul quaderno dei conti:<br>«6 contorni occhi venduti. Incasso 27,00 × 6 = 162,00. Costo 12,00 €. Guadagno 162,00 − 12,00 = 150,00.»" + ISTR_LO,
+    voci: [
+      ["Che errore ha fatto Sara?", [C(["ha sbagliato l'incasso", "ha tolto il costo di un pezzo solo", "ha usato il prezzo di vendita come costo"], 1)],
+       "Ha tolto il costo di <b>un</b> contorno occhi dall'incasso di <b>sei</b>: ha mischiato un numero di uno e un numero di tutti.", "a"],
+      ["Quanto ha guadagnato davvero il centro con i 6 contorni occhi?", [EUR(90)], "Costo di tutti: 12,00 × 6 = 72,00 €. Guadagno: 162,00 − 72,00 = <b>90,00 €</b>", "b"],
+      ["Controlla il risultato con un'altra strada: quanto resta al centro su un contorno occhi? E su sei?", [N(15, "€", "su uno:"), N(90, "€", "su sei:")], "Su uno: 27,00 − 12,00 = <b>15,00 €</b>. Su sei: 15,00 × 6 = <b>90,00 €</b>", "c"]
+    ] },
+  { n: 5, g: 0, problema: true, titolo: "L'offerta degli oli corpo", consegna: "Un altro fornitore manda un'offerta per gli oli corpo: 2 confezioni da 6 flaconi, 96,00 € in tutto." + ISTR_LO, dati: ["olio corpo"],
+    voci: [
+      ["Quanti flaconi arrivano?", [N(12, "flaconi")], "6 × 2 = <b>12 flaconi</b>", "a"],
+      ["Quanto costa un flacone con questa offerta?", [EUR(8)], "96,00 : 12 = <b>8,00 €</b>", "b"],
+      ["Quanto si risparmia, su tutti i 12 flaconi, rispetto al catalogo?", [EUR(6)], "Con il catalogo: 8,50 × 12 = 102,00 €. 102,00 − 96,00 = <b>6,00 €</b> (oppure 0,50 × 12 = 6,00 €)", "c"]
+    ] },
+  { n: 6, g: 0, problema: true, titolo: "Cinquanta euro di smalti", consegna: "Giulia ha 50,00 € per comprare smalti nuovi." + ISTR_LO, dati: ["smalto"],
+    voci: [
+      ["Quanti smalti può ordinare al massimo?", [N(13, "smalti")], "3,60 × 13 = 46,80 €; 3,60 × 14 = 50,40 €, troppo. Al massimo <b>13 smalti</b>", "a"],
+      ["Quanti euro le avanzano?", [EUR(3.2)], "50,00 − 46,80 = <b>3,20 €</b>", "b"],
+      ["Se vende tutti quegli smalti, quanto resta al centro?", [EUR(63.7)], "Su uno: 8,50 − 3,60 = 4,90 €. Su 13: 4,90 × 13 = <b>63,70 €</b>", "c"]
+    ] },
+  { n: 7, g: 0, problema: true, titolo: "Le maschere per la giornata viso", consegna: "Per una giornata di trattamenti viso Elena vuole avere 30 maschere in tessuto da vendere." + ISTR_LO, dati: ["maschera in tessuto"],
+    voci: [
+      ["Quante confezioni deve ordinare Giulia?", [N(2, "confezioni")], "Una confezione ha 25 maschere: non basta. Servono <b>2 confezioni</b>", "a"],
+      ["Quante maschere arrivano in più rispetto alle 30 che servono?", [N(20, "maschere")], "25 × 2 = 50 maschere. 50 − 30 = <b>20</b> in più", "b"],
+      ["Quanto spende il centro in tutto?", [EUR(70)], "1,40 × 50 = <b>70,00 €</b>", "c"],
+      ["Se alla fine il centro vende tutte le maschere arrivate, quanto guadagna?", [EUR(130)], "Su una: 4,00 − 1,40 = 2,60 €. Su 50: 2,60 × 50 = <b>130,00 €</b>", "d"]
+    ] },
+  { n: 8, g: 0, problema: true, titolo: "Il guadagno che vuole Elena", consegna: "Elena vuole guadagnare 48,00 € in tutto vendendo una confezione di latte detergenti." + ISTR_LO, dati: ["latte detergente"],
+    voci: [
+      ["Quanto deve restare al centro su ogni flacone?", [EUR(8)], "Una confezione ha 6 flaconi: 48,00 : 6 = <b>8,00 €</b>", "a"],
+      ["A quale prezzo va venduto un flacone?", [EUR(13.4)], "Costo più quello che deve restare: 5,40 + 8,00 = <b>13,40 €</b>", "b"],
+      ["Con il prezzo del catalogo, quanto guadagna il centro sulla confezione?", [EUR(45.6)], "Su un flacone: 13,00 − 5,40 = 7,60 €. Su 6: 7,60 × 6 = <b>45,60 €</b>", "c"],
+      ["Quanto manca per arrivare a 48,00 €?", [EUR(2.4)], "48,00 − 45,60 = <b>2,40 €</b>", ""]
+    ] },
+  { n: 9, g: 0, problema: true, titolo: "Due ordini da 120 euro", consegna: "Giulia ha 120,00 € e due ordini possibili.<br>A: una confezione di creme viso.<br>B: 2 confezioni di creme mani e una di maschere." + ISTR_LO, dati: ["crema viso", "crema mani", "maschera in tessuto"],
+    voci: [
+      ["Quanto costa ciascun ordine?", [N(84, "€", "A:"), N(107, "€", "B:")], "A: 14,00 × 6 = <b>84,00 €</b><br>B: creme mani 3,00 × 24 = 72,00 €; maschere 1,40 × 25 = 35,00 €; 72,00 + 35,00 = <b>107,00 €</b>", "a"],
+      ["Quanto avanza dei 120,00 €?", [N(36, "€", "A:"), N(13, "€", "B:")], "A: 120,00 − 84,00 = <b>36,00 €</b>. B: 120,00 − 107,00 = <b>13,00 €</b>", ""],
+      ["Se il centro vende tutto, quanto guadagna con ciascun ordine?", [N(108, "€", "A:"), N(173, "€", "B:")], "A: 18,00 × 6 = <b>108,00 €</b><br>B: 4,50 × 24 = 108,00 €; 2,60 × 25 = 65,00 €; 108,00 + 65,00 = <b>173,00 €</b>", "b"],
+      ["Quale ordine sceglieresti? Sul quaderno spiega che cosa conta oltre al guadagno.", [LIBERA(["A", "B"])],
+       "Risposta libera. B fa guadagnare di più, ma i pezzi da vendere sono 49 invece di 6. A spende meno e lascia più soldi da parte.", "c"]
+    ] },
+  { n: 10, g: 0, problema: true, titolo: "Il modulo d'ordine di Sara", consegna: "Sara non ha finito il modulo d'ordine del suo centro." + ISTR_LO, colonne: true,
+    voci: [
+      ["Completa le caselle vuote e calcola il totale dell'ordine.", [TB(["prodotto", "confezioni", "pezzi", "costo di uno", "costo di tutti"], [
+        ["siero", "2", "12", "18,00", "216,00"],
+        ["crema mani", "3", V(36), "3,00", V(108)],
+        ["balsamo labbra", "1", "24", V(2), "48,00"],
+        ["olio corpo", V(3), "18", "8,50", V(153)],
+        ["<b>totale</b>", "", "", "", V(525)]])],
+       "Creme mani: 12 × 3 = <b>36</b>; 3,00 × 36 = <b>108,00</b> &nbsp; Balsamo: 48,00 : 24 = <b>2,00</b> &nbsp; Oli: 18 : 6 = <b>3</b>; 8,50 × 18 = <b>153,00</b><br>Totale: 216,00 + 108,00 + 48,00 + 153,00 = <b>525,00 €</b>", "a"],
+      ["Il budget di Sara è 550,00 €. L'ordine ci sta?", [SINO(0)], "<b>Sì</b>: 525,00 € è meno di 550,00 €.", "b"],
+      ["Quanto avanza?", [EUR(25)], "550,00 − 525,00 = <b>25,00 €</b>", ""],
+      [SPED + "<br>Sara deve pagare la spedizione? Spiega il perché sul quaderno.", [SINO(1)], "<b>No</b>: l'ordine supera 300,00 €, la spedizione è gratuita.", "c"]
+    ] },
+  { n: 11, g: 0, problema: true, titolo: "Il prodotto migliore", consegna: "Elena dice: «Il siero è il nostro prodotto migliore.»<br>In un mese il centro ha venduto 5 sieri e 40 maschere." + ISTR_LO, dati: ["siero", "maschera in tessuto"],
+    voci: [
+      ["Quanto resta al centro su un siero? E su una maschera?", [N(21, "€", "siero:"), N(2.6, "€", "maschera:")], "Siero: 39,00 − 18,00 = <b>21,00 €</b>. Maschera: 4,00 − 1,40 = <b>2,60 €</b>", "a"],
+      ["Quanto ha guadagnato il centro nel mese con i sieri? E con le maschere?", [N(105, "€", "sieri:"), N(104, "€", "maschere:")], "Sieri: 21,00 × 5 = <b>105,00 €</b>. Maschere: 2,60 × 40 = <b>104,00 €</b>", "b"],
+      ["Elena ha ragione? Su un pezzo, il siero fa guadagnare di più della maschera?", [SINO(0)], "<b>Sì</b>: 21,00 € contro 2,60 €.", "c"],
+      ["In tutto il mese, il siero ha fatto guadagnare molto più delle maschere? Spiega in due frasi sul quaderno.", [SINO(1)],
+       "<b>No</b>: 105,00 € contro 104,00 €, quasi la stessa cifra. Le maschere guadagnano poco a pezzo, ma se ne vendono molte di più.", ""]
+    ] },
+  { n: 12, g: 0, problema: true, titolo: "Il cassetto delle vendite", consegna: "A fine giornata, nel cassetto delle vendite ci sono 117,00 € di sieri e 90,00 € di creme mani." + ISTR_LO, dati: ["siero", "crema mani"],
+    voci: [
+      ["Quanti sieri e quante creme mani sono stati venduti?", [N(3, "sieri"), N(12, "creme mani")], "117,00 : 39,00 = <b>3 sieri</b>. 90,00 : 7,50 = <b>12 creme mani</b>", "a"],
+      ["Quanto aveva speso il centro per i prodotti venduti?", [EUR(90)], "Sieri: 18,00 × 3 = 54,00 €. Creme mani: 3,00 × 12 = 36,00 €. 54,00 + 36,00 = <b>90,00 €</b>", "b"],
+      ["Quanto ha guadagnato il centro con queste vendite?", [EUR(117)], "Incasso: 117,00 + 90,00 = 207,00 €. 207,00 − 90,00 = <b>117,00 €</b><br>Controllo: 21,00 × 3 + 4,50 × 12 = 63,00 + 54,00 = 117,00 €", "c"]
+    ] },
+  { n: 13, g: 0, problema: true, titolo: "Quanti smalti?", consegna: "Una cliente compra un contorno occhi e alcuni smalti. Paga in tutto 61,00 €." + ISTR_LO, dati: ["contorno occhi", "smalto"],
+    voci: [
+      ["Quanti smalti ha comprato?", [N(4, "smalti")], "Per gli smalti: 61,00 − 27,00 = 34,00 €. 34,00 : 8,50 = <b>4 smalti</b>", "a"],
+      ["Quanto resta al centro con questa vendita?", [EUR(34.6)], "Contorno occhi: 15,00 €. Smalti: 4,90 × 4 = 19,60 €. 15,00 + 19,60 = <b>34,60 €</b>", "b"]
+    ] },
+  { n: 14, g: 0, problema: true, titolo: "Il primo ordine di Sara", consegna: "Il primo ordine di Sara, con un budget di 400,00 €: una confezione di creme viso, una di sieri, 2 di creme mani, 20 smalti e 2 confezioni di maschere." + ISTR_LO,
+    dati: ["crema viso", "siero", "crema mani", "smalto", "maschera in tessuto"],
+    voci: [
+      ["Quanto costa ogni riga dell'ordine?", [N(84, "€", "creme viso:"), N(108, "€", "sieri:"), N(72, "€", "creme mani:"), N(72, "€", "smalti:"), N(70, "€", "maschere:")],
+       "Creme viso: 14,00 × 6 = <b>84,00 €</b> &nbsp; Sieri: 18,00 × 6 = <b>108,00 €</b> &nbsp; Creme mani: 3,00 × 24 = <b>72,00 €</b><br>Smalti: 3,60 × 20 = <b>72,00 €</b> &nbsp; Maschere: 1,40 × 50 = <b>70,00 €</b>", "a"],
+      ["Quanto costa l'ordine in tutto?", [EUR(406)], "84,00 + 108,00 + 72,00 + 72,00 + 70,00 = <b>406,00 €</b>", ""],
+      ["L'ordine sta nel budget?", [SINO(1)], "<b>No</b>: 406,00 € è più di 400,00 €.", "b"],
+      ["Di quanto è sopra o sotto il budget?", [EUR(6)], "406,00 − 400,00 = <b>6,00 €</b> sopra", ""],
+      ["Sara toglie 2 smalti. Adesso l'ordine sta nel budget?", [SINO(0)], "3,60 × 2 = 7,20 €. 406,00 − 7,20 = 398,80 €: <b>sì</b>", "c"],
+      ["Quanto avanza?", [EUR(1.2)], "400,00 − 398,80 = <b>1,20 €</b>", ""],
+      ["Con l'ordine corretto, quanto guadagna il centro se vende tutto?", [EUR(560.2)],
+       "18,00 × 6 + 21,00 × 6 + 4,50 × 24 + 4,90 × 18 + 2,60 × 50 =<br>108,00 + 126,00 + 108,00 + 88,20 + 130,00 = <b>560,20 €</b>", "d"]
+    ] },
+  { n: 15, g: 0, problema: true, titolo: "Tutto in un solo prodotto?", consegna: "Con 300,00 € Giulia immagina due ordini, ognuno con più confezioni possibile.<br>A: solo contorni occhi. B: solo balsami labbra." + ISTR_LO, dati: ["contorno occhi", "balsamo labbra"],
+    voci: [
+      ["Quante confezioni ci stanno in ciascun ordine?", [N(4, "confezioni", "A:"), N(6, "confezioni", "B:")], "A: una confezione costa 12,00 × 6 = 72,00 €: ne stanno <b>4</b> (5 costerebbero 360,00 €)<br>B: una confezione costa 2,00 × 24 = 48,00 €: ne stanno <b>6</b> (7 costerebbero 336,00 €)", "a"],
+      ["Quanti pezzi arrivano?", [N(24, "pezzi", "A:"), N(144, "pezzi", "B:")], "A: 6 × 4 = <b>24 pezzi</b>. B: 24 × 6 = <b>144 pezzi</b>", ""],
+      ["Quanto si spende?", [N(288, "€", "A:"), N(288, "€", "B:")], "A: 72,00 × 4 = <b>288,00 €</b>. B: 48,00 × 6 = <b>288,00 €</b>", ""],
+      ["Se il centro vende tutto, quanto guadagna con ciascun ordine?", [N(360, "€", "A:"), N(432, "€", "B:")], "A: 27,00 − 12,00 = 15,00 €; 15,00 × 24 = <b>360,00 €</b><br>B: 5,00 − 2,00 = 3,00 €; 3,00 × 144 = <b>432,00 €</b>", "b"],
+      ["Quale ordine è più facile da vendere tutto?", [LIBERA(["A", "B"])], "Risposta libera. 24 contorni occhi o 144 balsami labbra sono tanti per un piccolo angolo vendita.", "c"],
+      ["È una buona idea spendere tutto in un solo prodotto? Spiega il perché sul quaderno.", [SINO(1)], "<b>No</b>: meglio dividere il budget fra più prodotti che le clienti comprano davvero.", ""]
+    ] }
+];
+
 /* ---------------- le attività con esercizi: una per indirizzo #nome ---------------- */
 const ATTIVITA = {
   "#simulazione-proporzioni": { titolo: "Simulazione di verifica · Rapporti e proporzioni", chiave: "sim-proporzioni-1info-v1", esercizi: ESERCIZI_SIM, gruppi: ["Esercizi", "Problemi"] },
@@ -2095,7 +2256,8 @@ const ATTIVITA = {
   "#esercizi-piano-cartesiano": { titolo: "Scheda di esercizi · Il piano cartesiano", chiave: "es-piano-cartesiano-acc-v1", esercizi: ESERCIZI_PIANO, gruppi: ["Punti", "Distanze", "Punto medio"], torna: ["#1acc", "1ACC"] },
   "#esercitazione-fatture": { titolo: "Esercitazione · Le fatture da completare", chiave: "es-fatture-est-v1", esercizi: ESERCIZI_FATT, gruppi: ["Sconti", "Pagamenti"], torna: ["#2est", "2EST"] },
   "#esercitazione-per-cento": { titolo: "Esercitazione 1 · Che cosa vuol dire per cento", chiave: "es-per-cento-acc-v1", esercizi: ESERCIZI_PERC_ACC, gruppi: ["Problemi"], torna: ["#2acc", "2ACC"] },
-  "#esercitazione-parte-percentuale": { titolo: "Esercitazione 2 · Trovare la parte e la percentuale", chiave: "es-parte-percentuale-acc-v1", esercizi: ESERCIZI_PARTE_ACC, gruppi: ["Al banco colori", "Alla cassa", "In ufficio"], torna: ["#2acc", "2ACC"] }
+  "#esercitazione-parte-percentuale": { titolo: "Esercitazione 2 · Trovare la parte e la percentuale", chiave: "es-parte-percentuale-acc-v1", esercizi: ESERCIZI_PARTE_ACC, gruppi: ["Al banco colori", "Alla cassa", "In ufficio"], torna: ["#2acc", "2ACC"] },
+  "#esercitazione-listino-ordine": { titolo: "Esercitazione · Il listino e l'ordine", chiave: "es-listino-ordine-est-v1", esercizi: ESERCIZI_LISTINO_EST, gruppi: ["Problemi"], torna: ["#1est", "1EST"] }
 };
 const selPiano = {}, PIANI = {};
 const MEMORIA = {};
@@ -2137,7 +2299,7 @@ function giusto(e, v, c, campo) {
   const r = stato.risposte;
   if (campo.t === "num") { const x = leggi(r[id(e, v, c)]); return campo.tol ? Math.abs(x - campo.v) <= campo.tol : uguale(x, campo.v); }
   if (campo.t === "rapporto") return uguale(leggi(r[id(e, v, c, "a")]), campo.a) && uguale(leggi(r[id(e, v, c, "b")]), campo.b);
-  if (campo.t === "scelta") return r[id(e, v, c)] === campo.giusta;
+  if (campo.t === "scelta") return campo.libera ? r[id(e, v, c)] != null : r[id(e, v, c)] === campo.giusta;
   if (campo.t === "punto") return uguale(leggi(r[id(e, v, c, "x")]), campo.x) && uguale(leggi(r[id(e, v, c, "y")]), campo.y);
   if (campo.t === "insieme") {
     const chiave = p => p.map(n => Math.round(n * 1000) / 1000).join(";");
@@ -2224,7 +2386,7 @@ function campoHTML(e, v, c, campo) {
   if (campo.t === "tabella") {
     return `<div class="fattura-box"><table class="fattura"><thead><tr>${campo.colonne.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>` +
       campo.righe.map((riga, i) => `<tr>${riga.map((cel, j) => `<td>${typeof cel === "object"
-        ? casella(id(e, v, c, "r" + i + "c" + j), campo.colonne[j] !== "importo" && campo.colonne[j] !== "prezzo", `${campo.colonne[j]}, ${riga[0]}`)
+        ? casella(id(e, v, c, "r" + i + "c" + j), !/importo|prezzo|costo/.test(campo.colonne[j]), `${campo.colonne[j]}, ${riga[0]}`)
         : cel}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
   }
   if (campo.t === "piano") {
@@ -2256,7 +2418,10 @@ function htmlScheda(e, s, n, parti, p) {
   if (parti && parti.length > 1) h += `<span class="parti" role="group" aria-label="Parti dell'esercizio">` + parti.map((q, i) =>
     `<button type="button" data-parte="${q[0]}" class="${i === p ? "attivo" : ""}"${i === p ? ` aria-current="true"` : ""}${parti.length > 3 ? ` aria-label="Parte ${i + 1}"` : ""}>${parti.length > 3 ? i + 1 : "Parte " + (i + 1)}</button>`).join("") + `</span>`;
   h += `</div>`;
+  if (es.dati) h += `<div class="intro">`;
   if (es.consegna) h += `<p class="consegna">${es.consegna}</p>`;
+  if (es.dati) h += `<div class="catalogo-box"><table class="fattura catalogo"><caption>Dal catalogo del fornitore</caption><thead><tr><th>prodotto</th><th>costo</th><th>vendita</th><th>confezione</th></tr></thead><tbody>` +
+    es.dati.map(n => `<tr><td>${n}</td><td>${CATALOGO_EST[n][0]} €</td><td>${CATALOGO_EST[n][1]} €</td><td>${CATALOGO_EST[n][2]}</td></tr>`).join("") + `</tbody></table></div></div>`;
   h += `<div class="due">`;
   if (es.figura) {
     const m = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/.exec(es.figura);
@@ -3535,7 +3700,7 @@ const lavagna = (() => {
     const sc = d.firstElementChild;
     sc.querySelectorAll(".casella").forEach(b => { b.classList.remove("attiva"); b.removeAttribute("id"); });
     sc.querySelectorAll("[id]").forEach(x => x.removeAttribute("id"));
-    if (cont) { const h2 = sc.querySelector("h2"); if (h2) h2.insertAdjacentHTML("beforeend", ` <span style="font-weight:400;color:var(--tenue);font-size:0.8em">(continua)</span>`); sc.querySelectorAll(".consegna, .figura:not(.soluzione .figura)").forEach(x => x.remove()); sc.classList.remove("fig"); }
+    if (cont) { const h2 = sc.querySelector("h2"); if (h2) h2.insertAdjacentHTML("beforeend", ` <span style="font-weight:400;color:var(--tenue);font-size:0.8em">(continua)</span>`); sc.querySelectorAll(".consegna, .catalogo-box, .figura:not(.soluzione .figura)").forEach(x => x.remove()); sc.classList.remove("fig"); }
     return sc;
   }
   function bloccoSegni(e, s) {
@@ -4836,6 +5001,7 @@ const VISTE = {
   "#1info": ["vista-1info", "Matematica per informatici - 1INFO"],
   "#1acc": ["vista-1acc", "Matematica per acconciatori - 1ACC"],
   "#2acc": ["vista-2acc", "Matematica per acconciatori - 2ACC"],
+  "#1est": ["vista-1est", "Matematica per estetiste - 1EST"],
   "#2est": ["vista-2est", "Matematica per estetiste - 2EST"],
   /* vecchi indirizzi, se qualcuno li ha salvati */
   "#informatici": ["vista-1info", "Matematica per informatici - 1INFO"],
@@ -4847,6 +5013,7 @@ const VISTE = {
   "#esercitazione-fatture": ["vista-sim", "Esercitazione - Le fatture da completare"],
   "#esercitazione-per-cento": ["vista-sim", "Esercitazione 1 - Che cosa vuol dire per cento"],
   "#esercitazione-parte-percentuale": ["vista-sim", "Esercitazione 2 - Trovare la parte e la percentuale"],
+  "#esercitazione-listino-ordine": ["vista-sim", "Esercitazione - Il listino e l'ordine"],
   "#slide-proporzioni": ["vista-slide", "Slide rapporti e proporzioni"],
   "#slide-percentuali": ["vista-slide", "Slide le percentuali"],
   "#slide-regole-proporzioni": ["vista-slide", "Slide tutte le regole delle proporzioni"],
@@ -4872,6 +5039,7 @@ const TEMI = {
   "#esercitazione-per-cento": "ardesia",
   "#esercitazione-parte-percentuale": "viola",
   "#esercitazione-fatture": "cioccolato",
+  "#esercitazione-listino-ordine": "bordeaux",
   "#piano-cartesiano": "petrolio",
   "#retta-numeri": "terracotta",
   "#tabella-proporzioni": "oliva",
