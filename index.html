@@ -848,6 +848,13 @@ body[data-tema="smeraldo"] {
   --motivo-size: 32px 32px, 32px 32px;
 }
 body[data-tema="smeraldo"] header { border-bottom: 4px solid var(--blu); box-shadow: 0 4px 0 #a8d86a; }
+/* ====== Google Documenti, informatica 1EST (2026-11-28): tema «salvia», arrotondato ====== */
+body[data-tema="salvia"] {
+  --blu: #4a6e54; --blu-chiaro: #e3ede1; --casella-attiva: #f2f7f1;
+  --carta: #f1f6f0; --foglio: #ffffff; --filo: #cddbc9; --font-titoli: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: radial-gradient(circle, #d3e1cf 1.6px, transparent 2.1px); --motivo-size: 24px 24px;
+}
+body[data-tema="salvia"] header { border-bottom: 3px solid var(--blu); border-radius: 0 0 14px 14px; }
 body[data-tema="smeraldo"] .voce { border-radius: 0 0.9em 0 0.9em; }
 body[data-tema="smeraldo"] :is(nav button, footer button, .parti button, .scelte button) { border-radius: 0.15em; }
 body[data-tema="smeraldo"] .scheda h2 .num { font-family: "Chakra Petch", monospace; color: #5f9a1f; }
@@ -955,6 +962,23 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
           <span class="riga"><span class="nome">Seconda · 2EST</span><span class="vai">Entra →</span></span>
           <span class="argomenti">Percentuali e fatture</span>
         </a>
+        <div class="classe-box vuota">
+          <span class="nome">Terza · 3EST</span>
+          <span class="argomenti">Ancora nessun materiale</span>
+        </div>
+      </div>
+    </section>
+    <section class="settore">
+      <h2>Informatica per estetiste</h2>
+      <div class="classi">
+        <a class="classe-box" href="#info-1est">
+          <span class="riga"><span class="nome">Prima · 1EST</span><span class="vai">Entra →</span></span>
+          <span class="argomenti">Google Documenti</span>
+        </a>
+        <div class="classe-box vuota">
+          <span class="nome">Seconda · 2EST</span>
+          <span class="argomenti">Ancora nessun materiale</span>
+        </div>
         <div class="classe-box vuota">
           <span class="nome">Terza · 3EST</span>
           <span class="argomenti">Ancora nessun materiale</span>
@@ -1137,6 +1161,60 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
     <div class="schede">
       <a class="materiale" href="#esercitazione-fatture">
         <span><span class="tit">Esercitazione: le fatture da completare</span><br><span class="desc">5 fatture da completare, con il controllo delle risposte e le soluzioni</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="vista" id="vista-info-1est" hidden>
+  <div class="home">
+    <a class="torna" href="#">← Tutte le classi</a>
+    <h1 style="margin-top:0.6em">Informatica per estetiste · Prima (1EST)</h1>
+    <p class="sotto">I materiali della classe, divisi per argomento.</p>
+    <h3>Google Documenti</h3>
+    <div class="schede">
+      <a class="materiale" href="#gdoc-slide">
+        <span><span class="tit">Slide: Google Documenti</span><br><span class="desc">60 slide, da sfogliare con le frecce; le slide «Al PC» dicono quale esercizio fare</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esercitazione-1">
+        <span><span class="tit">Esercitazione 1: primi documenti</span><br><span class="desc">Un esercizio per schermata: cartello, regole per prenotare, manicure, magazzino</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esempi-1">
+        <span><span class="tit">Esempi di risultato: esercitazione 1</span><br><span class="desc">5 pagine, una per documento, da confrontare con il proprio lavoro</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esercitazione-2">
+        <span><span class="tit">Esercitazione 2: dare ordine al testo</span><br><span class="desc">Un esercizio per schermata: protocollo da sistemare, scheda prodotto, testo dal web, regole della cabina</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esempi-2">
+        <span><span class="tit">Esempi di risultato: esercitazione 2</span><br><span class="desc">6 pagine, una per documento, da confrontare con il proprio lavoro</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esercitazione-3">
+        <span><span class="tit">Esercitazione 3: tabelle, immagini e pagina</span><br><span class="desc">Un esercizio per schermata: listino, scheda cliente, volantino, listino su due pagine</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esempi-3">
+        <span><span class="tit">Esempi di risultato: esercitazione 3</span><br><span class="desc">6 pagine, una per documento, da confrontare con il proprio lavoro</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esercitazione-4">
+        <span><span class="tit">Esercitazione 4: lavorare in due</span><br><span class="desc">Un esercizio per schermata: ruoli, commenti, suggerimenti, scrivere insieme, cronologia</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esempi-4">
+        <span><span class="tit">Esempi di risultato: esercitazione 4</span><br><span class="desc">4 pagine, una per documento, da confrontare con il proprio lavoro</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esercitazione-5">
+        <span><span class="tit">Esercitazione 5: dall'idea al documento finito</span><br><span class="desc">Un esercizio per schermata: curriculum, lettera, menu dei trattamenti, consenso, protocollo</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#gdoc-esempi-5">
+        <span><span class="tit">Esempi di risultato: esercitazione 5</span><br><span class="desc">9 pagine, una per documento, da confrontare con il proprio lavoro</span></span>
         <span class="vai">Apri →</span>
       </a>
     </div>
@@ -3198,7 +3276,18 @@ if (document.fonts) document.fonts.addEventListener("loadingdone", ricalcola);  
 const MAZZI = {
   "#slide-proporzioni": { titolo: "Slide · Rapporti e proporzioni", cartella: "slide/proporzioni", n: 51 },
   "#slide-percentuali": { titolo: "Slide · Le percentuali", cartella: "slide/percentuali", n: 18 },
-  "#slide-regole-proporzioni": { titolo: "Slide · Tutte le regole delle proporzioni", cartella: "slide/regole-proporzioni", n: 1 }
+  "#slide-regole-proporzioni": { titolo: "Slide · Tutte le regole delle proporzioni", cartella: "slide/regole-proporzioni", n: 1 },
+  "#gdoc-slide": { titolo: "Slide · Google Documenti", cartella: "slide/gdoc-slide", n: 60, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esercitazione-1": { titolo: "Esercitazione 1 · Primi documenti", cartella: "slide/gdoc-esercitazione-1", n: 6, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esempi-1": { titolo: "Esempi di risultato · Esercitazione 1", cartella: "slide/gdoc-esempi-1", n: 5, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esercitazione-2": { titolo: "Esercitazione 2 · Dare ordine al testo", cartella: "slide/gdoc-esercitazione-2", n: 6, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esempi-2": { titolo: "Esempi di risultato · Esercitazione 2", cartella: "slide/gdoc-esempi-2", n: 6, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esercitazione-3": { titolo: "Esercitazione 3 · Tabelle, immagini e pagina", cartella: "slide/gdoc-esercitazione-3", n: 6, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esempi-3": { titolo: "Esempi di risultato · Esercitazione 3", cartella: "slide/gdoc-esempi-3", n: 6, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esercitazione-4": { titolo: "Esercitazione 4 · Lavorare in due", cartella: "slide/gdoc-esercitazione-4", n: 7, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esempi-4": { titolo: "Esempi di risultato · Esercitazione 4", cartella: "slide/gdoc-esempi-4", n: 4, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esercitazione-5": { titolo: "Esercitazione 5 · Dall'idea al documento finito", cartella: "slide/gdoc-esercitazione-5", n: 7, torna: ["#info-1est", "1EST"] },
+  "#gdoc-esempi-5": { titolo: "Esempi di risultato · Esercitazione 5", cartella: "slide/gdoc-esempi-5", n: 9, torna: ["#info-1est", "1EST"] }
 };
 let mazzo = null, pagina = 1;
 const imgSlide = document.getElementById("slide-img");
@@ -3218,6 +3307,8 @@ function apriMazzo(h) {
   const nuovo = MAZZI[h];
   if (mazzo !== nuovo) { mazzo = nuovo; pagina = 1; }
   document.getElementById("slide-titolo").textContent = mazzo.titolo;
+  const torna = document.querySelector("#vista-slide header .torna"), dove = mazzo.torna || ["#1info", "1INFO"];
+  torna.href = dove[0]; torna.textContent = "← " + dove[1];
   mostraSlide();
 }
 document.getElementById("slide-prec").addEventListener("click", () => vaiSlide(pagina - 1));
@@ -5546,6 +5637,7 @@ const VISTE = {
   "#3acc": ["vista-3acc", "Matematica per acconciatori - 3ACC"],
   "#1est": ["vista-1est", "Matematica per estetiste - 1EST"],
   "#2est": ["vista-2est", "Matematica per estetiste - 2EST"],
+  "#info-1est": ["vista-info-1est", "Informatica per estetiste - 1EST"],
   /* vecchi indirizzi, se qualcuno li ha salvati */
   "#informatici": ["vista-1info", "Matematica per informatici - 1INFO"],
   "#acconciatori": ["vista-1acc", "Matematica per acconciatori - 1ACC"],
@@ -5562,6 +5654,17 @@ const VISTE = {
   "#slide-proporzioni": ["vista-slide", "Slide rapporti e proporzioni"],
   "#slide-percentuali": ["vista-slide", "Slide le percentuali"],
   "#slide-regole-proporzioni": ["vista-slide", "Slide tutte le regole delle proporzioni"],
+  "#gdoc-slide": ["vista-slide", "Slide Google Documenti"],
+  "#gdoc-esercitazione-1": ["vista-slide", "Esercitazione 1 - Google Documenti"],
+  "#gdoc-esempi-1": ["vista-slide", "Esempi di risultato - Esercitazione 1 - Google Documenti"],
+  "#gdoc-esercitazione-2": ["vista-slide", "Esercitazione 2 - Google Documenti"],
+  "#gdoc-esempi-2": ["vista-slide", "Esempi di risultato - Esercitazione 2 - Google Documenti"],
+  "#gdoc-esercitazione-3": ["vista-slide", "Esercitazione 3 - Google Documenti"],
+  "#gdoc-esempi-3": ["vista-slide", "Esempi di risultato - Esercitazione 3 - Google Documenti"],
+  "#gdoc-esercitazione-4": ["vista-slide", "Esercitazione 4 - Google Documenti"],
+  "#gdoc-esempi-4": ["vista-slide", "Esempi di risultato - Esercitazione 4 - Google Documenti"],
+  "#gdoc-esercitazione-5": ["vista-slide", "Esercitazione 5 - Google Documenti"],
+  "#gdoc-esempi-5": ["vista-slide", "Esempi di risultato - Esercitazione 5 - Google Documenti"],
   "#piano-cartesiano": ["vista-piano", "Piano cartesiano personalizzabile"],
   "#foglio": ["vista-foglio", "Foglio per i calcoli"],
   "#retta-numeri": ["vista-retta", "Retta dei numeri"],
@@ -5580,6 +5683,17 @@ const TEMI = {
   "#simulazione-proporzioni": "viola",
   "#slide-percentuali": "petrolio",
   "#slide-regole-proporzioni": "oliva",
+  "#gdoc-slide": "salvia",
+  "#gdoc-esercitazione-1": "notte",
+  "#gdoc-esempi-1": "ambra",
+  "#gdoc-esercitazione-2": "viola",
+  "#gdoc-esempi-2": "petrolio",
+  "#gdoc-esercitazione-3": "prugna",
+  "#gdoc-esempi-3": "ardesia",
+  "#gdoc-esercitazione-4": "cioccolato",
+  "#gdoc-esempi-4": "bordeaux",
+  "#gdoc-esercitazione-5": "terracotta",
+  "#gdoc-esempi-5": "oliva",
   "#esercizi-piano-cartesiano": "prugna",
   "#esercitazione-per-cento": "ardesia",
   "#esercitazione-parte-percentuale": "viola",
