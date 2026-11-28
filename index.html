@@ -24,7 +24,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&family=Space+Grotesk:wght@700&family=Bitter:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@700&family=Baloo+2:wght@700&family=Nunito:wght@700;800&family=Rubik:wght@600;700&family=Sora:wght@700&family=Playfair+Display:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lexend:wght@500;700&family=Space+Grotesk:wght@700&family=Bitter:wght@700&family=Fredoka:wght@600;700&family=Outfit:wght@700&family=Baloo+2:wght@700&family=Nunito:wght@700;800&family=Rubik:wght@600;700&family=Sora:wght@700&family=Playfair+Display:wght@700&family=Quicksand:wght@700&family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* pagina a una sola tema chiaro: si legge bene sulla LIM e su carta proiettata */
@@ -828,6 +828,19 @@ body[data-tema="zaffiro"] header { border-bottom: 5px solid #c9a227; }
 body[data-tema="zaffiro"] .scheda h2 .num { color: #a8841a; }
 body[data-tema="zaffiro"] .voce { border-radius: 0.3em 0.9em 0.3em 0.9em; }
 body[data-tema="zaffiro"] nav .gruppo { color: #8a6d12; font-weight: 700; }
+/* ====== esercitazione percentuali 1INFO (2026-11-28): tema «smeraldo», titoli tecnici, motivo a circuito ====== */
+body[data-tema="smeraldo"] {
+  --blu: #08755a; --blu-chiaro: #dcf1e9; --casella-attiva: #effaf5;
+  --carta: #eff6f3; --foglio: #ffffff; --filo: #c6e0d6; --font-titoli: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --motivo-img: radial-gradient(circle, #c9e3d9 1.8px, transparent 2.3px), linear-gradient(90deg, transparent 15px, #dcece5 15px 16px, transparent 16px);
+  --motivo-size: 32px 32px, 32px 32px;
+}
+body[data-tema="smeraldo"] header { border-bottom: 4px solid var(--blu); box-shadow: 0 4px 0 #a8d86a; }
+body[data-tema="smeraldo"] .voce { border-radius: 0 0.9em 0 0.9em; }
+body[data-tema="smeraldo"] :is(nav button, footer button, .parti button, .scelte button) { border-radius: 0.15em; }
+body[data-tema="smeraldo"] .scheda h2 .num { font-family: "Chakra Petch", monospace; color: #5f9a1f; }
+body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8em; }
+
 .consegna .opz { display: block; padding-left: 1.05em; text-indent: -0.75em; }
 .consegna .opz::before { content: "•"; color: var(--blu); margin-right: 0.45em; }
 .consegna .cosa { display: block; margin-top: 0.35em; font-weight: 700; color: var(--blu); }
@@ -1034,6 +1047,10 @@ body[data-tema="zaffiro"] nav .gruppo { color: #8a6d12; font-weight: 700; }
     <div class="schede">
       <a class="materiale" href="#slide-percentuali">
         <span><span class="tit">Slide: le percentuali</span><br><span class="desc">18 slide, da sfogliare con le frecce</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#esercitazione-percentuali">
+        <span><span class="tit">Esercitazione: le percentuali</span><br><span class="desc">13 esercizi e problemi, con il controllo delle risposte e le soluzioni</span></span>
         <span class="vai">Apri →</span>
       </a>
     </div>
@@ -2538,6 +2555,111 @@ ESERCIZI_SCELTA_ACC.forEach(es => es.voci.forEach(vo => {
   if (r) vo[2] = vo[2].replace("%PIANO%", solRette(r));
 }));
 
+/* ---------------- dati dell'esercitazione sulle percentuali 1INFO (stessi esercizi del PDF 110, 2026-11-28) ---------------- */
+const MSC = (opzioni, giuste) => ({ t: "multi", opzioni, giuste });   // si toccano una o più opzioni: giuste se sono proprio quelle
+const GEMELLI = ["130%", "8%", "2,5%", "45%", "35%", "80%", "nessun gemello"];
+const FILA = ["23%", "0,2", "0,25", "0,235", "2,4%", "21,5%"];
+const ORDINE_FILA = "Scrivi tutti i numeri come decimali: 23% = 0,23 &nbsp; 0,2 &nbsp; 0,25 &nbsp; 0,235 &nbsp; 2,4% = 0,024 &nbsp; 21,5% = 0,215.<br>In ordine: 0,024 &lt; 0,2 &lt; 0,215 &lt; 0,23 &lt; 0,235 &lt; 0,25.<br>1° posto: <b>2,4%</b>";
+const ESERCIZI_PERC_1INFO = [
+  { n: 1, titolo: "I gemelli", consegna: "Ogni numero della prima riga ha un gemello nella seconda riga: lo stesso valore, scritto in un altro modo. Trova le coppie. Un numero della prima riga resta senza gemello: scrivilo in percentuale.<br>Prima riga: 0,45 &nbsp; 0,08 &nbsp; 0,8 &nbsp; 35/100 &nbsp; 1,3 &nbsp; 0,025 &nbsp; 0,5<br>Seconda riga: 130% &nbsp; 8% &nbsp; 2,5% &nbsp; 45% &nbsp; 35% &nbsp; 80%",
+    voci: [
+      ["Il gemello di 0,45:", [C(GEMELLI, 3)], "0,45 = 45/100 = <b>45%</b>", ""],
+      ["Il gemello di 0,08:", [C(GEMELLI, 1)], "0,08 = 8/100 = <b>8%</b>", ""],
+      ["Il gemello di 0,8:", [C(GEMELLI, 5)], "0,8 = 0,80 = 80/100 = <b>80%</b>", ""],
+      ["Il gemello di 35/100:", [C(GEMELLI, 4)], "35/100 = <b>35%</b>", ""],
+      ["Il gemello di 1,3:", [C(GEMELLI, 0)], "1,3 = 1,30 = 130/100 = <b>130%</b>", ""],
+      ["Il gemello di 0,025:", [C(GEMELLI, 2)], "0,025 = 2,5/100 = <b>2,5%</b>", ""],
+      ["Il gemello di 0,5:", [C(GEMELLI, 6)], "0,5 = 50%, che nella seconda riga non c'è: <b>nessun gemello</b>.", ""],
+      ["Il numero senza gemello, in percentuale:", [N(50, "%")], "0,5 = 0,50 = 50/100 = <b>50%</b>", ""]
+    ] },
+  { n: 2, titolo: "A mente", consegna: "Calcola senza calcolatrice. Poi trova i due calcoli che danno lo stesso risultato.", colonne: true,
+    voci: [
+      ["10% di 730", [N(73)], "Il 10% si trova dividendo per 10: 730 : 10 = <b>73</b>"],
+      ["25% di 2,4", [N(0.6)], "Il 25% è un quarto: 2,4 : 4 = <b>0,6</b>"],
+      ["5% di 180", [N(9)], "10% di 180 = 18. Il 5% è la metà: <b>9</b>"],
+      ["1% di 5200", [N(52)], "L'1% si trova dividendo per 100: 5200 : 100 = <b>52</b>"],
+      ["75% di 48", [N(36)], "Un quarto di 48 è 12. Il 75% sono tre quarti: 12 · 3 = <b>36</b>"],
+      ["20% di 1,5", [N(0.3)], "10% di 1,5 = 0,15. Il 20% è il doppio: <b>0,3</b>"],
+      ["15% di 300", [N(45)], "10% di 300 = 30, 5% = 15. 30 + 15 = <b>45</b>"],
+      ["50% di 0,9", [N(0.45)], "Il 50% è la metà: 0,9 : 2 = <b>0,45</b>"],
+      ["200% di 35", [N(70)], "Il 200% è il doppio: 35 · 2 = <b>70</b>"],
+      ["30% di 150", [N(45)], "10% di 150 = 15. Il 30% è il triplo: 15 · 3 = <b>45</b>"],
+      ["Quali due calcoli danno lo stesso risultato? Tocca le due lettere.", [MSC(LETTERE, [6, 9])], "g) e j) danno tutti e due <b>45</b>. Attenzione: h) dà 0,45, non 45.", ""]
+    ] },
+  { n: 3, titolo: "In fila", consegna: "Metti i numeri in ordine, dal più piccolo al più grande.<br>23% &nbsp; 0,2 &nbsp; 0,25 &nbsp; 0,235 &nbsp; 2,4% &nbsp; 21,5%",
+    voci: [
+      ["Al 1° posto, il più piccolo:", [C(FILA, 4)], ORDINE_FILA, ""],
+      ["Al 2° posto:", [C(FILA, 1)], "2° posto: <b>0,2</b>", ""],
+      ["Al 3° posto:", [C(FILA, 5)], "3° posto: <b>21,5%</b> (0,215)", ""],
+      ["Al 4° posto:", [C(FILA, 0)], "4° posto: <b>23%</b> (0,23)", ""],
+      ["Al 5° posto:", [C(FILA, 3)], "5° posto: <b>0,235</b>", ""],
+      ["Al 6° posto, il più grande:", [C(FILA, 2)], "6° posto: <b>0,25</b>", ""]
+    ] },
+  { n: 4, titolo: "Il numero di partenza", consegna: "Trova il numero.", colonne: true,
+    voci: [
+      ["Il 30% di un numero è 42.", [N(140)], "42 è il 30%. L'1% è 42 : 30 = 1,4. Il 100% è 1,4 · 100 = <b>140</b>.<br>Oppure: 42 : 0,30 = 140."],
+      ["Il 4% di un numero è 18.", [N(450)], "L'1% è 18 : 4 = 4,5. Il 100% è 4,5 · 100 = <b>450</b>.<br>Oppure: 18 : 0,04 = 450."],
+      ["Il 125% di un numero è 75.", [N(60)], "L'1% è 75 : 125 = 0,6. Il 100% è 0,6 · 100 = <b>60</b>.<br>Oppure: 75 : 1,25 = 60."],
+      ["Il 60% di un numero è 0,9.", [N(1.5)], "L'1% è 0,9 : 60 = 0,015. Il 100% è 0,015 · 100 = <b>1,5</b>.<br>Oppure: 0,9 : 0,60 = 1,5."]
+    ] },
+  { n: 5, titolo: "Il disco del portatile", problema: true, consegna: "L'SSD di un portatile è da 512 GB. Sono occupati 435,2 GB.",
+    voci: [
+      ["Che percentuale del disco è occupata?", [N(85, "%")], "435,2 : 512 = 0,85, cioè <b>85%</b>", "a"],
+      ["Il tecnico consiglia di non superare il 90%. Quanti GB si possono ancora salvare senza superarlo?", [N(25.6, "GB")], "Il 90% di 512 GB è 512 · 0,90 = 460,8 GB. 460,8 − 435,2 = <b>25,6 GB</b>", "b"],
+      ["Il proprietario cancella 102,4 GB di vecchi video. Che percentuale del disco è occupata adesso?", [N(65, "%")], "435,2 − 102,4 = 332,8 GB. 332,8 : 512 = 0,65, cioè <b>65%</b>", "c"]
+    ] },
+  { n: 6, titolo: "Il preventivo", problema: true, consegna: "Un piccolo ufficio chiede un preventivo per 4 monitor a 165 € l'uno e 4 kit tastiera e mouse a 28 € l'uno. I prezzi sono IVA esclusa.",
+    voci: [
+      ["Quanto costa tutto, senza IVA?", [N(772, "€")], "4 · 165 = 660 €. 4 · 28 = 112 €. 660 + 112 = <b>772 €</b>", "a"],
+      ["Quanto è l'IVA?", [N(169.84, "€")], "22% di 772 €: 772 · 0,22 = <b>169,84 €</b>", ""],
+      ["Quanto paga in tutto l'ufficio?", [N(941.84, "€")], "772 + 169,84 = <b>941,84 €</b>", ""],
+      ["L'ufficio vuole spendere al massimo 900 €, IVA compresa. Con uno sconto del 5% sul prezzo senza IVA, quanto costa tutto senza IVA?", [N(733.4, "€")], "5% di 772 € = 38,60 €. 772 − 38,60 = <b>733,40 €</b>", "b"],
+      ["Con lo sconto, quanto paga l'ufficio IVA compresa?", [N(894.75, "€", "", 0.011)], "IVA: 733,40 · 0,22 = 161,35 €. 733,40 + 161,35 = <b>894,75 €</b>", ""],
+      ["L'ufficio riesce a spendere al massimo 900 €?", [SINO(0)], "894,75 € è meno di 900 €: <b>sì</b>.", ""]
+    ] },
+  { n: 7, titolo: "La nota spese", problema: true, consegna: "Un cliente ha comprato un router (l'apparecchio che porta Internet in casa o in ufficio) e ha pagato 91,50 €, IVA compresa.",
+    voci: [
+      ["Quanto è il prezzo senza IVA?", [N(75, "€")], "Il prezzo con IVA è il 122% del prezzo senza IVA: 91,50 : 1,22 = <b>75,00 €</b>", "a"],
+      ["Quanto è l'IVA?", [N(16.5, "€")], "91,50 − 75,00 = <b>16,50 €</b>. Controllo: 22% di 75 = 16,50 €.", ""],
+      ["Un collega ha calcolato l'IVA così: 91,50 · 0,22 = 20,13 euro. Che errore ha fatto?", [C(["ha sbagliato la moltiplicazione", "ha calcolato il 22% del prezzo con IVA, ma l'IVA è il 22% del prezzo senza IVA", "doveva moltiplicare per 22, non per 0,22", "doveva fare 91,50 − 22"], 1)], "La moltiplicazione è giusta, ma l'IVA è il 22% del prezzo <b>senza IVA</b> (75 €), non del prezzo che l'ha già dentro (91,50 €).", "b"]
+    ] },
+  { n: 8, titolo: "La tastiera meccanica", problema: true, consegna: "La stessa tastiera da gioco è in vendita in due negozi online.<br>Negozio A: prezzo pieno 89 €, sconto del 30%, spedizione gratis.<br>Negozio B: prezzo pieno 75 €, sconto del 15%, spedizione 4,90 €.",
+    voci: [
+      ["Quanto si spende in tutto in ciascun negozio?", [N(62.3, "€", "A:"), N(68.65, "€", "B:")], "A: sconto 89 · 0,30 = 26,70 €. 89 − 26,70 = <b>62,30 €</b><br>B: sconto 75 · 0,15 = 11,25 €. 75 − 11,25 = 63,75 €. 63,75 + 4,90 = <b>68,65 €</b>", "a"],
+      ["Quale negozio conviene?", [C(["A", "B"], 0)], "62,30 € è meno di 68,65 €: conviene il negozio <b>A</b>.", "b"],
+      ["Quanto si risparmia?", [N(6.35, "€")], "68,65 − 62,30 = <b>6,35 €</b>", ""]
+    ] },
+  { n: 9, titolo: "Il canone del gestionale", problema: true, consegna: "Il gestionale (il programma per fatture e magazzino) di un negozio costava 480 € all'anno. Quest'anno il canone è di 552 €.",
+    voci: [
+      ["Di quanto per cento è aumentato il canone?", [N(15, "%")], "Aumento: 552 − 480 = 72 €. 72 : 480 = 0,15, cioè <b>15%</b>", "a"],
+      ["L'anno prossimo il canone aumenterà ancora del 15%. Quanto costerà?", [N(634.8, "€")], "15% di 552 € = 552 · 0,15 = 82,80 €. 552 + 82,80 = <b>634,80 €</b>", "b"],
+      ["Rispetto ai 480 € di partenza, di quanto per cento sarà aumentato in tutto?", [N(32.25, "%")], "Aumento: 634,80 − 480 = 154,80 €. 154,80 : 480 = 0,3225, cioè <b>32,25%</b>", "c"],
+      ["È il 30%?", [SINO(1)], "<b>No</b>: è il 32,25%. Il secondo 15% si calcola su 552 €, non su 480 €, quindi le due percentuali non si sommano.", ""]
+    ] },
+  { n: 10, titolo: "Il Black Friday", problema: true, consegna: "Un hard disk esterno costa 80 € da mesi. Una settimana prima del Black Friday il prezzo sale del 25%. Il giorno del Black Friday compare il bollino «−25%».",
+    voci: [
+      ["Quanto costa l'hard disk il giorno del Black Friday?", [N(75, "€")], "Aumento: 25% di 80 = 20 €, il prezzo sale a 100 €.<br>Sconto: 25% di 100 = 25 €. 100 − 25 = <b>75 €</b>", "a"],
+      ["Per legge va scritto anche il prezzo più basso degli ultimi 30 giorni. Rispetto a quel prezzo, l'hard disk costa di più o di meno?", [C(["di più", "di meno", "uguale"], 1)], "Il prezzo più basso degli ultimi 30 giorni è 80 €. 75 € è <b>di meno</b>.", "b"],
+      ["Di quanto per cento?", [N(6.25, "%")], "80 − 75 = 5 €. 5 : 80 = 0,0625, cioè <b>6,25%</b> in meno", ""]
+    ] },
+  { n: 11, titolo: "Le richieste di assistenza", problema: true, consegna: "In un mese un servizio di assistenza ha ricevuto 260 richieste. Il 65% è stato risolto al telefono, il 30% da remoto (collegandosi al PC del cliente via Internet), le altre con un tecnico sul posto.",
+    voci: [
+      ["Quante richieste sono state risolte in ciascuno dei tre modi?", [N(169, "richieste", "al telefono:"), N(78, "richieste", "da remoto:"), N(13, "richieste", "sul posto:")], "Al telefono: 260 · 0,65 = <b>169</b><br>Da remoto: 260 · 0,30 = <b>78</b><br>Sul posto: 260 − 169 − 78 = <b>13</b>", "a"],
+      ["Che percentuale è stata risolta con un tecnico sul posto?", [N(5, "%")], "100% − 65% − 30% = <b>5%</b>. Controllo: 13 : 260 = 0,05.", "b"]
+    ] },
+  { n: 12, titolo: "La memoria del PC", problema: true, consegna: "Un PC ha 16 GB di RAM (la memoria che il computer usa mentre lavora). Gestione attività (il programma di Windows che mostra quanto lavora il PC) indica: RAM in uso 68%.",
+    voci: [
+      ["Quanti GB di RAM sono in uso?", [N(10.88, "GB")], "16 · 0,68 = <b>10,88 GB</b>", "a"],
+      ["Si apre un programma di grafica che usa 2,4 GB. Che percentuale della RAM è in uso adesso?", [N(83, "%")], "10,88 + 2,4 = 13,28 GB. 13,28 : 16 = 0,83, cioè <b>83%</b>", "b"],
+      ["Poi si chiude il browser (il programma per navigare in Internet) e la RAM in uso scende al 59%. Quanti GB usava il browser?", [N(3.84, "GB")], "59% di 16 GB = 16 · 0,59 = 9,44 GB. 13,28 − 9,44 = <b>3,84 GB</b>", "c"]
+    ] },
+  { n: 13, titolo: "La provvigione", problema: true, consegna: "Un commesso di un negozio di informatica riceve, oltre allo stipendio, una provvigione: il 4% di quello che vende.",
+    voci: [
+      ["In un mese vende per 12 500 €. Quanto riceve di provvigione?", [N(500, "€")], "12 500 · 0,04 = <b>500 €</b>", "a"],
+      ["Il mese dopo riceve 620 € di provvigione. Per quanto ha venduto?", [N(15500, "€")], "620 € è il 4%. L'1% è 620 : 4 = 155 €. Il 100% è 155 · 100 = <b>15 500 €</b>", "b"]
+    ] }
+];
+
 /* ---------------- le attività con esercizi: una per indirizzo #nome ---------------- */
 const ATTIVITA = {
   "#simulazione-proporzioni": { titolo: "Simulazione di verifica · Rapporti e proporzioni", chiave: "sim-proporzioni-1info-v1", esercizi: ESERCIZI_SIM, gruppi: ["Esercizi", "Problemi"] },
@@ -2547,7 +2669,8 @@ const ATTIVITA = {
   "#esercitazione-per-cento": { titolo: "Esercitazione 1 · Che cosa vuol dire per cento", chiave: "es-per-cento-acc-v1", esercizi: ESERCIZI_PERC_ACC, gruppi: ["Problemi"], torna: ["#2acc", "2ACC"] },
   "#esercitazione-parte-percentuale": { titolo: "Esercitazione 2 · Trovare la parte e la percentuale", chiave: "es-parte-percentuale-acc-v1", esercizi: ESERCIZI_PARTE_ACC, gruppi: ["Al banco colori", "Alla cassa", "In ufficio"], torna: ["#2acc", "2ACC"] },
   "#esercitazione-listino-ordine": { titolo: "Esercitazione · Il listino e l'ordine", chiave: "es-listino-ordine-est-v1", esercizi: ESERCIZI_LISTINO_EST, gruppi: ["Problemi"], torna: ["#1est", "1EST"] },
-  "#simulazione-problemi-scelta": { titolo: "Simulazione di verifica · Problemi di scelta", chiave: "sim-problemi-scelta-3acc-v1", esercizi: ESERCIZI_SCELTA_ACC, gruppi: ["Problema 1", "Problema 2", "Problema 3"], torna: ["#3acc", "3ACC"] }
+  "#simulazione-problemi-scelta": { titolo: "Simulazione di verifica · Problemi di scelta", chiave: "sim-problemi-scelta-3acc-v1", esercizi: ESERCIZI_SCELTA_ACC, gruppi: ["Problema 1", "Problema 2", "Problema 3"], torna: ["#3acc", "3ACC"] },
+  "#esercitazione-percentuali": { titolo: "Esercitazione · Le percentuali", chiave: "es-percentuali-1info-v1", esercizi: ESERCIZI_PERC_1INFO, gruppi: ["Calcoli", "Problemi"] }
 };
 const selPiano = {}, PIANI = {};
 const MEMORIA = {};
@@ -2589,6 +2712,7 @@ function giusto(e, v, c, campo) {
   const r = stato.risposte;
   if (campo.t === "num") { const g = r[id(e, v, c)], x = campo.zero && (g == null || String(g).trim() === "") ? 0 : leggi(g); return campo.tol ? Math.abs(x - campo.v) <= campo.tol : uguale(x, campo.v); }
   if (campo.t === "rapporto") return uguale(leggi(r[id(e, v, c, "a")]), campo.a) && uguale(leggi(r[id(e, v, c, "b")]), campo.b);
+  if (campo.t === "multi") { const g = r[id(e, v, c)]; return Array.isArray(g) && g.length === campo.giuste.length && campo.giuste.every(x => g.includes(x)); }
   if (campo.t === "scelta") return campo.libera ? r[id(e, v, c)] != null : r[id(e, v, c)] === campo.giusta;
   if (campo.t === "punto") return uguale(leggi(r[id(e, v, c, "x")]), campo.x) && uguale(leggi(r[id(e, v, c, "y")]), campo.y);
   if (campo.t === "insieme") {
@@ -2736,6 +2860,7 @@ function campoHTML(e, v, c, campo) {
       `<button type="button" data-chip="${k}" data-n="${n}" class="${n === sel ? "scelta" : ""}${messi[n] ? " messo" : ""}" aria-pressed="${n === sel}">${n}${co(campo.punti[n][0], campo.punti[n][1])}</button>`).join("") +
       `</div><div class="pc" style="${largo(W, H, 27, 50)}">${svgPiano(dis)}</div></div>`;
   }
+  if (campo.t === "multi") return sceltaMulti(id(e, v, c), { m: campo.opzioni }, "scelte");
   const k = id(e, v, c);
   return `<span class="scelte" role="group">` + campo.opzioni.map((o, j) =>
     `<button type="button" data-scelta="${k}" data-j="${j}" class="${r[k] === j ? "scelta" : ""}" aria-pressed="${r[k] === j}">${o}</button>`).join("") + `</span>`;
@@ -2773,7 +2898,7 @@ function htmlScheda(e, s, n, parti, p, neutro) {
     const controllato = ctrlV(e, v);
     const cls = controllato ? (voceGiusta(e, v) ? " ok" : " ko") : "";
     const lettera = l !== undefined ? (l ? `<span class="lettera">${l})</span>` : "") : (es.voci.length > 1 && !es.problema ? `<span class="lettera">${String.fromCharCode(97 + v)})</span>` : "");
-    h += `<div class="voce${cls}${campi.some(c => c.t === "piano" || c.t === "rette") ? " con-piano" : ""}${campi.some(c => c.t === "tabella") ? " con-tabella" : ""}">` + (lettera || testo ? `<span class="testo">${lettera}${testo}</span>` : "");
+    h += `<div class="voce${cls}${campi.some(c => c.t === "piano" || c.t === "rette") ? " con-piano" : ""}${campi.some(c => c.t === "tabella" || c.t === "multi") ? " con-tabella" : ""}">` + (lettera || testo ? `<span class="testo">${lettera}${testo}</span>` : "");
     h += campi.map((campo, c) => campoHTML(e, v, c, campo)).join("");
     h += controllato ? `<span class="esito">${voceGiusta(e, v) ? "✓ giusto" : "✗ da rivedere"}</span>` : `<span class="esito" style="visibility:hidden" aria-hidden="true">✗ da rivedere</span>`;
     if (mostra && !solLato) h += `<div class="soluzione">${sol}</div>`;
@@ -2806,7 +2931,7 @@ function calcolaPagine(e) {
 }
 
 function disegnaTastierino(es) {
-  const serve = es && es.voci.some(vo => vo[1].some(c => c.t !== "scelta" && c.t !== "piano" && c.t !== "rette"));
+  const serve = es && es.voci.some(vo => vo[1].some(c => c.t !== "scelta" && c.t !== "multi" && c.t !== "piano" && c.t !== "rette"));
   tast.hidden = !serve;
   if (!serve) return;
   const t = (txt, d, cls, nome) => `<button type="button" data-t="${d}"${cls ? ` class="${cls}"` : ""}${nome ? ` aria-label="${nome}"` : ""}>${txt}</button>`;
@@ -5409,6 +5534,7 @@ const VISTE = {
   "#esercitazione-parte-percentuale": ["vista-sim", "Esercitazione 2 - Trovare la parte e la percentuale"],
   "#simulazione-problemi-scelta": ["vista-sim", "Simulazione di verifica - Problemi di scelta"],
   "#esercitazione-listino-ordine": ["vista-sim", "Esercitazione - Il listino e l'ordine"],
+  "#esercitazione-percentuali": ["vista-sim", "Esercitazione - Le percentuali"],
   "#slide-proporzioni": ["vista-slide", "Slide rapporti e proporzioni"],
   "#slide-percentuali": ["vista-slide", "Slide le percentuali"],
   "#slide-regole-proporzioni": ["vista-slide", "Slide tutte le regole delle proporzioni"],
@@ -5436,6 +5562,7 @@ const TEMI = {
   "#esercitazione-fatture": "cioccolato",
   "#simulazione-problemi-scelta": "zaffiro",
   "#esercitazione-listino-ordine": "bordeaux",
+  "#esercitazione-percentuali": "smeraldo",
   "#piano-cartesiano": "petrolio",
   "#retta-numeri": "terracotta",
   "#tabella-proporzioni": "oliva",
