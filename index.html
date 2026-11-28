@@ -451,6 +451,7 @@ select.pl-in { width: auto; text-align: left; }
 .lv-q { font: 700 0.75em var(--font-titoli); color: var(--tenue); margin-left: 0.4em; }
 .lv canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; display: block; }
 .lv-vivo { cursor: crosshair; }
+.lv .lv-punta { pointer-events: none; }
 .lv-barra { position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content; top: 8px; max-width: calc(100% - 16px); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.35em 0.7em; padding: 0.35em 0.5em; background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.8em; box-shadow: 0 2px 10px rgba(20,30,40,0.2); font-size: clamp(15px, 0.6vw + 10px, 22px); user-select: none; -webkit-user-select: none; }
 .lv.in-basso .lv-barra { top: auto; bottom: 8px; }
 .lv-gr { display: flex; gap: 0.25em; align-items: center; }
@@ -3704,7 +3705,8 @@ const apriPL = (() => {
 const lavagna = (() => {
   const PENNE = [["#1d2733", "nero"], ["#1e64a0", "blu"], ["#c0302a", "rosso"], ["#1d7a46", "verde"]];
   const EVID = [["#ffd400", "giallo"], ["#5cc8f5", "azzurro"], ["#ff7ab6", "rosa"], ["#86e070", "verde"]];
-  const SPESSORI = [[2.5, "sottile"], [5, "medio"], [10, "grosso"]];
+  const SPESSORI = [[1.5, "sottile"], [3, "medio"], [6, "grosso"]];   /* penna (2026-11-28: più sottile, alla LIM era troppo grossa) */
+  const LARGHI = { evid: [18, 28, 48], gomma: [12.5, 25, 50] };   /* evidenziatore e gomma restano com'erano */
   const CORPI = [24, 34, 50];   /* grandezza del testo: piccolo, medio, grande */
   const copia = o => JSON.parse(JSON.stringify(o));
   let nTesti = 0, modifica = null, trascina = null;
@@ -3721,7 +3723,7 @@ const lavagna = (() => {
 
   const el = document.createElement("div");
   el.className = "lv"; el.hidden = true;
-  el.innerHTML = `<div class="lv-sfondo"></div><canvas class="lv-base"></canvas><canvas class="lv-vivo"></canvas><div class="lv-testi"></div>
+  el.innerHTML = `<div class="lv-sfondo"></div><canvas class="lv-base"></canvas><canvas class="lv-punta"></canvas><canvas class="lv-vivo"></canvas><div class="lv-testi"></div>
   <div class="lv-barra" role="toolbar" aria-label="Strumenti per scrivere">
     <div class="lv-gr" id="lv-strumenti">
       <button type="button" data-s="penna" title="Penna">✎<span class="lv-et">Penna</span></button>
@@ -3750,8 +3752,8 @@ const lavagna = (() => {
     </div>
   </div>`;
   const q = s => el.querySelector(s);
-  const base = q(".lv-base"), vivo = q(".lv-vivo"), sfondoEl = q(".lv-sfondo");
-  const bctx = base.getContext("2d"), vctx = vivo.getContext("2d");
+  const base = q(".lv-base"), vivo = q(".lv-vivo"), punta = q(".lv-punta"), sfondoEl = q(".lv-sfondo");
+  const bctx = base.getContext("2d"), vctx = vivo.getContext("2d"), pctx = punta.getContext("2d");
 
   /* ---- chiave: a quale pagina appartengono i segni ---- */
   function chiaveCorrente() {
@@ -3775,16 +3777,16 @@ const lavagna = (() => {
     if (!riposo) return;
     const si = !!(tav && (tav.tratti.length || tav.testi.length));
     el.hidden = !si;
-    if (si) { const r = el.getBoundingClientRect(); if (Math.abs(r.width - W) > 1 || Math.abs(r.height - H) > 1) misura(); }
+    if (si) { const r = vivo.getBoundingClientRect(); if (Math.abs(r.width - W) > 1 || Math.abs(r.height - H) > 1) misura(); }
   }
   const off = () => sfondo === "pagina" ? (scorri ? scorri.scrollTop : 0) : tav.offY;
 
   /* ---- disegno ---- */
   function misura() {
-    const r = el.getBoundingClientRect();
+    const r = vivo.getBoundingClientRect();   /* la tela, non il riquadro: nel foglio affiancato c'è il bordo */
     W = r.width; H = r.height; dpr = window.devicePixelRatio || 1;
-    for (const c of [base, vivo]) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
-    bctx.setTransform(dpr, 0, 0, dpr, 0, 0); vctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    for (const c of [base, vivo, punta]) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
+    bctx.setTransform(dpr, 0, 0, dpr, 0, 0); vctx.setTransform(dpr, 0, 0, dpr, 0, 0); pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (tav) ridisegna();
   }
   function stile(ctx, tr) {
@@ -3908,8 +3910,30 @@ const lavagna = (() => {
   function annullaTratto() {
     if (!tratto) return;
     const eraGomma = tratto.s === "gomma";
-    tratto = null; vctx.clearRect(0, 0, W, H);
+    tratto = null; vctx.clearRect(0, 0, W, H); pulisciPunta();
     if (eraGomma && tav) ridisegna();
+  }
+  /* penna: il tratto si disegna un pezzo alla volta (non tutto da capo a ogni movimento), e la punta
+     (l'ultimo pezzetto più il punto previsto dal browser) su una tela a parte, che si pulisce solo lì intorno */
+  let scatola = null;
+  function pulisciPunta() { if (scatola) { pctx.clearRect(scatola[0], scatola[1], scatola[2], scatola[3]); scatola = null; } }
+  const mezzo = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+  function pezzoFisso(tr, k, o) {   /* il pezzo che finisce a metà tra il punto k-1 e il punto k */
+    const p = tr.p, a = k >= 2 ? mezzo(p[k - 2], p[k - 1]) : p[0], c = p[k - 1], b = mezzo(p[k - 1], p[k]);
+    vctx.save(); stile(vctx, tr);
+    vctx.beginPath(); vctx.moveTo(a[0], a[1] - o); vctx.quadraticCurveTo(c[0], c[1] - o, b[0], b[1] - o); vctx.stroke(); vctx.restore();
+  }
+  function disegnaPunta(tr, o, previsto) {
+    pulisciPunta();
+    const p = tr.p, n = p.length, l = [n >= 2 ? mezzo(p[n - 2], p[n - 1]) : p[0], p[n - 1]];
+    if (previsto) l.push(previsto);
+    pctx.save(); stile(pctx, tr);
+    pctx.beginPath(); pctx.moveTo(l[0][0], l[0][1] - o);
+    for (let i = 1; i < l.length; i++) pctx.lineTo(l[i][0], l[i][1] - o);
+    if (l.length === 2 && l[0][0] === l[1][0] && l[0][1] === l[1][1]) pctx.lineTo(l[1][0] + 0.01, l[1][1] - o);
+    pctx.stroke(); pctx.restore();
+    const xs = l.map(v => v[0]), ys = l.map(v => v[1] - o), m = tr.w + 4;
+    scatola = [Math.min(...xs) - m, Math.min(...ys) - m, Math.max(...xs) - Math.min(...xs) + 2 * m, Math.max(...ys) - Math.min(...ys) + 2 * m];
   }
   function scorriDi(dy) {
     if (!dy) return;
@@ -3919,8 +3943,10 @@ const lavagna = (() => {
   }
   vivo.addEventListener("pointerdown", ev => {
     if (ev.pointerType === "pen") penna = true;
+    /* un secondo contatto mentre si sta già scrivendo (il palmo o il lato della mano sulla LIM) non interrompe il tratto */
+    if (tratto && ev.pointerId !== tratto.id && (tratto.p.length > 8 || performance.now() - tratto.t0 > 250)) return;
     sincronizza();
-    rett = el.getBoundingClientRect();
+    rett = vivo.getBoundingClientRect();
     try { vivo.setPointerCapture(ev.pointerId); } catch (e) {}
     punti.set(ev.pointerId, { y: ev.clientY, tipo: ev.pointerType });
     const d = dita();
@@ -3935,14 +3961,16 @@ const lavagna = (() => {
       if (testoAttivo()) finisciTesto(); else nuovoTesto(ev);
       return;
     }
-    const pal = strumento === "evid" ? EVID : PENNE, w = SPESSORI[spessore][0];
+    const pal = strumento === "evid" ? EVID : PENNE;
     tratto = {
       id: ev.pointerId, s: strumento,
       c: strumento === "gomma" ? "#000" : pal[strumento === "evid" ? colEvid : colore][0],
-      w: strumento === "gomma" ? w * 5 : strumento === "evid" ? w * 4 + 8 : w,
+      w: strumento === "penna" ? SPESSORI[spessore][0] : LARGHI[strumento][spessore],
       p: [posizione(ev)]
     };
+    Object.defineProperty(tratto, "t0", { value: performance.now(), enumerable: false });
     if (tratto.s === "gomma") disegnaTratto(bctx, tratto, off());
+    else if (tratto.s === "penna") { vctx.clearRect(0, 0, W, H); disegnaPunta(tratto, off()); }
     else { vctx.clearRect(0, 0, W, H); disegnaTratto(vctx, tratto, off()); }
   });
   vivo.addEventListener("pointermove", ev => {
@@ -3958,13 +3986,23 @@ const lavagna = (() => {
     if (!tratto || ev.pointerId !== tratto.id) return;
     const evs = ev.getCoalescedEvents ? ev.getCoalescedEvents() : [ev];
     const o = off();
+    const soglia = ev.pointerType === "touch" ? 1.5 : 1;   /* i sensori della LIM tremolano di un pixel */
     for (const e of (evs.length ? evs : [ev])) {
       const nuovo = posizione(e), prima = tratto.p[tratto.p.length - 1];
-      if (Math.hypot(nuovo[0] - prima[0], nuovo[1] - prima[1]) < 1) continue;
+      if (Math.hypot(nuovo[0] - prima[0], nuovo[1] - prima[1]) < soglia) continue;
       tratto.p.push(nuovo);
       if (tratto.s === "gomma") disegnaTratto(bctx, { ...tratto, p: [prima, nuovo] }, o);
+      else if (tratto.s === "penna") pezzoFisso(tratto, tratto.p.length - 1, o);
     }
-    if (tratto.s !== "gomma") { vctx.clearRect(0, 0, W, H); disegnaTratto(vctx, tratto, o); }
+    if (tratto.s === "penna") {
+      /* il punto previsto accorcia il ritardo visibile; non entra nel tratto e lo si scarta se è lontano */
+      const pr = ev.getPredictedEvents ? ev.getPredictedEvents() : [];
+      let previsto = pr.length ? posizione(pr[pr.length - 1]) : null;
+      const ult = tratto.p[tratto.p.length - 1];
+      if (previsto && Math.hypot(previsto[0] - ult[0], previsto[1] - ult[1]) > 40) previsto = null;
+      disegnaPunta(tratto, o, previsto);
+    }
+    else if (tratto.s !== "gomma") { vctx.clearRect(0, 0, W, H); disegnaTratto(vctx, tratto, o); }
   });
   function fine(ev) {
     punti.delete(ev.pointerId);
@@ -3975,7 +4013,7 @@ const lavagna = (() => {
     if (!tratto || ev.pointerId !== tratto.id) return;
     if (ev.type === "pointercancel") { annullaTratto(); return; }
     const tr = tratto; tratto = null;
-    vctx.clearRect(0, 0, W, H);
+    vctx.clearRect(0, 0, W, H); pulisciPunta();
     tav.tratti.push(tr); tav.fatti.push({ t: "+", tr }); tav.disfatti = [];
     if (tr.s !== "gomma") disegnaTratto(bctx, tr, off());
     aggiornaTasti();
