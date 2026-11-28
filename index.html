@@ -948,7 +948,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
         </a>
         <a class="classe-box" href="#3acc">
           <span class="riga"><span class="nome">Terza · 3ACC</span><span class="vai">Entra →</span></span>
-          <span class="argomenti">Problemi di scelta</span>
+          <span class="argomenti">Problemi di scelta · Sistemi lineari</span>
         </a>
       </div>
     </section>
@@ -1148,6 +1148,21 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
     <div class="schede">
       <a class="materiale" href="#simulazione-problemi-scelta">
         <span><span class="tit">Simulazione di verifica: problemi di scelta</span><br><span class="desc">3 problemi (il gloss, le meches in due saloni, la barba) con tabella, funzioni, punto di pareggio, grafico e analisi, con il controllo delle risposte e le soluzioni</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+    </div>
+    <h3>Sistemi lineari</h3>
+    <div class="schede">
+      <a class="materiale" href="#sistemi-acc-slide-1">
+        <span><span class="tit">Slide parte 1: due conti, riduzione e sostituzione</span><br><span class="desc">80 slide, da sfogliare con le frecce; in fondo 10 esercizi con le soluzioni</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#sistemi-acc-slide-2">
+        <span><span class="tit">Slide parte 2: i problemi e il metodo grafico</span><br><span class="desc">50 slide, da sfogliare con le frecce; in fondo 10 esercizi con le soluzioni</span></span>
+        <span class="vai">Apri →</span>
+      </a>
+      <a class="materiale" href="#sistemi-acc-slide-3">
+        <span><span class="tit">Slide parte 3: i casi particolari e il metodo di Cramer</span><br><span class="desc">41 slide, da sfogliare con le frecce; in fondo 11 esercizi con le soluzioni</span></span>
         <span class="vai">Apri →</span>
       </a>
     </div>
@@ -3313,7 +3328,10 @@ const MAZZI = {
   "#gdoc-esempi-5": { titolo: "Esempi di risultato · Esercitazione 5", cartella: "slide/gdoc-esempi-5", n: 9, torna: ["#info-1est", "1EST"] },
   "#sistemi-slide-1": { titolo: "Slide · Sistemi lineari, parte 1", cartella: "slide/sistemi-1", n: 80, torna: ["#3est", "3EST"] },
   "#sistemi-slide-2": { titolo: "Slide · Sistemi lineari, parte 2", cartella: "slide/sistemi-2", n: 50, torna: ["#3est", "3EST"] },
-  "#sistemi-slide-3": { titolo: "Slide · Sistemi lineari, parte 3", cartella: "slide/sistemi-3", n: 41, torna: ["#3est", "3EST"] }
+  "#sistemi-slide-3": { titolo: "Slide · Sistemi lineari, parte 3", cartella: "slide/sistemi-3", n: 41, torna: ["#3est", "3EST"] },
+  "#sistemi-acc-slide-1": { titolo: "Slide · Sistemi lineari, parte 1", cartella: "slide/sistemi-acc-1", n: 80, torna: ["#3acc", "3ACC"] },
+  "#sistemi-acc-slide-2": { titolo: "Slide · Sistemi lineari, parte 2", cartella: "slide/sistemi-acc-2", n: 50, torna: ["#3acc", "3ACC"] },
+  "#sistemi-acc-slide-3": { titolo: "Slide · Sistemi lineari, parte 3", cartella: "slide/sistemi-acc-3", n: 41, torna: ["#3acc", "3ACC"] }
 };
 let mazzo = null, pagina = 1;
 const imgSlide = document.getElementById("slide-img");
@@ -5732,6 +5750,9 @@ const VISTE = {
   "#sistemi-slide-1": ["vista-slide", "Slide sistemi lineari - parte 1"],
   "#sistemi-slide-2": ["vista-slide", "Slide sistemi lineari - parte 2"],
   "#sistemi-slide-3": ["vista-slide", "Slide sistemi lineari - parte 3"],
+  "#sistemi-acc-slide-1": ["vista-slide", "Slide sistemi lineari - parte 1 - 3ACC"],
+  "#sistemi-acc-slide-2": ["vista-slide", "Slide sistemi lineari - parte 2 - 3ACC"],
+  "#sistemi-acc-slide-3": ["vista-slide", "Slide sistemi lineari - parte 3 - 3ACC"],
   "#piano-cartesiano": ["vista-piano", "Piano cartesiano personalizzabile"],
   "#foglio": ["vista-foglio", "Foglio per i calcoli"],
   "#retta-numeri": ["vista-retta", "Retta dei numeri"],
@@ -5764,6 +5785,9 @@ const TEMI = {
   "#sistemi-slide-1": "zaffiro",
   "#sistemi-slide-2": "smeraldo",
   "#sistemi-slide-3": "rubino",
+  "#sistemi-acc-slide-1": "prugna",
+  "#sistemi-acc-slide-2": "petrolio",
+  "#sistemi-acc-slide-3": "terracotta",
   "#esercizi-piano-cartesiano": "prugna",
   "#esercitazione-per-cento": "ardesia",
   "#esercitazione-parte-percentuale": "viola",
