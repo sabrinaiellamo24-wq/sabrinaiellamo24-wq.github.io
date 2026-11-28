@@ -520,6 +520,18 @@ select.pl-in { width: auto; text-align: left; }
 @media (max-width: 1400px) { .lv-et { display: none; } }
 @media (max-width: 700px) { .lv-et-h { display: none; } }
 @media print { .lv, .lv-apri, .lv-fab { display: none !important; } }
+/* ====== orologio (2026-11-28): l'ora sempre visibile nei materiali, anche a schermo intero e con la lavagna aperta ====== */
+.orologio { flex: 0 0 auto; font: 700 1.15em var(--font-titoli); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; white-space: nowrap; color: var(--inchiostro); background: var(--foglio); border: 1.5px solid var(--filo); border-radius: 0.45em; padding: 0.05em 0.5em; line-height: 1.35; }
+header .orologio + .comandi-alto { margin-left: 0 !important; }
+header > h1 + .orologio { margin-left: auto; }
+#vista-slide header .contatore + .orologio { margin-left: 0; }
+.lv-barra .lv-ora { font-size: 1em; padding: 0.15em 0.5em; }
+.orologio-fs { display: none; position: absolute; top: 12px; left: 12px; z-index: 5; font-size: 1.4em; color: #fff; background: rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.7); }
+#vista-slide:fullscreen .orologio-fs { display: block; }
+@media print { .orologio { display: none !important; } }
+/* sul telefono l'ora c'è già in alto sullo schermo: qui lo spazio serve al titolo */
+@media (max-width: 560px) { header .orologio { display: none; } }
+
 @media print {
   html, body { height: auto; background: #fff; }
   #vista-piano > header, #vista-piano .pannello { display: none !important; }
@@ -1135,11 +1147,13 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
     <a class="torna" href="#1info">← 1INFO</a>
     <h1 id="slide-titolo">Slide</h1>
     <span class="contatore" id="slide-conta">1 / 1</span>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <button type="button" class="schermo lv-apri">✎ Scrivi</button>
     <button type="button" class="schermo lv-pdf" title="Scarica tutte le slide in PDF, con quello che è stato scritto">⤓ PDF</button>
     <button type="button" class="schermo" id="slide-schermo">⛶ Schermo intero</button>
   </header>
   <button type="button" class="lv-fab lv-apri" aria-label="Scrivi sulla slide" title="Scrivi sulla slide">✎</button>
+  <span class="orologio orologio-fs" aria-hidden="true">--:--</span>
   <main class="visore" id="visore">
     <img id="slide-img" alt="" src="data:,">
   </main>
@@ -1154,6 +1168,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <div class="riga1">
     <a class="torna" id="sim-torna" href="#1info">← 1INFO</a>
     <h1 id="sim-titolo">Simulazione di verifica · Rapporti e proporzioni</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <button type="button" class="schermo lv-apri" title="Scrivi a mano sopra l'esercizio o su un foglio">✎<span class="lv-et-h"> Scrivi</span></button>
     <button type="button" class="schermo lv-pdf" title="Scarica tutta l'attività in PDF, con le risposte e quello che è stato scritto">⤓<span class="lv-et-h"> PDF</span></button>
     <button type="button" class="reset" id="reset-alto">↺ Ricomincia<span class="lungo"> da capo</span></button>
@@ -1194,6 +1209,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Piano cartesiano</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica il piano in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1281,6 +1297,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Retta dei numeri</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la retta in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1360,6 +1377,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Tabella di proporzionalità</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la tabella in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1419,6 +1437,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Tabella dei numeri primi</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la tabella in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1459,6 +1478,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Scomposizione, M.C.D. e m.c.m.</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la pagina in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1506,6 +1526,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Frazioni da vedere</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la pagina in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1560,6 +1581,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Griglia dei 100 quadretti</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la griglia in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -1608,6 +1630,7 @@ body[data-tema="smeraldo"] nav .gruppo { text-transform: uppercase; letter-spaci
   <header>
     <a class="torna" href="#strumenti">← Strumenti</a>
     <h1>Binario a interruttori</h1>
+    <span class="orologio" title="Ora" aria-label="Ora">--:--</span>
     <div class="comandi-alto">
       <button type="button" class="schermo lv-apri">✎ Scrivi</button>
       <button type="button" class="schermo lv-pdf" title="Scarica la pagina in PDF, con quello che è stato scritto">⤓ PDF</button>
@@ -3629,6 +3652,7 @@ const lavagna = (() => {
       <button type="button" id="lv-lato"></button>
     </div>
     <div class="lv-gr lv-fine">
+      <span class="orologio lv-ora" title="Ora" aria-label="Ora">--:--</span>
       <button type="button" class="lv-pdf" id="lv-pdf-b" title="Scarica il PDF">⤓<span class="lv-et">PDF</span></button>
       <button type="button" id="lv-sposta" title="Sposta la barra in basso" aria-label="Sposta la barra">⇅</button>
       <button type="button" class="lv-chiudi" id="lv-chiudi" title="Chiude gli strumenti: quello che hai scritto sulla pagina resta">✕ Chiudi</button>
@@ -4121,7 +4145,7 @@ const lavagna = (() => {
       c = await html2canvas(v, {
         scale: sc, backgroundColor: "#ffffff", logging: false, useCORS: true,
         width: Math.ceil(r.width), height: Math.ceil(Math.max(v.scrollHeight, altoSchermo)),
-        ignoreElements: n => n.classList && (n.classList.contains("lv") || n.classList.contains("lv-dlg") || n.classList.contains("lv-fab")),
+        ignoreElements: n => n.classList && (n.classList.contains("orologio") || n.classList.contains("lv") || n.classList.contains("lv-dlg") || n.classList.contains("lv-fab")),
         onclone: doc => (doc.fonts && doc.fonts.ready) || null
       });
     } finally { v.classList.remove("lv-foto"); }
@@ -5592,6 +5616,15 @@ function percorso() {
 }
 window.addEventListener("hashchange", percorso);
 percorso();
+/* l'orologio dei materiali: ore e minuti, aggiornati ogni pochi secondi */
+function aggiornaOra() {
+  const d = new Date(), t = d.getHours() + ":" + String(d.getMinutes()).padStart(2, "0");
+  document.querySelectorAll(".orologio").forEach(el => { if (el.textContent !== t) el.textContent = t; });
+}
+aggiornaOra();
+setInterval(aggiornaOra, 5000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) aggiornaOra(); });
+
 </script>
 </body>
 </html>
